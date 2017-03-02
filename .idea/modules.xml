@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/App/App.iml" filepath="$PROJECT_DIR$/App/App.iml" />
+      <module fileurl="file://$PROJECT_DIR$/iBeaconDetector/iBeaconDetector.iml" filepath="$PROJECT_DIR$/iBeaconDetector/iBeaconDetector.iml" />
+      <module fileurl="file://$PROJECT_DIR$/iBeaconManager.iml" filepath="$PROJECT_DIR$/iBeaconManager.iml" />
+      <module fileurl="file://$PROJECT_DIR$/iBeaconOperating/iBeaconOperating.iml" filepath="$PROJECT_DIR$/iBeaconOperating/iBeaconOperating.iml" />
+    </modules>
+  </component>
+</project>
