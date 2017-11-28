@@ -7,11 +7,10 @@ import android.bluetooth.BluetoothManager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.Window;
 import android.widget.ListView;
 import android.widget.Toast;
-import com.tool.ibeacon.manager.util.BleUtil;
-import com.tool.ibeacon.manager.util.ScannedDevice;
+import com.tool.bluetooth.detector.util.BleUtil;
+import com.tool.bluetooth.detector.util.ScannedDevice;
 
 import java.util.ArrayList;
 

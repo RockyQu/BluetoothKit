@@ -9,7 +9,8 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/App" />
-            <option value="$PROJECT_DIR$/iBeaconDetector" />
+            <option value="$PROJECT_DIR$/BluetoothDetector" />
+            <option value="$PROJECT_DIR$/BluetoothOperating" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

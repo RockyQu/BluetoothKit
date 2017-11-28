@@ -21,7 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package com.tool.ibeacon.manager;
+package com.tool.bluetooth.detector;
 
 import android.annotation.SuppressLint;
 import android.util.Log;
