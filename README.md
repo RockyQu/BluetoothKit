@@ -9,7 +9,7 @@ Android Bluetooth 4.0 Development Kit
 [![](https://img.shields.io/github/release/DesignQu/Logg.svg)](https://github.com/DesignQu/Logg/releases)
 <a href="http://www.methodscount.com/?lib=com.logg%3ALogg%3A1.5.1"><img src="https://img.shields.io/badge/Methods and size-296 | 29 KB-e91e63.svg"/></a>
 
-[中文介绍](https://github.com/DesignQu/Logg/wiki)   
+[中文介绍](https://github.com/DesignQu/BluetoothKit/wiki)   
 
 ## Features  
 * Support for all basic data types, arrays、Map、List、Bundle、Intent、Reference、Throwable、Collection  
@@ -19,8 +19,11 @@ Android Bluetooth 4.0 Development Kit
 * Support for adding interceptors, add interceptors it will be in the final printout before interception, log information can be reconstructed  
 * Support for adding a global callback, without affecting the underlying output, all messages will be callback to the global interface, where you can save the information you need to various levels of type
 
+## warning
+
+
 ## Screenshots
-![screenshots1](https://github.com/DesignQu/Tool-Log/blob/master/ImageFolder/screenshots1.png "screenshots1")
+
 
 ## Download
 Gradle:
@@ -29,14 +32,13 @@ Gradle:
 ```
 
 ## History
-[UpdateLog](https://github.com/DesignQu/Logg/releases)   
+[UpdateLog](https://github.com/DesignQu/BluetoothKit/releases)   
 
 ## Feedback
-* Project  [Submit Bug or Idea](https://github.com/DesignQu/Logg/issues)   
+* Project  [Submit Bug or Idea](https://github.com/DesignQu/BluetoothKit/issues)   
 
 ## Thanks
-[LogUtils](https://github.com/pengwei1024/LogUtils)  
-[DarksLogs](https://github.com/liulhdarks/darks-logs)
+[]()  
 
 ## About Me
 * Email [china.rocky.coder@gmail.com](china.rocky.coder@gmail.com)  
