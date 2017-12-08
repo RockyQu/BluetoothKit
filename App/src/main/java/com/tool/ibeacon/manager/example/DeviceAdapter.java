@@ -9,8 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.tool.bluetooth.detector.util.DateUtil;
-import com.tool.bluetooth.detector.util.ScannedDevice;
+import com.tool.bluetooth.detector.utils.DateUtil;
+import com.tool.bluetooth.detector.utils.BeaconDevice;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -19,14 +19,14 @@ import java.util.List;
 /**
  *
  */
-public class DeviceAdapter extends ArrayAdapter<ScannedDevice> {
+public class DeviceAdapter extends ArrayAdapter<BeaconDevice> {
     private static final String PREFIX_RSSI = "RSSI:";
     private static final String PREFIX_LASTUPDATED = "Last Udpated:";
-    private List<ScannedDevice> mList;
+    private List<BeaconDevice> mList;
     private LayoutInflater mInflater;
     private int mResId;
 
-    public DeviceAdapter(Context context, int resId, List<ScannedDevice> objects) {
+    public DeviceAdapter(Context context, int resId, List<BeaconDevice> objects) {
         super(context, resId, objects);
         mResId = resId;
         mList = objects;
@@ -35,7 +35,7 @@ public class DeviceAdapter extends ArrayAdapter<ScannedDevice> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ScannedDevice item = (ScannedDevice) getItem(position);
+        BeaconDevice item = (BeaconDevice) getItem(position);
 
         if (convertView == null) {
             convertView = mInflater.inflate(mResId, null);
@@ -43,7 +43,7 @@ public class DeviceAdapter extends ArrayAdapter<ScannedDevice> {
         TextView name = (TextView) convertView.findViewById(R.id.device_name);
         name.setText(item.getDisplayName());
         TextView address = (TextView) convertView.findViewById(R.id.device_address);
-        address.setText(item.getDevice().getAddress());
+        address.setText(item.getBluetoothDevice().getAddress());
         TextView rssi = (TextView) convertView.findViewById(R.id.device_rssi);
         rssi.setText(PREFIX_RSSI + Integer.toString(item.getRssi()));
         TextView lastupdated = (TextView) convertView.findViewById(R.id.device_lastupdated);
@@ -78,8 +78,8 @@ public class DeviceAdapter extends ArrayAdapter<ScannedDevice> {
         long now = System.currentTimeMillis();
 
         boolean contains = false;
-        for (ScannedDevice device : mList) {
-            if (newDevice.getAddress().equals(device.getDevice().getAddress())) {
+        for (BeaconDevice device : mList) {
+            if (newDevice.getAddress().equals(device.getBluetoothDevice().getAddress())) {
                 contains = true;
                 // update
                 device.setRssi(rssi);
@@ -90,13 +90,13 @@ public class DeviceAdapter extends ArrayAdapter<ScannedDevice> {
         }
         if (!contains) {
             // add new BluetoothDevice
-            mList.add(new ScannedDevice(newDevice, rssi, scanRecord, now));
+            mList.add(new BeaconDevice(newDevice, rssi, scanRecord, now));
         }
 
         // sort by RSSI
-        Collections.sort(mList, new Comparator<ScannedDevice>() {
+        Collections.sort(mList, new Comparator<BeaconDevice>() {
             @Override
-            public int compare(ScannedDevice lhs, ScannedDevice rhs) {
+            public int compare(BeaconDevice lhs, BeaconDevice rhs) {
                 if (lhs.getRssi() == 0) {
                     return 1;
                 } else if (rhs.getRssi() == 0) {
@@ -118,7 +118,7 @@ public class DeviceAdapter extends ArrayAdapter<ScannedDevice> {
         int iBeaconCount = 0;
         if (mList != null) {
             totalCount = mList.size();
-            for (ScannedDevice device : mList) {
+            for (BeaconDevice device : mList) {
                 if (device.getIBeacon() != null) {
                     iBeaconCount++;
                 }
@@ -130,7 +130,7 @@ public class DeviceAdapter extends ArrayAdapter<ScannedDevice> {
         return summary;
     }
     
-    public List<ScannedDevice> getList() {
+    public List<BeaconDevice> getList() {
         return mList;
     }
 }

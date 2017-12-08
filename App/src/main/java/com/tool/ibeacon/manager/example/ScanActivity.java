@@ -9,8 +9,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.Toast;
-import com.tool.bluetooth.detector.util.BleUtil;
-import com.tool.bluetooth.detector.util.ScannedDevice;
+import com.tool.bluetooth.detector.utils.BleUtil;
+import com.tool.bluetooth.detector.utils.BeaconDevice;
 
 import java.util.ArrayList;
 
@@ -130,7 +130,7 @@ public class ScanActivity extends Activity implements BluetoothAdapter.LeScanCal
         // init listview
         ListView deviceListView = (ListView) findViewById(R.id.list);
         mDeviceAdapter = new DeviceAdapter(this, R.layout.listitem_device,
-                new ArrayList<ScannedDevice>());
+                new ArrayList<BeaconDevice>());
         deviceListView.setAdapter(mDeviceAdapter);
         stopScan();
     }

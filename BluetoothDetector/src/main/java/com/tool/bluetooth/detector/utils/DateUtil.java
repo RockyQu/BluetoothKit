@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.tool.bluetooth.detector.util;
+package com.tool.bluetooth.detector.utils;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

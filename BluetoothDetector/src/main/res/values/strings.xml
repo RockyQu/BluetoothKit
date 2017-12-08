@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">iBeaconDetector</string>
+
     <string name="ble_not_supported">BLE not supported on this device.</string>
     <string name="bt_not_supported">Bluetooth not supported on this device.</string>
     <string name="bt_not_enabled">Bluetooth is not enabled, turn it on.</string>

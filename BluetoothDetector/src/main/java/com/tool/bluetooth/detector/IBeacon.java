@@ -47,11 +47,9 @@ import java.util.Locale;
 * tx power.  It then uses the measured RSSI and calibrated tx power to do a rough
 * distance measurement (the accuracy field) and group it into a more reliable buckets of 
 * distance (the proximity field.)
-* 
-* @author  David G. Young
-* @see     Region#matchesIBeacon(IBeacon iBeacon)
 */
-public class IBeacon { 
+public class IBeacon {
+
     /**
      * Less than half a meter away
      */

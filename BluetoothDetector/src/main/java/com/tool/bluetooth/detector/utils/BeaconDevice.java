@@ -1,65 +1,95 @@
-package com.tool.bluetooth.detector.util;
+package com.tool.bluetooth.detector.utils;
 
 import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothDevice;
 
 import com.tool.bluetooth.detector.IBeacon;
 
-/** LeScanned Bluetooth Device */
-public class ScannedDevice {
-    private static final String UNKNOWN = "Unknown";
-    /** BluetoothDevice */
-    private BluetoothDevice mDevice;
-    /** RSSI */
-    private int mRssi;
-    /** Display Name */
-    private String mDisplayName;
-    /** Advertise Scan Record */
-    private byte[] mScanRecord;
-    /** parsed iBeacon Data */
-    private IBeacon mIBeacon;
-    /** last updated (Advertise scanned) */
-    private long mLastUpdatedMs;
+/**
+ * ==================================================
+ * 存放被扫描到的蓝牙设备的原始信息及附加信息
+ * <p>
+ * <p>
+ * ==================================================
+ */
+public class BeaconDevice {
 
-    public ScannedDevice(BluetoothDevice device, int rssi, byte[] scanRecord, long now) {
-        if (device == null) {
-            throw new IllegalArgumentException("BluetoothDevice is null");
+    private static final String UNKNOWN = "Unknown";
+
+    /**
+     * Identifies the remote device
+     */
+    private BluetoothDevice bluetoothDevice;
+
+    /**
+     * The RSSI value for the remote device as reported by the Bluetooth hardware. 0 if no RSSI value is available.
+     */
+    private int rssi;
+
+    /**
+     * The content of the advertisement record offered by the remote device.
+     */
+    private byte[] mScanRecord;
+
+    /**
+     * Device name
+     */
+    private String deviceName;
+
+    /**
+     * 解析后的设备相关数据
+     */
+    private IBeacon mIBeacon;
+
+    /**
+     * 最后更新时间
+     */
+    private long lastUpdatedTimeMillis;
+
+    public BeaconDevice(BluetoothDevice device, int rssi, byte[] scanRecord, long now) {
+        lastUpdatedTimeMillis = now;
+        bluetoothDevice = device;
+        deviceName = device.getName();
+        if ((deviceName == null) || (deviceName.length() == 0)) {
+            deviceName = UNKNOWN;
         }
-        mLastUpdatedMs = now;
-        mDevice = device;
-        mDisplayName = device.getName();
-        if ((mDisplayName == null) || (mDisplayName.length() == 0)) {
-            mDisplayName = UNKNOWN;
-        }
-        mRssi = rssi;
+        this.rssi = rssi;
         mScanRecord = scanRecord;
         checkIBeacon();
     }
 
+    public BluetoothDevice getBluetoothDevice() {
+        return bluetoothDevice;
+    }
+
+    public void setBluetoothDevice(BluetoothDevice bluetoothDevice) {
+        this.bluetoothDevice = bluetoothDevice;
+    }
+
+    public void updateDevice(BluetoothDevice bluetoothDevice, int rssi, byte[] scanRecord) {
+
+    }
+
     private void checkIBeacon() {
         if (mScanRecord != null) {
-            mIBeacon = IBeacon.fromScanData(mScanRecord, mRssi);
+            mIBeacon = IBeacon.fromScanData(mScanRecord, rssi);
         }
     }
 
-    public BluetoothDevice getDevice() {
-        return mDevice;
-    }
-
     public int getRssi() {
-        return mRssi;
+        return this.rssi;
     }
 
     public void setRssi(int rssi) {
-        mRssi = rssi;
+        this.rssi = rssi;
     }
 
     public long getLastUpdatedMs() {
-        return mLastUpdatedMs;
+        return lastUpdatedTimeMillis;
     }
 
     public void setLastUpdatedMs(long lastUpdatedMs) {
-        mLastUpdatedMs = lastUpdatedMs;
+        lastUpdatedTimeMillis = lastUpdatedMs;
     }
 
     public byte[] getScanRecord() {
@@ -67,7 +97,7 @@ public class ScannedDevice {
     }
 
     public String getScanRecordHexString() {
-        return ScannedDevice.asHex(mScanRecord);
+        return BeaconDevice.asHex(mScanRecord);
     }
 
     public void setScanRecord(byte[] scanRecord) {
@@ -80,20 +110,20 @@ public class ScannedDevice {
     }
 
     public String getDisplayName() {
-        return mDisplayName;
+        return deviceName;
     }
 
     public void setDisplayName(String displayName) {
-        mDisplayName = displayName;
+        deviceName = displayName;
     }
 
     public String toCsv() {
         StringBuilder sb = new StringBuilder();
         // DisplayName,MAC Addr,RSSI,Last Updated,iBeacon flag,Proximity UUID,major,minor,TxPower
-        sb.append(mDisplayName).append(",");
-        sb.append(mDevice.getAddress()).append(",");
-        sb.append(mRssi).append(",");
-        sb.append(DateUtil.get_yyyyMMddHHmmssSSS(mLastUpdatedMs)).append(",");
+        sb.append(deviceName).append(",");
+        sb.append(bluetoothDevice.getAddress()).append(",");
+        sb.append(this.rssi).append(",");
+        sb.append(DateUtil.get_yyyyMMddHHmmssSSS(lastUpdatedTimeMillis)).append(",");
         if (mIBeacon == null) {
             sb.append("false,,0,0,0");
         } else {
@@ -105,7 +135,7 @@ public class ScannedDevice {
 
     /**
      * バイト配列を16進数の文字列に変換する。 http://d.hatena.ne.jp/winebarrel/20041012/p1
-     * 
+     *
      * @param bytes バイト配列
      * @return 16進数の文字列
      */
