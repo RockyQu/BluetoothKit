@@ -1,18 +1,40 @@
 apply plugin: 'com.android.library'
 
+def libraryVersionCode = 1
+def libraryVersionName = '0.1.0'
+
 android {
-    compileSdkVersion 26
-    buildToolsVersion "26.0.2"
+    compileSdkVersion rootProject.ext.android["compileSdkVersion"]
+    buildToolsVersion rootProject.ext.android["buildToolsVersion"]
 
     defaultConfig {
-        minSdkVersion 18
-        targetSdkVersion 26
-        versionCode 1
-        versionName "1.0"
+        minSdkVersion rootProject.ext.android["minSdkVersion"]
+        targetSdkVersion rootProject.ext.android["targetSdkVersion"]
+        versionCode libraryVersionCode
+        versionName libraryVersionName
 
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
+        renderscriptTargetApi rootProject.ext.android["renderscriptTargetApi"]
+        renderscriptSupportModeEnabled rootProject.ext.android["renderscriptSupportModeEnabled"]
     }
+
+    // 移除lint检查的error，可以避免由于编译条件太过严格而编译不过的问题
+    lintOptions {
+        // InvalidPackage: Package not included in Android
+        disable 'InvalidPackage'
+        // Expected resource of type color [ResourceType] 资源类型错误
+        disable "ResourceType"
+        // 忽略因MissingTranslation导致Build Failed错误 "app_name" is not translated in "zh" (Chinese)
+        disable 'MissingTranslation'
+
+        abortOnError false
+        checkReleaseBuilds false
+    }
+
+    dexOptions {
+        javaMaxHeapSize "4g"
+        preDexLibraries = false
+    }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -21,13 +43,25 @@ android {
     }
 }
 
-dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
-    compile 'com.android.support:appcompat-v7:26.+'
-    testCompile 'junit:junit:4.12'
+buildscript {
+    repositories {
+        jcenter()
+        mavenCentral()
+    }
 
-    compile project(':BluetoothDetector')
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+
+    // Tools
+    annotationProcessor(rootProject.ext.dependencies["butterknife-compiler"]) {
+        exclude module: 'support-annotations'
+        exclude module: 'butterknife-annotations'
+    }
+    provided rootProject.ext.dependencies["javax.annotation"]
+    annotationProcessor rootProject.ext.dependencies["dagger2-compiler"]
+
+    // 引入框架基础共通模块
+    compile 'android.frame:MVPFrames:1.4.54'
 }

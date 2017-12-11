@@ -24,6 +24,7 @@ import java.util.Locale;
  * Date Util
  */
 public class DateUtil {
+
     private static final ThreadLocal<SimpleDateFormat> mFormater = new ThreadLocal<SimpleDateFormat>() {
         private static final String DATE_PATTERN = "yyyy-MM-dd HH:mm:ss.SSS";
         @Override
