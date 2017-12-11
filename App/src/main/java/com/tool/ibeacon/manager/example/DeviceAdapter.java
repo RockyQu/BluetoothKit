@@ -65,9 +65,9 @@ public class DeviceAdapter extends ArrayAdapter<BeaconDevice> {
 
     /**
      * add or update BluetoothDevice List
-     * 
-     * @param newDevice Scanned Bluetooth Device
-     * @param rssi RSSI
+     *
+     * @param newDevice  Scanned Bluetooth Device
+     * @param rssi       RSSI
      * @param scanRecord advertise data
      * @return summary ex. "iBeacon:3 (Total:10)"
      */
@@ -81,10 +81,9 @@ public class DeviceAdapter extends ArrayAdapter<BeaconDevice> {
         for (BeaconDevice device : mList) {
             if (newDevice.getAddress().equals(device.getBluetoothDevice().getAddress())) {
                 contains = true;
+
                 // update
-                device.setRssi(rssi);
-                device.setLastUpdatedTimeMillis(now);
-                device.setScanRecord(scanRecord);
+                device.updateDevice(newDevice, rssi, scanRecord, now);
                 break;
             }
         }
@@ -129,7 +128,7 @@ public class DeviceAdapter extends ArrayAdapter<BeaconDevice> {
 
         return summary;
     }
-    
+
     public List<BeaconDevice> getList() {
         return mList;
     }

@@ -23,10 +23,7 @@
  */
 package com.tool.bluetooth.detector;
 
-import android.annotation.SuppressLint;
 import android.util.Log;
-
-import java.util.Locale;
 
 /**
  * ==================================================
@@ -118,11 +115,11 @@ public class IBeacon {
      */
     protected Double runningAverageRssi = null;
 
-    protected IBeacon() {
+    public IBeacon() {
 
     }
 
-    protected IBeacon(String proximityUuid, int major, int minor, int txPower, int rssi) {
+    public IBeacon(String proximityUuid, int major, int minor, int txPower, int rssi) {
         this.proximityUuid = proximityUuid;
         this.major = major;
         this.minor = minor;
@@ -130,7 +127,7 @@ public class IBeacon {
         this.txPower = txPower;
     }
 
-    protected IBeacon(IBeacon otherIBeacon) {
+    public IBeacon(IBeacon otherIBeacon) {
         this.major = otherIBeacon.major;
         this.minor = otherIBeacon.minor;
         this.accuracy = otherIBeacon.accuracy;
