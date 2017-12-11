@@ -54,14 +54,13 @@ buildscript {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
 
-    // Tools
-    annotationProcessor(rootProject.ext.dependencies["butterknife-compiler"]) {
+    // Support
+    compile(rootProject.ext.dependencies["support-v4"]) {
         exclude module: 'support-annotations'
-        exclude module: 'butterknife-annotations'
     }
-    provided rootProject.ext.dependencies["javax.annotation"]
-    annotationProcessor rootProject.ext.dependencies["dagger2-compiler"]
-
-    // 引入框架基础共通模块
-    compile 'android.frame:MVPFrames:1.4.54'
+    compile(rootProject.ext.dependencies["appcompat-v7"]) {
+        exclude module: 'support-annotations'
+        exclude module: 'support-v4'
+    }
+    compile rootProject.ext.dependencies["annotations"]
 }

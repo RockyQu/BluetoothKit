@@ -7,9 +7,6 @@ android {
     // Build Tools版本
     buildToolsVersion rootProject.ext.android["buildToolsVersion"]
 
-    // 解决Android SDK升级至API23，导致原生SDK删除org.apache.http.*类的问题
-    useLibrary 'org.apache.http.legacy'
-
     compileOptions {
         targetCompatibility JavaVersion.VERSION_1_7
         sourceCompatibility JavaVersion.VERSION_1_7
@@ -17,7 +14,7 @@ android {
 
     defaultConfig {
         // 包名
-        applicationId "com.frame.mvp"
+        applicationId "com.bluetooth.demo"
         // 最低支持SDK版本
         minSdkVersion rootProject.ext.android["minSdkVersion"]
         // 目标SDK版本
@@ -45,20 +42,6 @@ android {
         // Enabling MultiDex support.
 //        multiDexEnabled true
     }
-
-//    sourceSets {
-//        main {
-//            res.srcDirs =
-//                    [
-//                            'src/main/res/layouts/activity',
-//                            'src/main/res/layouts/dialog',
-//                            'src/main/res/layouts/fragment',
-//                            'src/main/res/layouts/item',
-//                            'src/main/res/layouts',
-//                            'src/main/res'
-//                    ]
-//        }
-//    }
 
     // 移除lint检查的error，可以避免由于编译条件太过严格而编译不过的问题
     lintOptions {
@@ -88,17 +71,11 @@ android {
 //        }
 //    }
 
-//    sourceSets {
-//        main {
-//            jniLibs.srcDirs = ['libs']
-//        }
-//    }
-
     // 多渠道打包
     productFlavors {
         // 默认渠道
-        Frames {
-            manifestPlaceholders = [Channel: "Frames"]
+        Bluetooth {
+            manifestPlaceholders = [Channel: "Bluetooth"]
 //            signingConfig signingConfigs.release
         }
     }
@@ -165,23 +142,5 @@ dependencies {
     // 本地库依赖，包含app/libs目录下的所有jar文件。因此当module想引用某个jar时，只需将jar拷贝到<moduleName>/libs
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
-    // Tools
-    annotationProcessor(rootProject.ext.dependencies["butterknife-compiler"]) {
-        exclude module: 'support-annotations'
-        exclude module: 'butterknife-annotations'
-    }
-    provided rootProject.ext.dependencies["javax.annotation"]
-    annotationProcessor rootProject.ext.dependencies["dagger2-compiler"]
-    compile rootProject.ext.dependencies["multidex"]
-
-    // Test
-    testCompile rootProject.ext.dependencies["junit"]
-    debugCompile rootProject.ext.dependencies["canary-debug"]
-    releaseCompile rootProject.ext.dependencies["canary-release"]
-    testCompile rootProject.ext.dependencies["canary-release"]
-
     compile project(':BluetoothDetector')
-
-    // 引入框架基础共通模块
-    compile 'android.frame:MVPFrames:1.4.54'
 }
