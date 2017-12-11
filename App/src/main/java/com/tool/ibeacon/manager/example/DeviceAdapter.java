@@ -41,19 +41,19 @@ public class DeviceAdapter extends ArrayAdapter<BeaconDevice> {
             convertView = mInflater.inflate(mResId, null);
         }
         TextView name = (TextView) convertView.findViewById(R.id.device_name);
-        name.setText(item.getDisplayName());
+        name.setText(item.getDeviceName());
         TextView address = (TextView) convertView.findViewById(R.id.device_address);
         address.setText(item.getBluetoothDevice().getAddress());
         TextView rssi = (TextView) convertView.findViewById(R.id.device_rssi);
         rssi.setText(PREFIX_RSSI + Integer.toString(item.getRssi()));
         TextView lastupdated = (TextView) convertView.findViewById(R.id.device_lastupdated);
-        lastupdated.setText(PREFIX_LASTUPDATED + DateUtil.get_yyyyMMddHHmmssSSS(item.getLastUpdatedMs()));
+        lastupdated.setText(PREFIX_LASTUPDATED + DateUtil.get_yyyyMMddHHmmssSSS(item.getLastUpdatedTimeMillis()));
 
         TextView ibeaconInfo = (TextView) convertView.findViewById(R.id.device_ibeacon_info);
         Resources res = convertView.getContext().getResources();
-        if (item.getIBeacon() != null) {
+        if (item.getiBeacon() != null) {
             ibeaconInfo.setText(res.getString(R.string.label_ibeacon) + "\n"
-                    + item.getIBeacon().toString());
+                    + item.getiBeacon().toString());
         } else {
             ibeaconInfo.setText(res.getString(R.string.label_not_ibeacon));
         }
@@ -83,7 +83,7 @@ public class DeviceAdapter extends ArrayAdapter<BeaconDevice> {
                 contains = true;
                 // update
                 device.setRssi(rssi);
-                device.setLastUpdatedMs(now);
+                device.setLastUpdatedTimeMillis(now);
                 device.setScanRecord(scanRecord);
                 break;
             }
@@ -119,7 +119,7 @@ public class DeviceAdapter extends ArrayAdapter<BeaconDevice> {
         if (mList != null) {
             totalCount = mList.size();
             for (BeaconDevice device : mList) {
-                if (device.getIBeacon() != null) {
+                if (device.getiBeacon() != null) {
                     iBeaconCount++;
                 }
             }
