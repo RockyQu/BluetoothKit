@@ -1,6 +1,5 @@
 package com.tool.bluetooth.detector.utils;
 
-import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothDevice;
 import android.support.annotation.NonNull;
 
@@ -128,7 +127,7 @@ public class BeaconDevice {
      */
     private void createIBeacon() {
         if (scanRecord != null) {
-            iBeacon = IBeacon.fromScanData(scanRecord, rssi);
+            iBeacon = IBeacon.createIBeacon(scanRecord, rssi);
         }
     }
 
