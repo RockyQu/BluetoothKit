@@ -1,6 +1,8 @@
 package com.tool.bluetooth.detector.utils;
 
 import android.bluetooth.BluetoothDevice;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 
 import com.tool.bluetooth.detector.IBeacon;
@@ -14,7 +16,7 @@ import java.util.Arrays;
  * <p>
  * ==================================================
  */
-public class BeaconDevice {
+public class BeaconDevice implements Parcelable {
 
     private static final String UNKNOWN = "Unknown";
 
@@ -179,5 +181,42 @@ public class BeaconDevice {
                 ", iBeacon=" + iBeacon +
                 ", lastUpdatedTimeMillis=" + lastUpdatedTimeMillis +
                 '}';
+    }
+
+    private BeaconDevice(Parcel in) {
+        this.bluetoothDevice = in.readParcelable(BluetoothDevice.class.getClassLoader());
+        this.rssi = in.readInt();
+        this.scanRecord = in.createByteArray();
+        this.deviceName = in.readString();
+        this.iBeacon = in.readParcelable(IBeacon.class.getClassLoader());
+        this.lastUpdatedTimeMillis = in.readLong();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeParcelable(bluetoothDevice, flags);
+        dest.writeInt(rssi);
+        dest.writeByteArray(scanRecord);
+        dest.writeString(deviceName);
+        dest.writeParcelable(iBeacon, flags);
+        dest.writeLong(lastUpdatedTimeMillis);
+    }
+
+    public static final Creator<BeaconDevice> CREATOR = new Creator<BeaconDevice>() {
+
+        @Override
+        public BeaconDevice createFromParcel(Parcel in) {
+            return new BeaconDevice(in);
+        }
+
+        @Override
+        public BeaconDevice[] newArray(int size) {
+            return new BeaconDevice[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
     }
 }

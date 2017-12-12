@@ -23,6 +23,9 @@
  */
 package com.tool.bluetooth.detector;
 
+import android.bluetooth.BluetoothDevice;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.Log;
 
 /**
@@ -42,7 +45,7 @@ import android.util.Log;
  * iBeacon https://baike.baidu.com/item/iBeacon/13826305?fr=aladdin
  * ==================================================
  */
-public class IBeacon {
+public class IBeacon implements Parcelable {
 
     private static final String TAG = IBeacon.class.getSimpleName();
 
@@ -345,5 +348,32 @@ public class IBeacon {
         sb.append(" Minor=").append(this.minor);
         sb.append(" TxPower=").append(this.txPower);
         return sb.toString();
+    }
+
+    private IBeacon(Parcel in) {
+
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+
+    }
+
+    public static final Creator<IBeacon> CREATOR = new Creator<IBeacon>() {
+
+        @Override
+        public IBeacon createFromParcel(Parcel in) {
+            return new IBeacon(in);
+        }
+
+        @Override
+        public IBeacon[] newArray(int size) {
+            return new IBeacon[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
     }
 }
