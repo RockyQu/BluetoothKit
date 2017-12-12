@@ -21,9 +21,8 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package com.tool.bluetooth.detector;
+package com.tool.bluetooth.detector.entity;
 
-import android.bluetooth.BluetoothDevice;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Log;

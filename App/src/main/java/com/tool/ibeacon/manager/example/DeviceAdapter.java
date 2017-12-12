@@ -10,7 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.tool.bluetooth.detector.utils.DateUtil;
-import com.tool.bluetooth.detector.utils.BeaconDevice;
+import com.tool.bluetooth.detector.entity.BeaconDevice;
 
 import java.util.Collections;
 import java.util.Comparator;

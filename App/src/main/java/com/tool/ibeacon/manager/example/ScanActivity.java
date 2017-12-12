@@ -10,7 +10,7 @@ import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.Toast;
 import com.tool.bluetooth.detector.utils.BleUtil;
-import com.tool.bluetooth.detector.utils.BeaconDevice;
+import com.tool.bluetooth.detector.entity.BeaconDevice;
 
 import java.util.ArrayList;
 

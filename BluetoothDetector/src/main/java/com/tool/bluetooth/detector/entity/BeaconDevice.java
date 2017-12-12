@@ -1,11 +1,9 @@
-package com.tool.bluetooth.detector.utils;
+package com.tool.bluetooth.detector.entity;
 
 import android.bluetooth.BluetoothDevice;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
-
-import com.tool.bluetooth.detector.IBeacon;
 
 import java.util.Arrays;
 
