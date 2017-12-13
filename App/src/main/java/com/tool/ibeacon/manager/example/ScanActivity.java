@@ -9,6 +9,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import com.tool.bluetooth.detector.BluetoothDetectorCallBack;
+import com.tool.bluetooth.detector.BluetoothDetector;
 import com.tool.bluetooth.detector.utils.BleUtil;
 import com.tool.bluetooth.detector.entity.BeaconDevice;
 
@@ -17,7 +20,7 @@ import java.util.ArrayList;
 /**
  *
  */
-public class ScanActivity extends Activity implements BluetoothAdapter.LeScanCallback {
+public class ScanActivity extends Activity implements BluetoothDetectorCallBack,BluetoothAdapter.LeScanCallback {
 
     private BluetoothAdapter mBTAdapter;
     private DeviceAdapter mDeviceAdapter;
@@ -29,6 +32,19 @@ public class ScanActivity extends Activity implements BluetoothAdapter.LeScanCal
         setContentView(R.layout.activity_scan);
 
         init();
+
+        BluetoothDetector.getDefault().startScan(this);
+    }
+
+    @Override
+    public void onScan(BluetoothDevice device, int rssi, byte[] scanRecord) {
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        BluetoothDetector.getDefault().stopScan(this);
     }
 
     @Override
