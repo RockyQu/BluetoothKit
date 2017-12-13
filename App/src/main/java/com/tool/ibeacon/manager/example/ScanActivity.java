@@ -5,6 +5,7 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothManager;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
