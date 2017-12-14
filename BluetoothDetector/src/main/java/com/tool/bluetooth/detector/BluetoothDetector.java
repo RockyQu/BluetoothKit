@@ -1,9 +1,13 @@
 package com.tool.bluetooth.detector;
 
+import android.content.Context;
+
 import com.tool.bluetooth.detector.config.BluetoothConfiguration;
 
 /**
  * Android Bluetooth 4.0 Development Kit
+ *
+ * @see <a href="https://github.com/DesignQu/BluetoothKit"></a>
  */
 public class BluetoothDetector implements BluetoothDetectorHandler {
 
@@ -28,8 +32,9 @@ public class BluetoothDetector implements BluetoothDetectorHandler {
     }
 
     @Override
-    public void setConfiguration(BluetoothConfiguration configuration) {
+    public void init(Context context, BluetoothConfiguration configuration) {
         this.configuration = configuration;
+
     }
 
 //    public boolean openBluetoothSetting(Activity activity, int requestCode) {

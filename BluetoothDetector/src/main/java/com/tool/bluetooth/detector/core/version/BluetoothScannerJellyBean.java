@@ -11,17 +11,17 @@ import com.tool.bluetooth.detector.core.BaseBluetoothScanner;
 public class BluetoothScannerJellyBean extends BaseBluetoothScanner implements BluetoothAdapter.LeScanCallback{
 
     @Override
-    public void onLeScan(BluetoothDevice device, int rssi, byte[] scanRecord) {
-
-    }
-
-    @Override
     public void startScanInternal() {
 
     }
 
     @Override
     public void stopScanInternal() {
+
+    }
+
+    @Override
+    public void onLeScan(BluetoothDevice device, int rssi, byte[] scanRecord) {
 
     }
 }

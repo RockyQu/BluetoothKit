@@ -2,6 +2,7 @@ package com.tool.bluetooth.detector;
 
 import android.app.Activity;
 import android.bluetooth.BluetoothDevice;
+import android.content.Context;
 import android.os.Bundle;
 
 import com.tool.bluetooth.detector.config.BluetoothConfiguration;
@@ -27,12 +28,11 @@ public interface BluetoothDetectorHandler {
     void stopScan(BluetoothDetectorCallBack callBack);
 
     /**
-     * 设置一些扫描参数
+     * 初始化一些扫描参数
      *
+     * @param context
      * @param configuration
-     * @see BluetoothConfiguration#getServiceUUIDs()
-     * @see BluetoothConfiguration#getDeviceNames()
-     * @see BluetoothConfiguration#getDeviceMacs()
+     * @see BluetoothConfiguration
      */
-    void setConfiguration(BluetoothConfiguration configuration);
+    void init(Context context, BluetoothConfiguration configuration);
 }
