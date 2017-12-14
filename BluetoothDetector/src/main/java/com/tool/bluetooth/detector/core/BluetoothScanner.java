@@ -3,33 +3,29 @@ package com.tool.bluetooth.detector.core;
 import android.os.Build;
 
 import com.tool.bluetooth.detector.BluetoothDetectorCallBack;
-import com.tool.bluetooth.detector.core.version.BluetoothScannerJellyBean;
-import com.tool.bluetooth.detector.core.version.BluetoothScannerLollipop;
-import com.tool.bluetooth.detector.core.version.BluetoothScannerMarshmallow;
-import com.tool.bluetooth.detector.core.version.BluetoothScannerNougat;
+import com.tool.bluetooth.detector.core.version.BluetoothJellyBean;
+import com.tool.bluetooth.detector.core.version.BluetoothLollipop;
+import com.tool.bluetooth.detector.core.version.BluetoothMarshmallow;
+import com.tool.bluetooth.detector.core.version.BluetoothNougat;
 
 public abstract class BluetoothScanner implements BluetoothScannerInternal {
 
     protected static BluetoothScanner bluetoothScanner;
 
-    public BluetoothScanner() {
-
-    }
-
-    public static BluetoothScanner getBluetoothScanner() {
+    public static BluetoothScannerInternal getBluetoothScanner() {
         if (bluetoothScanner != null) {
             return bluetoothScanner;
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {// Android 7.0 Nougat
-            return bluetoothScanner = new BluetoothScannerNougat();
+            return bluetoothScanner = new BluetoothNougat();
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {// Android 6.0 Marshmallow
-            return bluetoothScanner = new BluetoothScannerMarshmallow();
+            return bluetoothScanner = new BluetoothMarshmallow();
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {// Android 5.0 Lollipop
-            return bluetoothScanner = new BluetoothScannerLollipop();
+            return bluetoothScanner = new BluetoothLollipop();
         }
 
-        return bluetoothScanner = new BluetoothScannerJellyBean();// Android 4.3 Jelly Bean
+        return bluetoothScanner = new BluetoothJellyBean();// Android 4.3 Jelly Bean
     }
 
     @Override

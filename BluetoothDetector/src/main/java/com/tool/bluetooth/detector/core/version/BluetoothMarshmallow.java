@@ -1,22 +1,23 @@
 package com.tool.bluetooth.detector.core.version;
 
-import android.util.Log;
+import android.annotation.TargetApi;
+import android.os.Build;
 
 import com.tool.bluetooth.detector.BluetoothDetectorCallBack;
-import com.tool.bluetooth.detector.core.BluetoothScanner;
 
 /**
- * Android 5.0 Lollipop
+ * Android 6.0 Marshmallow
  */
-public class BluetoothScannerLollipop extends BluetoothScanner {
+@TargetApi(Build.VERSION_CODES.M)
+public class BluetoothMarshmallow extends BluetoothLollipop {
 
     @Override
     public void startScanInternal(BluetoothDetectorCallBack callBack) {
-        Log.e("Lollipop", "BluetoothScannerLollipop");
+        super.startScanInternal(callBack);
     }
 
     @Override
     public void stopScanInternal(BluetoothDetectorCallBack callBack) {
-
+        super.stopScanInternal(callBack);
     }
 }

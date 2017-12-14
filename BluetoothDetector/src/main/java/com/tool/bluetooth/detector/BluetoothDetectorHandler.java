@@ -19,6 +19,16 @@ public interface BluetoothDetectorHandler {
     void startScan(BluetoothDetectorCallBack callBack);
 
     /**
+     * 开启扫描，并回调至 {@link BluetoothDetectorCallBack#onScan(BluetoothDevice, int, byte[])} 方法
+     * 此方法调用请放在 {@link android.app.Activity#onCreate(Bundle)} 方法里执行
+     * 与 {@link BluetoothDetectorHandler#stopScan(BluetoothDetectorCallBack)} 方法应是成对出现
+     *
+     * @param configuration
+     * @param callBack
+     */
+    void startScan(BluetoothConfiguration configuration, BluetoothDetectorCallBack callBack);
+
+    /**
      * 关闭扫描，并移除回调
      * 此方法调用请放在 {@link Activity#onDestroy()} 方法里执行
      * 与 {@link BluetoothDetectorHandler#startScan(BluetoothDetectorCallBack)} 方法应是成对出现
@@ -27,12 +37,5 @@ public interface BluetoothDetectorHandler {
      */
     void stopScan(BluetoothDetectorCallBack callBack);
 
-    /**
-     * 初始化一些扫描参数
-     *
-     * @param context
-     * @param configuration
-     * @see BluetoothConfiguration
-     */
-    void init(Context context, BluetoothConfiguration configuration);
+
 }

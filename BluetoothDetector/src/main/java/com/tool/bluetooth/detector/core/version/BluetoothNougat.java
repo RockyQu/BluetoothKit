@@ -1,18 +1,19 @@
 package com.tool.bluetooth.detector.core.version;
 
-import android.util.Log;
+import android.annotation.TargetApi;
+import android.os.Build;
 
 import com.tool.bluetooth.detector.BluetoothDetectorCallBack;
 
 /**
  * Android 7.0 Nougat
  */
-public class BluetoothScannerNougat extends BluetoothScannerMarshmallow {
+@TargetApi(Build.VERSION_CODES.N)
+public class BluetoothNougat extends BluetoothMarshmallow {
 
     @Override
     public void startScanInternal(BluetoothDetectorCallBack callBack) {
         super.startScanInternal(callBack);
-        Log.e("Nougat", "BluetoothScannerNougat");
     }
 
     @Override

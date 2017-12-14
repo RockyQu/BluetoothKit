@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.tool.bluetooth.detector.config.BluetoothConfiguration;
 import com.tool.bluetooth.detector.core.BluetoothScanner;
+import com.tool.bluetooth.detector.core.BluetoothScannerInternal;
 
 /**
  * Android Bluetooth 4.0 Development Kit
@@ -12,15 +13,13 @@ import com.tool.bluetooth.detector.core.BluetoothScanner;
  */
 public class BluetoothDetector implements BluetoothDetectorHandler {
 
-    private BluetoothConfiguration configuration;
-
-    private BluetoothScanner bluetoothScanner;
+    private BluetoothScannerInternal bluetoothScanner;
 
     private final static class HolderClass {
         private final static BluetoothDetectorHandler INSTANCE = new BluetoothDetector();
     }
 
-    public static BluetoothDetectorHandler getDefault() {
+    public static BluetoothDetectorHandler getInstance() {
         return BluetoothDetector.HolderClass.INSTANCE;
     }
 
@@ -34,21 +33,12 @@ public class BluetoothDetector implements BluetoothDetectorHandler {
     }
 
     @Override
-    public void stopScan(BluetoothDetectorCallBack callBack) {
-        bluetoothScanner.stopScan(callBack);
+    public void startScan(BluetoothConfiguration configuration, BluetoothDetectorCallBack callBack) {
+        bluetoothScanner.startScan(configuration, callBack);
     }
 
     @Override
-    public void init(Context context, BluetoothConfiguration configuration) {
-        this.configuration = configuration;
-
+    public void stopScan(BluetoothDetectorCallBack callBack) {
+        bluetoothScanner.stopScan(callBack);
     }
-
-//    public boolean openBluetoothSetting(Activity activity, int requestCode) {
-//        Intent intent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-//        activity.startActivityForResult(intent, requestCode);
-//        return false;
-//    }
-
-
 }
