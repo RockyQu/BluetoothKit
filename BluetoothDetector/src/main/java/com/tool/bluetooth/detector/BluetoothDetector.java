@@ -3,6 +3,7 @@ package com.tool.bluetooth.detector;
 import android.content.Context;
 
 import com.tool.bluetooth.detector.config.BluetoothConfiguration;
+import com.tool.bluetooth.detector.core.BluetoothScanner;
 
 /**
  * Android Bluetooth 4.0 Development Kit
@@ -13,6 +14,8 @@ public class BluetoothDetector implements BluetoothDetectorHandler {
 
     private BluetoothConfiguration configuration;
 
+    private BluetoothScanner bluetoothScanner;
+
     private final static class HolderClass {
         private final static BluetoothDetectorHandler INSTANCE = new BluetoothDetector();
     }
@@ -21,14 +24,18 @@ public class BluetoothDetector implements BluetoothDetectorHandler {
         return BluetoothDetector.HolderClass.INSTANCE;
     }
 
+    private BluetoothDetector() {
+        bluetoothScanner = BluetoothScanner.getBluetoothScanner();
+    }
+
     @Override
     public void startScan(BluetoothDetectorCallBack callBack) {
-
+        bluetoothScanner.startScan(callBack);
     }
 
     @Override
     public void stopScan(BluetoothDetectorCallBack callBack) {
-
+        bluetoothScanner.stopScan(callBack);
     }
 
     @Override

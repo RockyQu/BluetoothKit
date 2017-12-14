@@ -1,23 +1,22 @@
 package com.tool.bluetooth.detector.core;
 
-import android.Manifest;
 import android.os.Build;
-import android.support.annotation.RequiresPermission;
 
+import com.tool.bluetooth.detector.BluetoothDetectorCallBack;
 import com.tool.bluetooth.detector.core.version.BluetoothScannerJellyBean;
 import com.tool.bluetooth.detector.core.version.BluetoothScannerLollipop;
 import com.tool.bluetooth.detector.core.version.BluetoothScannerMarshmallow;
 import com.tool.bluetooth.detector.core.version.BluetoothScannerNougat;
 
-public abstract class BaseBluetoothScanner implements BluetoothScanInternal {
+public abstract class BluetoothScanner implements BluetoothScannerInternal {
 
-    private static BaseBluetoothScanner bluetoothScanner;
+    protected static BluetoothScanner bluetoothScanner;
 
-    public BaseBluetoothScanner() {
+    public BluetoothScanner() {
 
     }
 
-    public static BaseBluetoothScanner getBluetoothScanner() {
+    public static BluetoothScanner getBluetoothScanner() {
         if (bluetoothScanner != null) {
             return bluetoothScanner;
         }
@@ -34,22 +33,16 @@ public abstract class BaseBluetoothScanner implements BluetoothScanInternal {
     }
 
     @Override
-    @RequiresPermission(allOf = {Manifest.permission.BLUETOOTH_ADMIN, Manifest.permission.BLUETOOTH})
-    public void startScan() {
-
-        startScanInternal();
+    public void startScan(BluetoothDetectorCallBack callBack) {
+        startScanInternal(callBack);
     }
 
     @Override
-    @RequiresPermission(Manifest.permission.BLUETOOTH_ADMIN)
-    public void stopScan() {
-
-        stopScanInternal();
+    public void stopScan(BluetoothDetectorCallBack callBack) {
+        stopScanInternal(callBack);
     }
 
-    @RequiresPermission(allOf = {Manifest.permission.BLUETOOTH_ADMIN, Manifest.permission.BLUETOOTH})
-    public abstract void startScanInternal();
+    public abstract void startScanInternal(BluetoothDetectorCallBack callBack);
 
-    @RequiresPermission(Manifest.permission.BLUETOOTH_ADMIN)
-    public abstract void stopScanInternal();
+    public abstract void stopScanInternal(BluetoothDetectorCallBack callBack);
 }
