@@ -36,5 +36,28 @@ public interface BluetoothDetectorHandler {
      */
     void stopScan(BluetoothDetectorCallBack callBack);
 
+    /**
+     * 检查 Android 各版本所需的权限处理，在开启扫描前请调用此方法
+     * 你可以配合目前流行的 RxPermissions 权限处理库
+     * 该库已被集成至 <a href="https://github.com/DesignQu/MVPFrames"></a> MVP架构中，实现一行代码权限处理
+     * <p>
+     * 关于Bluetooth 4.0 在 Android 各版本的差异化简要说明
+     *
+     * @param response
+     */
+    void checkEach(CheckResponse response);
 
+    interface CheckResponse {
+
+        /**
+         * 权限申请失败执行的方法
+         * 包括：用户拒绝、用户选择了禁止弹出、当批量申请只要有一个拒绝就会执行该方法
+         */
+        void onRequestPermissionFailure();
+
+        /**
+         * 没有需要处理的权限问题，在这里开启扫描
+         */
+        void onCheckSuccess();
+    }
 }

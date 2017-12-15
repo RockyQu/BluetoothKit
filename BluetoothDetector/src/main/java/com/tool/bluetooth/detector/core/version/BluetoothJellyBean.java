@@ -24,19 +24,22 @@ public class BluetoothJellyBean extends BluetoothScanner implements BluetoothAda
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     @RequiresPermission(allOf = {Manifest.permission.BLUETOOTH_ADMIN, Manifest.permission.BLUETOOTH})
     public void startScanInternal(BluetoothDetectorCallBack callBack) {
-        Log.e("JellyBean", "BluetoothScannerJellyBean");
+        bluetoothAdapter.startLeScan(this);
+    }
+
+    @SuppressWarnings("deprecation")
+    @Override
+    @RequiresPermission(allOf = {Manifest.permission.BLUETOOTH_ADMIN, Manifest.permission.BLUETOOTH})
+    public void startScan(BluetoothFilter filter, BluetoothDetectorCallBack callBack) {
         bluetoothAdapter.startLeScan(this);
     }
 
     @Override
-    public void startScan(BluetoothFilter configuration, BluetoothDetectorCallBack callBack) {
-
-    }
-
-    @Override
+    @RequiresPermission(Manifest.permission.BLUETOOTH_ADMIN)
     public void stopScanInternal(BluetoothDetectorCallBack callBack) {
 
     }

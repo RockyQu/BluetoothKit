@@ -8,11 +8,11 @@ import com.tool.bluetooth.detector.core.version.BluetoothLollipop;
 import com.tool.bluetooth.detector.core.version.BluetoothMarshmallow;
 import com.tool.bluetooth.detector.core.version.BluetoothNougat;
 
-public abstract class BluetoothScanner implements BluetoothScannerInternal {
+public abstract class BluetoothScanner implements BluetoothScannerHandler {
 
     private static BluetoothScanner bluetoothScanner;
 
-    public static BluetoothScannerInternal getBluetoothScanner() {
+    public static BluetoothScannerHandler getBluetoothScanner() {
         if (bluetoothScanner != null) {
             return bluetoothScanner;
         }

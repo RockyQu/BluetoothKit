@@ -2,7 +2,7 @@ package com.tool.bluetooth.detector;
 
 import com.tool.bluetooth.detector.config.BluetoothFilter;
 import com.tool.bluetooth.detector.core.BluetoothScanner;
-import com.tool.bluetooth.detector.core.BluetoothScannerInternal;
+import com.tool.bluetooth.detector.core.BluetoothScannerHandler;
 
 /**
  * Android Bluetooth 4.0 Development Kit
@@ -11,7 +11,7 @@ import com.tool.bluetooth.detector.core.BluetoothScannerInternal;
  */
 public class BluetoothDetector implements BluetoothDetectorHandler {
 
-    private BluetoothScannerInternal bluetoothScanner;
+    private BluetoothScannerHandler bluetoothScanner;
 
     private final static class HolderClass {
         private final static BluetoothDetectorHandler INSTANCE = new BluetoothDetector();
@@ -38,5 +38,10 @@ public class BluetoothDetector implements BluetoothDetectorHandler {
     @Override
     public void stopScan(BluetoothDetectorCallBack callBack) {
         bluetoothScanner.stopScan(callBack);
+    }
+
+    @Override
+    public void checkEach(CheckResponse response) {
+
     }
 }
