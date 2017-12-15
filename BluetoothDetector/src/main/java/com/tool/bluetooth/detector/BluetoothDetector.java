@@ -41,7 +41,7 @@ public class BluetoothDetector implements BluetoothDetectorHandler {
     }
 
     @Override
-    public void checkEach(CheckResponse response) {
+    public void requestCheckEach(CheckResponse response) {
 
     }
 }

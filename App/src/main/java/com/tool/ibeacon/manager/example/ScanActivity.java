@@ -39,10 +39,21 @@ public class ScanActivity extends Activity implements BluetoothDetectorCallBack,
         init();
 
         detector = BluetoothDetector.getInstance();
-        BluetoothFilter configuration = BluetoothFilter.builder()
-                .debug(true)
-                .build();
-        detector.startScan(configuration, this);
+        detector.requestCheckEach(new BluetoothDetectorHandler.CheckResponse() {
+
+            @Override
+            public void onNeedPermission(int type) {
+
+            }
+
+            @Override
+            public void onCheckSuccess() {
+                BluetoothFilter configuration = BluetoothFilter.builder()
+                        .debug(true)
+                        .build();
+                detector.startScan(configuration, ScanActivity.this);
+            }
+        });
     }
 
     @Override

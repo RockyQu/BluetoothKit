@@ -45,15 +45,14 @@ public interface BluetoothDetectorHandler {
      *
      * @param response
      */
-    void checkEach(CheckResponse response);
+    void requestCheckEach(CheckResponse response);
 
     interface CheckResponse {
 
         /**
-         * 权限申请失败执行的方法
-         * 包括：用户拒绝、用户选择了禁止弹出、当批量申请只要有一个拒绝就会执行该方法
+         * 如果需要进行权限申请回调此方法
          */
-        void onRequestPermissionFailure();
+        void onNeedPermission(int type);
 
         /**
          * 没有需要处理的权限问题，在这里开启扫描
