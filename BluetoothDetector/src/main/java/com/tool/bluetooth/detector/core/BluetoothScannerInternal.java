@@ -1,7 +1,7 @@
 package com.tool.bluetooth.detector.core;
 
 import com.tool.bluetooth.detector.BluetoothDetectorCallBack;
-import com.tool.bluetooth.detector.config.BluetoothConfiguration;
+import com.tool.bluetooth.detector.config.BluetoothFilter;
 
 public interface BluetoothScannerInternal {
 
@@ -13,7 +13,7 @@ public interface BluetoothScannerInternal {
     /**
      * 开启扫描
      */
-    void startScan(BluetoothConfiguration configuration, BluetoothDetectorCallBack callBack);
+    void startScan(BluetoothFilter configuration, BluetoothDetectorCallBack callBack);
 
     /**
      * 关闭扫描

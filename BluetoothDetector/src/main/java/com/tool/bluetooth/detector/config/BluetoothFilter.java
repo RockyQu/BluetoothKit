@@ -1,15 +1,11 @@
 package com.tool.bluetooth.detector.config;
 
-import android.app.Application;
-
 import java.util.UUID;
 
 /**
  * 参数配置
  */
-public class BluetoothConfiguration {
-
-    private Application application;
+public class BluetoothFilter {
 
     private String[] serviceUUIDs = null;
     private String[] deviceNames = null;
@@ -17,18 +13,12 @@ public class BluetoothConfiguration {
 
     private boolean debug;
 
-    public BluetoothConfiguration(Builder builder) {
-        this.application = builder.application;
-
+    public BluetoothFilter(Builder builder) {
         this.serviceUUIDs = builder.serviceUUIDs;
         this.deviceNames = builder.deviceNames;
         this.deviceMacs = builder.deviceMacs;
 
         this.debug = builder.debug;
-    }
-
-    public Application getApplication() {
-        return application;
     }
 
     public UUID[] getServiceUUIDs() {
@@ -62,8 +52,6 @@ public class BluetoothConfiguration {
 
     public static class Builder {
 
-        private Application application;
-
         // 过滤指定服务的设备
         private String[] serviceUUIDs = null;
         // 过滤指定设备的名称
@@ -76,11 +64,6 @@ public class BluetoothConfiguration {
 
         private Builder() {
             ;
-        }
-
-        public Builder application(Application application) {
-            this.application = application;
-            return this;
         }
 
         public Builder debug(boolean debug) {
@@ -103,11 +86,8 @@ public class BluetoothConfiguration {
             return this;
         }
 
-        public BluetoothConfiguration build() {
-            if (application == null) {
-                throw new NullPointerException();
-            }
-            return new BluetoothConfiguration(this);
+        public BluetoothFilter build() {
+            return new BluetoothFilter(this);
         }
     }
 }

@@ -2,10 +2,9 @@ package com.tool.bluetooth.detector;
 
 import android.app.Activity;
 import android.bluetooth.BluetoothDevice;
-import android.content.Context;
 import android.os.Bundle;
 
-import com.tool.bluetooth.detector.config.BluetoothConfiguration;
+import com.tool.bluetooth.detector.config.BluetoothFilter;
 
 public interface BluetoothDetectorHandler {
 
@@ -26,7 +25,7 @@ public interface BluetoothDetectorHandler {
      * @param configuration
      * @param callBack
      */
-    void startScan(BluetoothConfiguration configuration, BluetoothDetectorCallBack callBack);
+    void startScan(BluetoothFilter configuration, BluetoothDetectorCallBack callBack);
 
     /**
      * 关闭扫描，并移除回调

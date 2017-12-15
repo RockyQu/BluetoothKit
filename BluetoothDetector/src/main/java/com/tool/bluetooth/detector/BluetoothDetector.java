@@ -1,8 +1,6 @@
 package com.tool.bluetooth.detector;
 
-import android.content.Context;
-
-import com.tool.bluetooth.detector.config.BluetoothConfiguration;
+import com.tool.bluetooth.detector.config.BluetoothFilter;
 import com.tool.bluetooth.detector.core.BluetoothScanner;
 import com.tool.bluetooth.detector.core.BluetoothScannerInternal;
 
@@ -33,7 +31,7 @@ public class BluetoothDetector implements BluetoothDetectorHandler {
     }
 
     @Override
-    public void startScan(BluetoothConfiguration configuration, BluetoothDetectorCallBack callBack) {
+    public void startScan(BluetoothFilter configuration, BluetoothDetectorCallBack callBack) {
         bluetoothScanner.startScan(configuration, callBack);
     }
 

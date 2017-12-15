@@ -10,7 +10,7 @@ import com.tool.bluetooth.detector.core.version.BluetoothNougat;
 
 public abstract class BluetoothScanner implements BluetoothScannerInternal {
 
-    protected static BluetoothScanner bluetoothScanner;
+    private static BluetoothScanner bluetoothScanner;
 
     public static BluetoothScannerInternal getBluetoothScanner() {
         if (bluetoothScanner != null) {

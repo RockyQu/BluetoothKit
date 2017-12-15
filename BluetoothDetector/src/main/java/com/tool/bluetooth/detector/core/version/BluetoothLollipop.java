@@ -11,7 +11,7 @@ import android.support.annotation.RequiresPermission;
 import android.util.Log;
 
 import com.tool.bluetooth.detector.BluetoothDetectorCallBack;
-import com.tool.bluetooth.detector.config.BluetoothConfiguration;
+import com.tool.bluetooth.detector.config.BluetoothFilter;
 import com.tool.bluetooth.detector.core.BluetoothScanner;
 
 import java.util.List;
@@ -24,6 +24,8 @@ public class BluetoothLollipop extends BluetoothScanner {
 
     private BluetoothAdapter bluetoothAdapter;
 
+    private BluetoothDetectorCallBack callBack;
+
     public BluetoothLollipop() {
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
     }
@@ -31,6 +33,7 @@ public class BluetoothLollipop extends BluetoothScanner {
     @Override
     @RequiresPermission(allOf = {Manifest.permission.BLUETOOTH_ADMIN, Manifest.permission.BLUETOOTH})
     public void startScanInternal(BluetoothDetectorCallBack callBack) {
+        this.callBack = callBack;
         Log.e("Lollipop", "BluetoothScannerLollipop");
         BluetoothLeScanner bluetoothLeScanner = bluetoothAdapter.getBluetoothLeScanner();
         if (bluetoothLeScanner != null) {
@@ -39,8 +42,13 @@ public class BluetoothLollipop extends BluetoothScanner {
     }
 
     @Override
-    public void startScan(BluetoothConfiguration configuration, BluetoothDetectorCallBack callBack) {
-
+    @RequiresPermission(allOf = {Manifest.permission.BLUETOOTH_ADMIN, Manifest.permission.BLUETOOTH})
+    public void startScan(BluetoothFilter configuration, BluetoothDetectorCallBack callBack) {
+        this.callBack = callBack;
+        BluetoothLeScanner bluetoothLeScanner = bluetoothAdapter.getBluetoothLeScanner();
+        if (bluetoothLeScanner != null) {
+            bluetoothLeScanner.startScan(new ScannerCallback());
+        }
     }
 
     @Override
@@ -52,9 +60,9 @@ public class BluetoothLollipop extends BluetoothScanner {
 
         @Override
         public void onScanResult(int callbackType, ScanResult result) {
-            Log.e("onScanResult", ""+result.getDevice().getName());
-
-
+            if (callBack != null) {
+                callBack.onScan(result.getDevice(), result.getRssi(), result.getScanRecord() != null ? result.getScanRecord().getBytes() : null);
+            }
         }
 
         @Override
@@ -64,7 +72,7 @@ public class BluetoothLollipop extends BluetoothScanner {
 
         @Override
         public void onScanFailed(int errorCode) {
-            Log.e("onScanFailed", ""+errorCode);
+            Log.e("onScanFailed", "" + errorCode);
         }
     }
 }

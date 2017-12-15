@@ -1,13 +1,15 @@
 package com.tool.bluetooth.detector.core.version;
 
+import android.Manifest;
 import android.annotation.TargetApi;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.os.Build;
+import android.support.annotation.RequiresPermission;
 import android.util.Log;
 
 import com.tool.bluetooth.detector.BluetoothDetectorCallBack;
-import com.tool.bluetooth.detector.config.BluetoothConfiguration;
+import com.tool.bluetooth.detector.config.BluetoothFilter;
 import com.tool.bluetooth.detector.core.BluetoothScanner;
 
 /**
@@ -16,17 +18,21 @@ import com.tool.bluetooth.detector.core.BluetoothScanner;
 @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
 public class BluetoothJellyBean extends BluetoothScanner implements BluetoothAdapter.LeScanCallback {
 
+    private BluetoothAdapter bluetoothAdapter;
+
     public BluetoothJellyBean() {
-        super();
+        bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
     }
 
     @Override
+    @RequiresPermission(allOf = {Manifest.permission.BLUETOOTH_ADMIN, Manifest.permission.BLUETOOTH})
     public void startScanInternal(BluetoothDetectorCallBack callBack) {
         Log.e("JellyBean", "BluetoothScannerJellyBean");
+        bluetoothAdapter.startLeScan(this);
     }
 
     @Override
-    public void startScan(BluetoothConfiguration configuration, BluetoothDetectorCallBack callBack) {
+    public void startScan(BluetoothFilter configuration, BluetoothDetectorCallBack callBack) {
 
     }
 
