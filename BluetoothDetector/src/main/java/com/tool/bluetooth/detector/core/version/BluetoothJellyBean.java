@@ -4,12 +4,13 @@ import android.Manifest;
 import android.annotation.TargetApi;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.content.Context;
 import android.os.Build;
 import android.support.annotation.RequiresPermission;
 import android.util.Log;
 
 import com.tool.bluetooth.detector.BluetoothDetectorCallBack;
-import com.tool.bluetooth.detector.config.BluetoothFilter;
+import com.tool.bluetooth.detector.BluetoothDetectorHandler;
 import com.tool.bluetooth.detector.core.BluetoothScanner;
 
 /**
@@ -24,24 +25,19 @@ public class BluetoothJellyBean extends BluetoothScanner implements BluetoothAda
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
     }
 
-    @SuppressWarnings("deprecation")
     @Override
-    @RequiresPermission(allOf = {Manifest.permission.BLUETOOTH_ADMIN, Manifest.permission.BLUETOOTH})
     public void startScanInternal(BluetoothDetectorCallBack callBack) {
-        bluetoothAdapter.startLeScan(this);
-    }
 
-    @SuppressWarnings("deprecation")
-    @Override
-    @RequiresPermission(allOf = {Manifest.permission.BLUETOOTH_ADMIN, Manifest.permission.BLUETOOTH})
-    public void startScan(BluetoothFilter filter, BluetoothDetectorCallBack callBack) {
-        bluetoothAdapter.startLeScan(this);
     }
 
     @Override
-    @RequiresPermission(Manifest.permission.BLUETOOTH_ADMIN)
     public void stopScanInternal(BluetoothDetectorCallBack callBack) {
 
+    }
+
+    @Override
+    public void requestCheckEach(Context context, BluetoothDetectorHandler.CheckResponse response) {
+        super.requestCheckEach(context, response);
     }
 
     @Override

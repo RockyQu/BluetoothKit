@@ -2,9 +2,15 @@ package com.tool.bluetooth.detector;
 
 import android.app.Activity;
 import android.bluetooth.BluetoothDevice;
+import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.IntDef;
+import android.widget.Toast;
 
 import com.tool.bluetooth.detector.config.BluetoothFilter;
+
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 
 public interface BluetoothDetectorHandler {
 
@@ -22,10 +28,10 @@ public interface BluetoothDetectorHandler {
      * 此方法调用请放在 {@link android.app.Activity#onCreate(Bundle)} 方法里执行
      * 与 {@link BluetoothDetectorHandler#stopScan(BluetoothDetectorCallBack)} 方法应是成对出现
      *
-     * @param configuration
+     * @param filter
      * @param callBack
      */
-    void startScan(BluetoothFilter configuration, BluetoothDetectorCallBack callBack);
+    void startScan(BluetoothFilter filter, BluetoothDetectorCallBack callBack);
 
     /**
      * 关闭扫描，并移除回调
@@ -45,14 +51,22 @@ public interface BluetoothDetectorHandler {
      *
      * @param response
      */
-    void requestCheckEach(CheckResponse response);
+    void requestCheckEach(Context context, CheckResponse response);
+
+    int LOCATION_SERVICE = 26;
+    int LOCATION_PERMISSIONS = 27;
+
+    @IntDef({LOCATION_SERVICE, LOCATION_PERMISSIONS})
+    @Retention(RetentionPolicy.SOURCE)
+    @interface Type {
+    }
 
     interface CheckResponse {
 
         /**
          * 如果需要进行权限申请回调此方法
          */
-        void onNeedPermission(int type);
+        boolean onNeedPermission(@Type int type);
 
         /**
          * 没有需要处理的权限问题，在这里开启扫描

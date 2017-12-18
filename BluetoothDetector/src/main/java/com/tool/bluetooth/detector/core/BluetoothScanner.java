@@ -1,8 +1,11 @@
 package com.tool.bluetooth.detector.core;
 
+import android.content.Context;
 import android.os.Build;
 
 import com.tool.bluetooth.detector.BluetoothDetectorCallBack;
+import com.tool.bluetooth.detector.BluetoothDetectorHandler;
+import com.tool.bluetooth.detector.config.BluetoothFilter;
 import com.tool.bluetooth.detector.core.version.BluetoothJellyBean;
 import com.tool.bluetooth.detector.core.version.BluetoothLollipop;
 import com.tool.bluetooth.detector.core.version.BluetoothMarshmallow;
@@ -34,8 +37,18 @@ public abstract class BluetoothScanner implements BluetoothScannerHandler {
     }
 
     @Override
+    public void startScan(BluetoothFilter filter, BluetoothDetectorCallBack callBack) {
+
+    }
+
+    @Override
     public void stopScan(BluetoothDetectorCallBack callBack) {
         stopScanInternal(callBack);
+    }
+
+    @Override
+    public void requestCheckEach(Context context, BluetoothDetectorHandler.CheckResponse response) {
+
     }
 
     public abstract void startScanInternal(BluetoothDetectorCallBack callBack);

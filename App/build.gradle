@@ -143,4 +143,6 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
     compile project(':BluetoothDetector')
+
+    compile 'android.frame:MVPFrames:1.4.54'
 }
