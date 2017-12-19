@@ -35,7 +35,6 @@ public class BluetoothLollipop extends BluetoothScanner {
     @RequiresPermission(allOf = {Manifest.permission.BLUETOOTH_ADMIN, Manifest.permission.BLUETOOTH})
     public void startScanInternal(BluetoothDetectorCallBack callBack) {
         this.callBack = callBack;
-        Log.e("startScanInternal", "start");
         BluetoothLeScanner bluetoothLeScanner = bluetoothAdapter.getBluetoothLeScanner();
         if (bluetoothLeScanner != null) {
             bluetoothLeScanner.startScan(new ScannerCallback());
@@ -43,14 +42,8 @@ public class BluetoothLollipop extends BluetoothScanner {
     }
 
     @Override
-    @RequiresPermission(Manifest.permission.BLUETOOTH_ADMIN)
     public void stopScanInternal(BluetoothDetectorCallBack callBack) {
 
-    }
-
-    @Override
-    public void requestCheckEach(Context context, BluetoothDetectorHandler.CheckResponse response) {
-        super.requestCheckEach(context, response);
     }
 
     private class ScannerCallback extends ScanCallback {

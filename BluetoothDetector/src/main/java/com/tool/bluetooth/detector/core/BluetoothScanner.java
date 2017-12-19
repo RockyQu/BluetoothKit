@@ -1,10 +1,10 @@
 package com.tool.bluetooth.detector.core;
 
-import android.content.Context;
+import android.Manifest;
 import android.os.Build;
+import android.support.annotation.RequiresPermission;
 
 import com.tool.bluetooth.detector.BluetoothDetectorCallBack;
-import com.tool.bluetooth.detector.BluetoothDetectorHandler;
 import com.tool.bluetooth.detector.config.BluetoothFilter;
 import com.tool.bluetooth.detector.core.version.BluetoothJellyBean;
 import com.tool.bluetooth.detector.core.version.BluetoothLollipop;
@@ -32,26 +32,26 @@ public abstract class BluetoothScanner implements BluetoothScannerHandler {
     }
 
     @Override
+    @RequiresPermission(allOf = {Manifest.permission.BLUETOOTH_ADMIN, Manifest.permission.BLUETOOTH})
     public void startScan(BluetoothDetectorCallBack callBack) {
         startScanInternal(callBack);
     }
 
     @Override
+    @RequiresPermission(allOf = {Manifest.permission.BLUETOOTH_ADMIN, Manifest.permission.BLUETOOTH})
     public void startScan(BluetoothFilter filter, BluetoothDetectorCallBack callBack) {
         startScanInternal(callBack);
     }
 
     @Override
+    @RequiresPermission(allOf = {Manifest.permission.BLUETOOTH_ADMIN, Manifest.permission.BLUETOOTH})
     public void stopScan(BluetoothDetectorCallBack callBack) {
         stopScanInternal(callBack);
     }
 
-    @Override
-    public void requestCheckEach(Context context, BluetoothDetectorHandler.CheckResponse response) {
-        response.onCheckSuccess();
-    }
-
+    @RequiresPermission(allOf = {Manifest.permission.BLUETOOTH_ADMIN, Manifest.permission.BLUETOOTH})
     public abstract void startScanInternal(BluetoothDetectorCallBack callBack);
 
+    @RequiresPermission(allOf = {Manifest.permission.BLUETOOTH_ADMIN, Manifest.permission.BLUETOOTH})
     public abstract void stopScanInternal(BluetoothDetectorCallBack callBack);
 }

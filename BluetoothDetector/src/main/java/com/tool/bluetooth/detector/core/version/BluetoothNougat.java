@@ -3,11 +3,10 @@ package com.tool.bluetooth.detector.core.version;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
-import android.util.Log;
 
 import com.tool.bluetooth.detector.BluetoothDetectorCallBack;
 import com.tool.bluetooth.detector.BluetoothDetectorHandler;
-import com.tool.bluetooth.detector.utils.Utils;
+import com.tool.bluetooth.detector.utils.BluetoothUtils;
 
 /**
  * Android 7.0 Nougat
@@ -25,16 +24,5 @@ public class BluetoothNougat extends BluetoothMarshmallow {
     @Override
     public void stopScanInternal(BluetoothDetectorCallBack callBack) {
         super.stopScanInternal(callBack);
-    }
-
-    @Override
-    public void requestCheckEach(Context context, BluetoothDetectorHandler.CheckResponse response) {
-        Log.e("requestCheckEach", "1");
-        if (!Utils.isOpenGPS(context)) {
-            Log.e("requestCheckEach", "2");
-            response.onNeedPermission(BluetoothDetectorHandler.LOCATION_SERVICE);
-        } else {
-            super.requestCheckEach(context, response);
-        }
     }
 }

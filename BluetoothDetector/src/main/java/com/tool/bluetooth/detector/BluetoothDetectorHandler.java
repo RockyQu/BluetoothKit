@@ -41,36 +41,4 @@ public interface BluetoothDetectorHandler {
      * @param callBack
      */
     void stopScan(BluetoothDetectorCallBack callBack);
-
-    /**
-     * 检查 Android 各版本所需的权限处理，在开启扫描前请调用此方法
-     * 你可以配合目前流行的 RxPermissions 权限处理库
-     * 该库已被集成至 <a href="https://github.com/DesignQu/MVPFrames"></a> MVP架构中，实现一行代码权限处理
-     * <p>
-     * 关于Bluetooth 4.0 在 Android 各版本的差异化简要说明
-     *
-     * @param response
-     */
-    void requestCheckEach(Context context, CheckResponse response);
-
-    int LOCATION_SERVICE = 26;
-    int LOCATION_PERMISSIONS = 27;
-
-    @IntDef({LOCATION_SERVICE, LOCATION_PERMISSIONS})
-    @Retention(RetentionPolicy.SOURCE)
-    @interface Type {
-    }
-
-    interface CheckResponse {
-
-        /**
-         * 如果需要进行权限申请回调此方法
-         */
-        boolean onNeedPermission(@Type int type);
-
-        /**
-         * 没有需要处理的权限问题，在这里开启扫描
-         */
-        void onCheckSuccess();
-    }
 }

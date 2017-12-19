@@ -1,16 +1,11 @@
 package com.tool.bluetooth.detector.core.version;
 
-import android.Manifest;
 import android.annotation.TargetApi;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
-import android.content.Context;
 import android.os.Build;
-import android.support.annotation.RequiresPermission;
-import android.util.Log;
 
 import com.tool.bluetooth.detector.BluetoothDetectorCallBack;
-import com.tool.bluetooth.detector.BluetoothDetectorHandler;
 import com.tool.bluetooth.detector.core.BluetoothScanner;
 
 /**
@@ -21,25 +16,21 @@ public class BluetoothJellyBean extends BluetoothScanner implements BluetoothAda
 
     private BluetoothAdapter bluetoothAdapter;
 
+    private BluetoothDetectorCallBack callBack;
+
     public BluetoothJellyBean() {
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
     }
 
     @Override
     public void startScanInternal(BluetoothDetectorCallBack callBack) {
-
+        this.callBack = callBack;
+        bluetoothAdapter.startLeScan(this);
     }
 
     @Override
     public void stopScanInternal(BluetoothDetectorCallBack callBack) {
-
-    }
-
-    @Override
-    public void requestCheckEach(Context context, BluetoothDetectorHandler.CheckResponse response) {
-        super.requestCheckEach(context, response);
-
-
+        bluetoothAdapter.stopLeScan(this);
     }
 
     @Override

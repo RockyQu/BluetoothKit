@@ -1,34 +1,20 @@
 package com.tool.ibeacon.manager.example;
 
-import android.Manifest;
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
-import android.bluetooth.BluetoothManager;
-import android.content.pm.PackageManager;
+import android.content.IntentFilter;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.ListView;
-import android.widget.Toast;
 
 import com.logg.Logg;
 import com.logg.config.LoggConfiguration;
-import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.tool.bluetooth.detector.BluetoothDetectorCallBack;
 import com.tool.bluetooth.detector.BluetoothDetector;
 import com.tool.bluetooth.detector.BluetoothDetectorHandler;
 import com.tool.bluetooth.detector.config.BluetoothFilter;
-import com.tool.bluetooth.detector.utils.BleUtil;
-import com.tool.bluetooth.detector.entity.BeaconDevice;
-import com.tool.bluetooth.detector.utils.Utils;
-import com.tool.common.utils.AppUtils;
-import com.tool.common.utils.PermissionUtils;
-
-import java.util.ArrayList;
+import com.tool.bluetooth.detector.receiver.BluetoothReceiver;
+import com.tool.bluetooth.detector.utils.BluetoothUtils;
 
 /**
  *
@@ -64,7 +50,7 @@ public class ScanActivity extends Activity implements BluetoothDetectorCallBack
                 switch (type) {
                     case BluetoothDetectorHandler.LOCATION_SERVICE:// 请打开 GPS 开关
                         Logg.e("BluetoothDetectorHandler.LOCATION_SERVICE");
-                        Utils.openGps(ScanActivity.this);
+                        BluetoothUtils.openGps(ScanActivity.this);
                         break;
                     case BluetoothDetectorHandler.LOCATION_PERMISSIONS:// 请求定位权限
                         Logg.e("BluetoothDetectorHandler.LOCATION_SERVICE");
@@ -101,7 +87,13 @@ public class ScanActivity extends Activity implements BluetoothDetectorCallBack
             }
         });
 
+        registerReceiver(new BluetoothReceiver(), makeFilter());
+    }
 
+    private IntentFilter makeFilter() {
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(BluetoothAdapter.ACTION_STATE_CHANGED);
+        return filter;
     }
 
     @Override
