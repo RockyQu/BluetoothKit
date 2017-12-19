@@ -11,11 +11,19 @@ import com.tool.bluetooth.detector.core.version.BluetoothLollipop;
 import com.tool.bluetooth.detector.core.version.BluetoothMarshmallow;
 import com.tool.bluetooth.detector.core.version.BluetoothNougat;
 
-public abstract class BluetoothScanner implements BluetoothScannerHandler {
+public abstract class BluetoothScanner {
 
     private static BluetoothScanner bluetoothScanner;
 
-    public static BluetoothScannerHandler getBluetoothScanner() {
+    /**
+     * 由于各 Android 版本对蓝牙处理不同，这里做一个 Android 版本差异化处理
+     *
+     * @see BluetoothNougat
+     * @see BluetoothMarshmallow
+     * @see BluetoothLollipop
+     * @see BluetoothJellyBean
+     */
+    public static BluetoothScanner getBluetoothScanner() {
         if (bluetoothScanner != null) {
             return bluetoothScanner;
         }
@@ -31,26 +39,8 @@ public abstract class BluetoothScanner implements BluetoothScannerHandler {
         return bluetoothScanner = new BluetoothJellyBean();// Android 4.3 Jelly Bean
     }
 
-    @Override
     @RequiresPermission(allOf = {Manifest.permission.BLUETOOTH_ADMIN, Manifest.permission.BLUETOOTH})
-    public void startScan(BluetoothDetectorCallBack callBack) {
-        startScanInternal(callBack);
-    }
-
-    @Override
-    @RequiresPermission(allOf = {Manifest.permission.BLUETOOTH_ADMIN, Manifest.permission.BLUETOOTH})
-    public void startScan(BluetoothFilter filter, BluetoothDetectorCallBack callBack) {
-        startScanInternal(callBack);
-    }
-
-    @Override
-    @RequiresPermission(allOf = {Manifest.permission.BLUETOOTH_ADMIN, Manifest.permission.BLUETOOTH})
-    public void stopScan(BluetoothDetectorCallBack callBack) {
-        stopScanInternal(callBack);
-    }
-
-    @RequiresPermission(allOf = {Manifest.permission.BLUETOOTH_ADMIN, Manifest.permission.BLUETOOTH})
-    public abstract void startScanInternal(BluetoothDetectorCallBack callBack);
+    public abstract void startScanInternal(BluetoothFilter filter, BluetoothDetectorCallBack callBack);
 
     @RequiresPermission(allOf = {Manifest.permission.BLUETOOTH_ADMIN, Manifest.permission.BLUETOOTH})
     public abstract void stopScanInternal(BluetoothDetectorCallBack callBack);

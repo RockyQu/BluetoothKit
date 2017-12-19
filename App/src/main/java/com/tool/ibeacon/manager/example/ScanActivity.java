@@ -42,50 +42,11 @@ public class ScanActivity extends Activity implements BluetoothDetectorCallBack
 
 //        init();
 
-        detector = BluetoothDetector.getInstance();
-        detector.requestCheckEach(this, new BluetoothDetectorHandler.CheckResponse() {
 
-            @Override
-            public boolean onNeedPermission(int type) {
-                switch (type) {
-                    case BluetoothDetectorHandler.LOCATION_SERVICE:// 请打开 GPS 开关
-                        Logg.e("BluetoothDetectorHandler.LOCATION_SERVICE");
-                        BluetoothUtils.openGps(ScanActivity.this);
-                        break;
-                    case BluetoothDetectorHandler.LOCATION_PERMISSIONS:// 请求定位权限
-                        Logg.e("BluetoothDetectorHandler.LOCATION_SERVICE");
-//                        RxPermissions rxPermissions = new RxPermissions(ScanActivity.this);
-//                        PermissionUtils.location(new PermissionUtils.RequestPermission() {
-//
-//                            @Override
-//                            public void onRequestPermissionSuccess() {
-//                                Logg.e("onRequestPermissionSuccess");
-//                            }
-//
-//                            @Override
-//                            public void onRequestPermissionFailure() {
-//                                Logg.e("onRequestPermissionFailure");
-//                                // 如果失败跳到到应用设置页面
-//                                AppUtils.applicationDetailsSettings(ScanActivity.this);
-//                            }
-//                        }, rxPermissions);
-                        break;
-                    default:
-                        break;
-                }
-
-                return false;
-            }
-
-            @Override
-            public void onCheckSuccess() {
-                Logg.e("onCheckSuccess");
-                BluetoothFilter configuration = BluetoothFilter.builder()
-                        .debug(true)
-                        .build();
-                detector.startScan(configuration, ScanActivity.this);
-            }
-        });
+        BluetoothFilter filter = BluetoothFilter.builder()
+                .debug(true)
+                .build();
+        detector.startScan(filter, ScanActivity.this);
 
         registerReceiver(new BluetoothReceiver(), makeFilter());
     }

@@ -1,12 +1,10 @@
 package com.tool.bluetooth.detector.core.version;
 
 import android.annotation.TargetApi;
-import android.content.Context;
 import android.os.Build;
 
 import com.tool.bluetooth.detector.BluetoothDetectorCallBack;
-import com.tool.bluetooth.detector.BluetoothDetectorHandler;
-import com.tool.bluetooth.detector.utils.BluetoothUtils;
+import com.tool.bluetooth.detector.config.BluetoothFilter;
 
 /**
  * Android 7.0 Nougat
@@ -17,8 +15,8 @@ import com.tool.bluetooth.detector.utils.BluetoothUtils;
 public class BluetoothNougat extends BluetoothMarshmallow {
 
     @Override
-    public void startScanInternal(BluetoothDetectorCallBack callBack) {
-        super.startScanInternal(callBack);
+    public void startScanInternal(BluetoothFilter filter, BluetoothDetectorCallBack callBack) {
+        super.startScanInternal(filter, callBack);
     }
 
     @Override

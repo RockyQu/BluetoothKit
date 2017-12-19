@@ -6,6 +6,7 @@ import android.bluetooth.BluetoothDevice;
 import android.os.Build;
 
 import com.tool.bluetooth.detector.BluetoothDetectorCallBack;
+import com.tool.bluetooth.detector.config.BluetoothFilter;
 import com.tool.bluetooth.detector.core.BluetoothScanner;
 
 /**
@@ -23,7 +24,7 @@ public class BluetoothJellyBean extends BluetoothScanner implements BluetoothAda
     }
 
     @Override
-    public void startScanInternal(BluetoothDetectorCallBack callBack) {
+    public void startScanInternal(BluetoothFilter filter, BluetoothDetectorCallBack callBack) {
         this.callBack = callBack;
         bluetoothAdapter.startLeScan(this);
     }
@@ -35,6 +36,8 @@ public class BluetoothJellyBean extends BluetoothScanner implements BluetoothAda
 
     @Override
     public void onLeScan(BluetoothDevice device, int rssi, byte[] scanRecord) {
-
+        if (callBack != null) {
+            callBack.onScan(device, rssi, scanRecord);
+        }
     }
 }

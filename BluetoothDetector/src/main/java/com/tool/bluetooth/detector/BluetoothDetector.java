@@ -1,7 +1,10 @@
 package com.tool.bluetooth.detector;
+
+import android.Manifest;
+import android.support.annotation.RequiresPermission;
+
 import com.tool.bluetooth.detector.config.BluetoothFilter;
 import com.tool.bluetooth.detector.core.BluetoothScanner;
-import com.tool.bluetooth.detector.core.BluetoothScannerHandler;
 
 /**
  * Android Bluetooth 4.0 Development Kit
@@ -10,7 +13,7 @@ import com.tool.bluetooth.detector.core.BluetoothScannerHandler;
  */
 public class BluetoothDetector implements BluetoothDetectorHandler {
 
-    private BluetoothScannerHandler bluetoothScanner;
+    private BluetoothScanner bluetoothScanner;
 
     private final static class HolderClass {
         private final static BluetoothDetectorHandler INSTANCE = new BluetoothDetector();
@@ -25,17 +28,20 @@ public class BluetoothDetector implements BluetoothDetectorHandler {
     }
 
     @Override
+    @RequiresPermission(allOf = {Manifest.permission.BLUETOOTH_ADMIN, Manifest.permission.BLUETOOTH})
     public void startScan(BluetoothDetectorCallBack callBack) {
-        bluetoothScanner.startScan(callBack);
+        bluetoothScanner.startScanInternal(null, callBack);
     }
 
     @Override
+    @RequiresPermission(allOf = {Manifest.permission.BLUETOOTH_ADMIN, Manifest.permission.BLUETOOTH})
     public void startScan(BluetoothFilter configuration, BluetoothDetectorCallBack callBack) {
-        bluetoothScanner.startScan(configuration, callBack);
+        bluetoothScanner.startScanInternal(configuration, callBack);
     }
 
     @Override
+    @RequiresPermission(allOf = {Manifest.permission.BLUETOOTH_ADMIN, Manifest.permission.BLUETOOTH})
     public void stopScan(BluetoothDetectorCallBack callBack) {
-        bluetoothScanner.stopScan(callBack);
+        bluetoothScanner.stopScanInternal(callBack);
     }
 }

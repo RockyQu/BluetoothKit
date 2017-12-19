@@ -6,13 +6,12 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.le.BluetoothLeScanner;
 import android.bluetooth.le.ScanCallback;
 import android.bluetooth.le.ScanResult;
-import android.content.Context;
 import android.os.Build;
 import android.support.annotation.RequiresPermission;
 import android.util.Log;
 
 import com.tool.bluetooth.detector.BluetoothDetectorCallBack;
-import com.tool.bluetooth.detector.BluetoothDetectorHandler;
+import com.tool.bluetooth.detector.config.BluetoothFilter;
 import com.tool.bluetooth.detector.core.BluetoothScanner;
 
 import java.util.List;
@@ -33,7 +32,7 @@ public class BluetoothLollipop extends BluetoothScanner {
 
     @Override
     @RequiresPermission(allOf = {Manifest.permission.BLUETOOTH_ADMIN, Manifest.permission.BLUETOOTH})
-    public void startScanInternal(BluetoothDetectorCallBack callBack) {
+    public void startScanInternal(BluetoothFilter filter, BluetoothDetectorCallBack callBack) {
         this.callBack = callBack;
         BluetoothLeScanner bluetoothLeScanner = bluetoothAdapter.getBluetoothLeScanner();
         if (bluetoothLeScanner != null) {
