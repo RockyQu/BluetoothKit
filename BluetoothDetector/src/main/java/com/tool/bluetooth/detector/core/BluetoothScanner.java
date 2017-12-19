@@ -38,7 +38,7 @@ public abstract class BluetoothScanner implements BluetoothScannerHandler {
 
     @Override
     public void startScan(BluetoothFilter filter, BluetoothDetectorCallBack callBack) {
-
+        startScanInternal(callBack);
     }
 
     @Override
@@ -48,7 +48,7 @@ public abstract class BluetoothScanner implements BluetoothScannerHandler {
 
     @Override
     public void requestCheckEach(Context context, BluetoothDetectorHandler.CheckResponse response) {
-
+        response.onCheckSuccess();
     }
 
     public abstract void startScanInternal(BluetoothDetectorCallBack callBack);

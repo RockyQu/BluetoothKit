@@ -38,6 +38,8 @@ public class BluetoothJellyBean extends BluetoothScanner implements BluetoothAda
     @Override
     public void requestCheckEach(Context context, BluetoothDetectorHandler.CheckResponse response) {
         super.requestCheckEach(context, response);
+
+
     }
 
     @Override

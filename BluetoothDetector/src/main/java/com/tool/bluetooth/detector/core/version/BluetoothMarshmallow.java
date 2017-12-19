@@ -33,18 +33,20 @@ public class BluetoothMarshmallow extends BluetoothLollipop {
 
     @Override
     public void requestCheckEach(Context context, BluetoothDetectorHandler.CheckResponse response) {
-        response.onNeedPermission(BluetoothDetectorHandler.LOCATION_PERMISSIONS);
-        Log.e("abc","abc");
-//        if (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION)
-//                != PackageManager.PERMISSION_GRANTED) {
-//            if (ActivityCompat.shouldShowRequestPermissionRationale((Activity) context, Manifest.permission.ACCESS_COARSE_LOCATION)) {
-//                return;
-//            }
+        Log.e("abc", "abc");
+        if (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+            if (!ActivityCompat.shouldShowRequestPermissionRationale((Activity) context, Manifest.permission.ACCESS_COARSE_LOCATION)) {
+                response.onNeedPermission(BluetoothDetectorHandler.LOCATION_PERMISSIONS);
 //            ActivityCompat.requestPermissions((Activity)context,
 //                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION},
 //                    888);
 //            return;
-//        }
-        super.requestCheckEach(context, response);
+            } else {
+                super.requestCheckEach(context, response);
+            }
+        } else {
+            super.requestCheckEach(context, response);
+        }
     }
 }

@@ -94,10 +94,10 @@ public class ScanActivity extends Activity implements BluetoothDetectorCallBack
             @Override
             public void onCheckSuccess() {
                 Logg.e("onCheckSuccess");
-//                BluetoothFilter configuration = BluetoothFilter.builder()
-//                        .debug(true)
-//                        .build();
-//                detector.startScan(configuration, ScanActivity.this);
+                BluetoothFilter configuration = BluetoothFilter.builder()
+                        .debug(true)
+                        .build();
+                detector.startScan(configuration, ScanActivity.this);
             }
         });
 

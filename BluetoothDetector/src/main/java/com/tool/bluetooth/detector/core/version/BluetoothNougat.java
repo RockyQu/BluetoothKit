@@ -33,10 +33,8 @@ public class BluetoothNougat extends BluetoothMarshmallow {
         if (!Utils.isOpenGPS(context)) {
             Log.e("requestCheckEach", "2");
             response.onNeedPermission(BluetoothDetectorHandler.LOCATION_SERVICE);
-        }else{
-            Log.e("requestCheckEach", "3");
+        } else {
+            super.requestCheckEach(context, response);
         }
-
-        super.requestCheckEach(context, response);
     }
 }
