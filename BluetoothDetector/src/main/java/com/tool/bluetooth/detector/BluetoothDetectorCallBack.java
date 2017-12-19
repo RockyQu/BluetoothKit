@@ -3,13 +3,15 @@ package com.tool.bluetooth.detector;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 
+import com.tool.bluetooth.detector.config.BluetoothFilter;
+
 import java.util.UUID;
 
 /**
  * Callback interface used to deliver LE scan results.
  *
- * @see BluetoothAdapter#startLeScan(BluetoothAdapter.LeScanCallback)
- * @see BluetoothAdapter#startLeScan(UUID[], BluetoothAdapter.LeScanCallback)
+ * @see BluetoothDetector#startScan(BluetoothFilter, BluetoothDetectorCallBack)
+ * @see BluetoothDetector#stopScan(BluetoothDetectorCallBack)
  */
 public interface BluetoothDetectorCallBack {
 

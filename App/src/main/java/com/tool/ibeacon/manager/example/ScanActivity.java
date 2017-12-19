@@ -42,7 +42,7 @@ public class ScanActivity extends Activity implements BluetoothDetectorCallBack
 
 //        init();
 
-
+        detector = BluetoothDetector.getInstance();
         BluetoothFilter filter = BluetoothFilter.builder()
                 .debug(true)
                 .build();
