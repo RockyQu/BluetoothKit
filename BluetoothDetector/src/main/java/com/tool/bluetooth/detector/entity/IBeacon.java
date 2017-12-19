@@ -31,17 +31,17 @@ import android.util.Log;
  * ==================================================
  * 这个类表示 Android 设备检测到的单个硬件 iBeacon 设备
  * <p>
- * iBeacon由基于字段的三部分标识符来标识
+ * iBeacon由基于字段的三部分标识符组成
  * proximityUUID - 一个字符串UUID通常标识一系列信标的所有者
  * major - 一个16位整数，指示一组iBeacons
  * minor - 一个16位整数标识一个单一的iBeacon
  * <p>
- * iBeacon 发送包含这三个标识符的蓝牙低功耗（BLE）广告，以及 iBeacon 的蓝牙发射机的校准tx功率即 RSSI
+ * iBeacon 发送包里包含以上这三个标识符，以及 iBeacon 的蓝牙的信息强度 RSSI
  * <p>
- * 这个类只能从一个 BLE 包和 RSSI 测量值中被实例化。然后解析出三部分标识符以及校准的发射功率，然后使用测量的RSSI和校准的
+ * 这个类只能从一个 BLE 包和 RSSI 测量值中被实例化，然后解析出三部分标识符以及校准的发射功率，然后使用测量的RSSI和校准的
  * 发射功率做一个粗略的距离测量，并将其分组成一个更可靠的距离
  * <p>
- * iBeacon https://baike.baidu.com/item/iBeacon/13826305?fr=aladdin
+ * iBeacon <a href="https://baike.baidu.com/item/iBeacon/13826305?fr=aladdin"></a>
  * ==================================================
  */
 public class IBeacon implements Parcelable {

@@ -7,9 +7,11 @@ import com.tool.bluetooth.detector.config.BluetoothFilter;
 import com.tool.bluetooth.detector.core.BluetoothScanner;
 
 /**
+ * ==================================================
  * Android Bluetooth 4.0 Development Kit
  *
  * @see <a href="https://github.com/DesignQu/BluetoothKit"></a>
+ * ==================================================
  */
 public class BluetoothDetector implements BluetoothDetectorHandler {
 
