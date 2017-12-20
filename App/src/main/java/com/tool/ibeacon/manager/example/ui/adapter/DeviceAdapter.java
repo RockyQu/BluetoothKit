@@ -1,4 +1,4 @@
-package com.tool.ibeacon.manager.example;
+package com.tool.ibeacon.manager.example.ui.adapter;
 
 import android.bluetooth.BluetoothDevice;
 import android.content.Context;
@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.tool.bluetooth.detector.utils.DateUtil;
 import com.tool.bluetooth.detector.entity.BeaconDevice;
+import com.tool.ibeacon.manager.example.R;
 
 import java.util.Collections;
 import java.util.Comparator;

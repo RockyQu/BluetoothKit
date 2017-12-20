@@ -74,8 +74,8 @@ android {
     // 多渠道打包
     productFlavors {
         // 默认渠道
-        Bluetooth {
-            manifestPlaceholders = [Channel: "Bluetooth"]
+        BluetoothKit {
+            manifestPlaceholders = [Channel: "BluetoothKit"]
 //            signingConfig signingConfigs.release
         }
     }
