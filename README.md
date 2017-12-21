@@ -1,5 +1,5 @@
 # BluetoothKit 
-Android Bluetooth 4.0 Development Kit
+Android 蓝牙4.0 开发框架，目前是一个雏形版，后面会根据项目需求不断完善
 
 [![](https://img.shields.io/badge/GitHub%20Pages-HOME-red.svg)](https://designqu.github.io/)
 [![Build Status](https://travis-ci.org/DesignQu/Logg.svg?branch=master)](https://travis-ci.org/DesignQu/Logg)
@@ -12,23 +12,15 @@ Android Bluetooth 4.0 Development Kit
 [中文介绍](https://github.com/DesignQu/BluetoothKit/wiki)   
 
 ## Features  
-* Support for all basic data types, arrays、Map、List、Bundle、Intent、Reference、Throwable、Collection  
-* Support Json, XML formatting  
-* Not dependent on any third-party framework, pure native  
-* Custom parsers that implement the Parser interface override method to add custom parsers when the input type does not meet requirements or can not be parsed   
-* Support for adding interceptors, add interceptors it will be in the final printout before interception, log information can be reconstructed  
-* Support for adding a global callback, without affecting the underlying output, all messages will be callback to the global interface, where you can save the information you need to various levels of type
+- [x]统一解决Android蓝牙通信过程中的兼容性问题
 
-## warning
-
-
-## Screenshots
+## Warning
 
 
 ## Download
 Gradle:
 ```
-
+compile 'android.bluetooth.frame:BluetoothDetector:0.1.0'
 ```
 
 ## History
