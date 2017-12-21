@@ -76,27 +76,24 @@ public class MainActivity extends Activity implements BluetoothDetectorCallBack 
             return false;
         }
 
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {// Android 6.0 以上版本，需要申请地理位置权限
-//            Logg.e("Android 6.0 以上版本，需要申请地理位置权限");
-//            PermissionUtils.location(new PermissionUtils.RequestPermission() {
-//
-//                @Override
-//                public void onRequestPermissionSuccess() {
-//                    Logg.e("onRequestPermissionSuccess");
-//                    // 开启扫描
-//                    startScan();
-//                }
-//
-//                @Override
-//                public void onRequestPermissionFailure() {
-//                    // 如果失败跳到到应用设置页面
-//                    BluetoothUtils.openPermissionsSetting(MainActivity.this, BluetoothUtils.REQUEST_CODE_PERMISSIONS);
-//                }
-//            }, new RxPermissions(this));
-//        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {// Android 6.0 以上版本，需要申请地理位置权限
+            Logg.e("Android 6.0 以上版本，需要申请地理位置权限");
+            PermissionUtils.location(new PermissionUtils.RequestPermission() {
 
-        // 开启扫描
-        startScan();
+                @Override
+                public void onRequestPermissionSuccess() {
+                    Logg.e("onRequestPermissionSuccess");
+                    // 开启扫描
+                    startScan();
+                }
+
+                @Override
+                public void onRequestPermissionFailure() {
+                    // 如果失败跳到到应用设置页面
+                    BluetoothUtils.openPermissionsSetting(MainActivity.this, BluetoothUtils.REQUEST_CODE_PERMISSIONS);
+                }
+            }, new RxPermissions(this));
+        }
 
         return true;
     }
@@ -105,6 +102,7 @@ public class MainActivity extends Activity implements BluetoothDetectorCallBack 
      * 开启扫描
      */
     private void startScan() {
+        Logg.e("startScan");
         detector = BluetoothDetector.getInstance();
         BluetoothFilter filter = BluetoothFilter.builder()
                 .debug(true)
@@ -138,7 +136,7 @@ public class MainActivity extends Activity implements BluetoothDetectorCallBack 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         Logg.e("onActivityResult");
         switch (requestCode) {
-            case BluetoothUtils.REQUEST_CODE_BLUETOOTH:// 打开系统设置页面手动开启，resultCode = 0 为用户拒绝，resultCode = -1 为用户同意
+            case BluetoothUtils.REQUEST_CODE_BLUETOOTH:// 打开系统设置页面手动开启蓝牙，resultCode = 0 为用户拒绝，resultCode = -1 为用户同意
                 if (resultCode == -1) {// 用户点击了同意
                     // 检查蓝牙权限处理
                     this.bluetoothScanCheck();
