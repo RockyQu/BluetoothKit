@@ -151,6 +151,7 @@ dependencies {
     compile rootProject.ext.dependencies["multidex"]
 
     compile project(':BluetoothDetector')
+//    compile 'android.bluetooth.frame:BluetoothDetector:0.1.0'
 
     compile 'android.frame:MVPFrames:1.4.54'
 }

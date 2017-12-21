@@ -1,30 +1,22 @@
 package com.tool.ibeacon.manager.example.ui;
 
 import android.app.Activity;
-import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.ListView;
 
 import com.logg.Logg;
-import com.logg.config.LoggConfiguration;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.tool.bluetooth.detector.BluetoothDetectorCallBack;
 import com.tool.bluetooth.detector.BluetoothDetector;
 import com.tool.bluetooth.detector.BluetoothDetectorHandler;
 import com.tool.bluetooth.detector.config.BluetoothFilter;
 import com.tool.bluetooth.detector.entity.BeaconDevice;
-import com.tool.bluetooth.detector.receiver.BluetoothReceiver;
 import com.tool.bluetooth.detector.utils.BluetoothUtils;
-import com.tool.common.utils.AppUtils;
-import com.tool.common.utils.DeviceUtils;
 import com.tool.common.utils.PermissionUtils;
 import com.tool.common.widget.Toaster;
-import com.tool.ibeacon.manager.example.BuildConfig;
 import com.tool.ibeacon.manager.example.ui.adapter.DeviceAdapter;
 import com.tool.ibeacon.manager.example.R;
 
@@ -42,13 +34,14 @@ public class MainActivity extends Activity implements BluetoothDetectorCallBack 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_scan);
+        setContentView(R.layout.activity_main);
 
         ListView deviceListView = (ListView) findViewById(R.id.list);
         mDeviceAdapter = new DeviceAdapter(this, R.layout.listitem_device,
                 new ArrayList<BeaconDevice>());
         deviceListView.setAdapter(mDeviceAdapter);
 
+        Logg.e("onCreate");
         // 检查蓝牙权限处理
         this.bluetoothScanCheck();
     }
@@ -72,6 +65,7 @@ public class MainActivity extends Activity implements BluetoothDetectorCallBack 
 
         if (!BluetoothUtils.isOpenGPS(this)) {// 启动 GPS 定位服务
             Logg.e("启动 GPS 定位服务");
+            showMessage("请开启 GPS 定位服务");
             BluetoothUtils.openGps(this, BluetoothUtils.REQUEST_CODE_GPS);
             return false;
         }
@@ -89,6 +83,7 @@ public class MainActivity extends Activity implements BluetoothDetectorCallBack 
 
                 @Override
                 public void onRequestPermissionFailure() {
+                    showMessage("请开启地理位置权限");
                     // 如果失败跳到到应用设置页面
                     BluetoothUtils.openPermissionsSetting(MainActivity.this, BluetoothUtils.REQUEST_CODE_PERMISSIONS);
                 }
@@ -114,7 +109,9 @@ public class MainActivity extends Activity implements BluetoothDetectorCallBack 
      * 停止扫描
      */
     private void stopScan() {
-        detector.stopScan(this);
+        if (detector != null) {
+            detector.stopScan(this);
+        }
     }
 
     @Override
@@ -134,7 +131,6 @@ public class MainActivity extends Activity implements BluetoothDetectorCallBack 
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Logg.e("onActivityResult");
         switch (requestCode) {
             case BluetoothUtils.REQUEST_CODE_BLUETOOTH:// 打开系统设置页面手动开启蓝牙，resultCode = 0 为用户拒绝，resultCode = -1 为用户同意
                 if (resultCode == -1) {// 用户点击了同意
@@ -146,12 +142,16 @@ public class MainActivity extends Activity implements BluetoothDetectorCallBack 
                 break;
             case BluetoothUtils.REQUEST_CODE_GPS:// 打开系统 GPS 设置页面手动开启 GPS
                 Logg.e("resultCode:" + resultCode);
-                // 检查蓝牙权限处理
-//                this.bluetoothScanCheck();
+                if (resultCode == 0) {
+                    // 检查蓝牙权限处理
+                    this.bluetoothScanCheck();
+                }
                 break;
             case BluetoothUtils.REQUEST_CODE_PERMISSIONS:// 系统权限设置页面
                 Logg.e("resultCode:" + resultCode);
                 Logg.e(data);
+                // 检查蓝牙权限处理
+                this.bluetoothScanCheck();
                 break;
             default:
                 break;

@@ -43,7 +43,6 @@ public class BluetoothUtils {
      */
     public static void openGps(Activity activity, int requestCode) {
         Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         activity.startActivityForResult(intent, requestCode);
     }
 
@@ -104,7 +103,6 @@ public class BluetoothUtils {
      */
     public static void openPermissionsSetting(Activity activity, int requestCode) {
         Intent intent = new Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:" + activity.getPackageName()));
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         activity.startActivityForResult(intent, requestCode);
     }
 
