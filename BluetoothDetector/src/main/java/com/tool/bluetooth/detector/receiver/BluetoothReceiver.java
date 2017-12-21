@@ -7,6 +7,12 @@ import android.content.Intent;
 
 /**
  * 监听蓝牙状态接收器
+ * <p>
+ * {@code
+ * IntentFilter intentFilter = new IntentFilter();
+ * intentFilter.addAction(BluetoothAdapter.ACTION_STATE_CHANGED);
+ * registerReceiver(new BluetoothReceiver(), intentFilter);
+ * }
  */
 public class BluetoothReceiver extends BroadcastReceiver {
 

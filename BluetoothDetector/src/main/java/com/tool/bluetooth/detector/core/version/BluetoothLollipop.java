@@ -20,7 +20,7 @@ import java.util.List;
  * Android 5.0 Lollipop
  */
 @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-public class BluetoothLollipop extends BluetoothScanner {
+public class BluetoothLollipop extends BluetoothJellyBean {
 
     private BluetoothAdapter bluetoothAdapter;
 
@@ -30,25 +30,28 @@ public class BluetoothLollipop extends BluetoothScanner {
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
     }
 
-    @Override
-    @RequiresPermission(allOf = {Manifest.permission.BLUETOOTH_ADMIN, Manifest.permission.BLUETOOTH})
-    public void startScanInternal(BluetoothFilter filter, BluetoothDetectorCallBack callBack) {
-        this.callBack = callBack;
-        BluetoothLeScanner bluetoothLeScanner = bluetoothAdapter.getBluetoothLeScanner();
-        if (bluetoothLeScanner != null) {
-            bluetoothLeScanner.startScan(new ScannerCallback());
-        }
-    }
-
-    @Override
-    public void stopScanInternal(BluetoothDetectorCallBack callBack) {
-
-    }
+//    @Override
+//    @RequiresPermission(allOf = {Manifest.permission.BLUETOOTH_ADMIN, Manifest.permission.BLUETOOTH})
+//    public void startScanInternal(BluetoothFilter filter, BluetoothDetectorCallBack callBack) {
+//        Log.e("aaaa","bbb");
+//        this.callBack = callBack;
+//        BluetoothLeScanner bluetoothLeScanner = bluetoothAdapter.getBluetoothLeScanner();
+//        if (bluetoothLeScanner != null) {
+//            Log.e("aaaa","cccc");
+//            bluetoothLeScanner.startScan(new ScannerCallback());
+//        }
+//    }
+//
+//    @Override
+//    public void stopScanInternal(BluetoothDetectorCallBack callBack) {
+//
+//    }
 
     private class ScannerCallback extends ScanCallback {
 
         @Override
         public void onScanResult(int callbackType, ScanResult result) {
+            Log.e("aaaa","dddd");
             if (callBack != null) {
                 callBack.onScan(result.getDevice(), result.getRssi(), result.getScanRecord() != null ? result.getScanRecord().getBytes() : null);
             }

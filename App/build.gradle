@@ -139,8 +139,16 @@ repositories {
 }
 
 dependencies {
-    // 本地库依赖，包含app/libs目录下的所有jar文件。因此当module想引用某个jar时，只需将jar拷贝到<moduleName>/libs
     compile fileTree(dir: 'libs', include: ['*.jar'])
+
+    // Tools
+    annotationProcessor(rootProject.ext.dependencies["butterknife-compiler"]) {
+        exclude module: 'support-annotations'
+        exclude module: 'butterknife-annotations'
+    }
+    provided rootProject.ext.dependencies["javax.annotation"]
+    annotationProcessor rootProject.ext.dependencies["dagger2-compiler"]
+    compile rootProject.ext.dependencies["multidex"]
 
     compile project(':BluetoothDetector')
 
