@@ -12,7 +12,7 @@ Android 蓝牙4.0 开发框架，目前是一个雏形版，后面会根据项�
 [中文介绍](https://github.com/DesignQu/BluetoothKit/wiki)   
 
 ## Features  
-- [x]统一解决Android蓝牙通信过程中的兼容性问题
+- [x] 统一解决Android蓝牙通信过程中的兼容性问题
 
 ## Warning
 
