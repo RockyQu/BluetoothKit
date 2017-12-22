@@ -14,7 +14,6 @@ public class BluetoothUtils {
 
     public static final int REQUEST_CODE_GPS = 52;
     public static final int REQUEST_CODE_BLUETOOTH = 53;
-    public static final int REQUEST_CODE_PERMISSIONS = 54;
 
     /**
      * 判断是否启动 GPS 定位服务
@@ -99,11 +98,10 @@ public class BluetoothUtils {
      * 打开系统权限设备页面
      *
      * @param activity
-     * @param requestCode 请传入 {@link BluetoothUtils#REQUEST_CODE_PERMISSIONS} 常量
      */
-    public static void openPermissionsSetting(Activity activity, int requestCode) {
+    public static void openPermissionsSetting(Activity activity) {
         Intent intent = new Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:" + activity.getPackageName()));
-        activity.startActivityForResult(intent, requestCode);
+        activity.startActivity(intent);
     }
 
 }

@@ -85,7 +85,7 @@ public class MainActivity extends Activity implements BluetoothDetectorCallBack 
                 public void onRequestPermissionFailure() {
                     showMessage("请开启地理位置权限");
                     // 如果失败跳到到应用设置页面
-                    BluetoothUtils.openPermissionsSetting(MainActivity.this, BluetoothUtils.REQUEST_CODE_PERMISSIONS);
+                    BluetoothUtils.openPermissionsSetting(MainActivity.this);
                 }
             }, new RxPermissions(this));
         }
@@ -134,24 +134,15 @@ public class MainActivity extends Activity implements BluetoothDetectorCallBack 
         switch (requestCode) {
             case BluetoothUtils.REQUEST_CODE_BLUETOOTH:// 打开系统设置页面手动开启蓝牙，resultCode = 0 为用户拒绝，resultCode = -1 为用户同意
                 if (resultCode == -1) {// 用户点击了同意
-                    // 检查蓝牙权限处理
                     this.bluetoothScanCheck();
                 } else {// 弹出系统 GPS 选择对话框时，用户点击了拒绝
                     showMessage("请转到设置页面开启蓝牙，否则无法使用此功能");
                 }
                 break;
             case BluetoothUtils.REQUEST_CODE_GPS:// 打开系统 GPS 设置页面手动开启 GPS
-                Logg.e("resultCode:" + resultCode);
                 if (resultCode == 0) {
-                    // 检查蓝牙权限处理
                     this.bluetoothScanCheck();
                 }
-                break;
-            case BluetoothUtils.REQUEST_CODE_PERMISSIONS:// 系统权限设置页面
-                Logg.e("resultCode:" + resultCode);
-                Logg.e(data);
-                // 检查蓝牙权限处理
-                this.bluetoothScanCheck();
                 break;
             default:
                 break;

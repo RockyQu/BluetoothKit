@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.tool.bluetooth.detector.utils.DateUtil;
 import com.tool.bluetooth.detector.entity.BeaconDevice;
+import com.tool.common.utils.TimeUtils;
 import com.tool.ibeacon.manager.example.R;
 
 import java.util.Collections;
@@ -48,7 +49,7 @@ public class DeviceAdapter extends ArrayAdapter<BeaconDevice> {
         TextView rssi = (TextView) convertView.findViewById(R.id.device_rssi);
         rssi.setText(PREFIX_RSSI + Integer.toString(item.getRssi()));
         TextView lastupdated = (TextView) convertView.findViewById(R.id.device_lastupdated);
-        lastupdated.setText(PREFIX_LASTUPDATED + DateUtil.get_yyyyMMddHHmmssSSS(item.getLastUpdatedTimeMillis()));
+        lastupdated.setText(PREFIX_LASTUPDATED + TimeUtils.getTime(item.getLastUpdatedTimeMillis()));
 
         TextView ibeaconInfo = (TextView) convertView.findViewById(R.id.device_ibeacon_info);
         Resources res = convertView.getContext().getResources();
