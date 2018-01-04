@@ -26,13 +26,7 @@ public class BluetoothDetector implements BluetoothDetectorHandler {
     }
 
     private BluetoothDetector() {
-        bluetoothScanner = BluetoothScanner.getBluetoothScanner();
-    }
-
-    @Override
-    @RequiresPermission(allOf = {Manifest.permission.BLUETOOTH_ADMIN, Manifest.permission.BLUETOOTH})
-    public void startScan(BluetoothDetectorCallBack callBack) {
-        bluetoothScanner.startScanInternal(null, callBack);
+        bluetoothScanner = BluetoothScanner.newInstance();
     }
 
     @Override

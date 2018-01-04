@@ -23,12 +23,14 @@ public class BluetoothJellyBean extends BluetoothScanner implements BluetoothAda
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public void startScanInternal(BluetoothFilter filter, BluetoothDetectorCallBack callBack) {
         this.callBack = callBack;
         bluetoothAdapter.startLeScan(this);
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public void stopScanInternal(BluetoothDetectorCallBack callBack) {
         bluetoothAdapter.stopLeScan(this);

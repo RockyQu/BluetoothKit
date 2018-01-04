@@ -22,19 +22,19 @@ import java.util.List;
 @TargetApi(Build.VERSION_CODES.LOLLIPOP)
 public class BluetoothLollipop extends BluetoothJellyBean {
 
-    private BluetoothAdapter bluetoothAdapter;
+    private static final String TAG = BluetoothLollipop.class.getSimpleName();
 
+    private BluetoothLeScanner bluetoothLeScanner;
     private BluetoothDetectorCallBack callBack;
 
     public BluetoothLollipop() {
-        bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        bluetoothLeScanner = BluetoothAdapter.getDefaultAdapter().getBluetoothLeScanner();
     }
 
     @Override
     @RequiresPermission(allOf = {Manifest.permission.BLUETOOTH_ADMIN, Manifest.permission.BLUETOOTH})
     public void startScanInternal(BluetoothFilter filter, BluetoothDetectorCallBack callBack) {
         this.callBack = callBack;
-        BluetoothLeScanner bluetoothLeScanner = bluetoothAdapter.getBluetoothLeScanner();
         if (bluetoothLeScanner != null) {
             bluetoothLeScanner.startScan(new ScannerCallback());
         }
@@ -42,7 +42,10 @@ public class BluetoothLollipop extends BluetoothJellyBean {
 
     @Override
     public void stopScanInternal(BluetoothDetectorCallBack callBack) {
-
+        this.callBack = callBack;
+        if (bluetoothLeScanner != null) {
+            bluetoothLeScanner.stopScan(new ScannerCallback());
+        }
     }
 
     private class ScannerCallback extends ScanCallback {
@@ -56,12 +59,12 @@ public class BluetoothLollipop extends BluetoothJellyBean {
 
         @Override
         public void onBatchScanResults(List<ScanResult> results) {
-            Log.e("onBatchScanResults", "onBatchScanResults");
+            Log.e(TAG, "onBatchScanResults");
         }
 
         @Override
         public void onScanFailed(int errorCode) {
-            Log.e("onScanFailed", "" + errorCode);
+            Log.e(TAG, "" + errorCode);
         }
     }
 }

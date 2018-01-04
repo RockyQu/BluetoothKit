@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.tool.bluetooth.detector.utils.DateUtil;
 import com.tool.bluetooth.detector.entity.BeaconDevice;
 import com.tool.common.utils.TimeUtils;
 import com.tool.ibeacon.manager.example.R;

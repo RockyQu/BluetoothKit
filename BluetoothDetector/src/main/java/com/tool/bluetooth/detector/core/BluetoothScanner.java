@@ -23,11 +23,7 @@ public abstract class BluetoothScanner {
      * @see BluetoothLollipop
      * @see BluetoothJellyBean
      */
-    public static BluetoothScanner getBluetoothScanner() {
-        if (bluetoothScanner != null) {
-            return bluetoothScanner;
-        }
-
+    public static BluetoothScanner newInstance() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {// Android 7.0 Nougat
             return bluetoothScanner = new BluetoothNougat();
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {// Android 6.0 Marshmallow
