@@ -16,7 +16,6 @@ import com.tool.bluetooth.detector.core.BluetoothScanner;
 public class BluetoothJellyBean extends BluetoothScanner implements BluetoothAdapter.LeScanCallback {
 
     private BluetoothAdapter bluetoothAdapter;
-
     private BluetoothDetectorCallBack callBack;
 
     public BluetoothJellyBean() {
@@ -26,14 +25,27 @@ public class BluetoothJellyBean extends BluetoothScanner implements BluetoothAda
     @SuppressWarnings("deprecation")
     @Override
     public void startScanInternal(BluetoothFilter filter, BluetoothDetectorCallBack callBack) {
-        this.callBack = callBack;
-        bluetoothAdapter.startLeScan(this);
+        if(!isScanning){
+            this.callBack = callBack;
+            bluetoothAdapter.startLeScan(this);
+
+            isScanning = true;
+        }
     }
 
     @SuppressWarnings("deprecation")
     @Override
-    public void stopScanInternal(BluetoothDetectorCallBack callBack) {
-        bluetoothAdapter.stopLeScan(this);
+    public void stopScanInternal() {
+        if(isScanning){
+            bluetoothAdapter.stopLeScan(this);
+
+            isScanning = false;
+        }
+    }
+
+    @Override
+    public boolean isScanning() {
+        return isScanning;
     }
 
     @Override

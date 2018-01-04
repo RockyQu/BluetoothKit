@@ -25,7 +25,7 @@ public class BluetoothLollipop extends BluetoothJellyBean {
     private static final String TAG = BluetoothLollipop.class.getSimpleName();
 
     private BluetoothLeScanner bluetoothLeScanner;
-    private BluetoothDetectorCallBack callBack;
+    private ScanCallback scanCallback;
 
     public BluetoothLollipop() {
         bluetoothLeScanner = BluetoothAdapter.getDefaultAdapter().getBluetoothLeScanner();
@@ -34,21 +34,30 @@ public class BluetoothLollipop extends BluetoothJellyBean {
     @Override
     @RequiresPermission(allOf = {Manifest.permission.BLUETOOTH_ADMIN, Manifest.permission.BLUETOOTH})
     public void startScanInternal(BluetoothFilter filter, BluetoothDetectorCallBack callBack) {
-        this.callBack = callBack;
-        if (bluetoothLeScanner != null) {
-            bluetoothLeScanner.startScan(new ScannerCallback());
+        if(!isScanning){
+            scanCallback = new ScannerCallback(callBack);
+            bluetoothLeScanner.startScan(scanCallback);
+
+            isScanning = true;
         }
     }
 
     @Override
-    public void stopScanInternal(BluetoothDetectorCallBack callBack) {
-        this.callBack = callBack;
-        if (bluetoothLeScanner != null) {
-            bluetoothLeScanner.stopScan(new ScannerCallback());
+    public void stopScanInternal() {
+        if(isScanning){
+            bluetoothLeScanner.stopScan(scanCallback);
+
+            isScanning = false;
         }
     }
 
     private class ScannerCallback extends ScanCallback {
+
+        private BluetoothDetectorCallBack callBack;
+
+        public ScannerCallback(BluetoothDetectorCallBack callBack) {
+            this.callBack = callBack;
+        }
 
         @Override
         public void onScanResult(int callbackType, ScanResult result) {

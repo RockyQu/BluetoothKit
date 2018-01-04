@@ -15,6 +15,7 @@ import com.tool.bluetooth.detector.BluetoothDetectorHandler;
 import com.tool.bluetooth.detector.config.BluetoothFilter;
 import com.tool.bluetooth.detector.entity.BeaconDevice;
 import com.tool.bluetooth.detector.utils.BluetoothUtils;
+import com.tool.bluetooth.detector.utils.timer.TimerManager;
 import com.tool.common.utils.PermissionUtils;
 import com.tool.common.widget.Toaster;
 import com.tool.ibeacon.manager.example.ui.adapter.DeviceAdapter;
@@ -44,6 +45,13 @@ public class MainActivity extends Activity implements BluetoothDetectorCallBack 
         Logg.e("onCreate");
         // 检查蓝牙权限处理
         this.bluetoothScanCheck();
+
+        TimerManager.get().schedule(5000).setListener(new TimerManager.TimerListener() {
+            @Override
+            public void run() {
+                Logg.e("run");
+            }
+        });
     }
 
     /**
@@ -110,7 +118,7 @@ public class MainActivity extends Activity implements BluetoothDetectorCallBack 
      */
     private void stopScan() {
         if (detector != null) {
-            detector.stopScan(this);
+            detector.stopScan();
         }
     }
 

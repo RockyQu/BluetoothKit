@@ -20,7 +20,7 @@ public class BluetoothNougat extends BluetoothMarshmallow {
     }
 
     @Override
-    public void stopScanInternal(BluetoothDetectorCallBack callBack) {
-        super.stopScanInternal(callBack);
+    public void stopScanInternal() {
+        super.stopScanInternal();
     }
 }

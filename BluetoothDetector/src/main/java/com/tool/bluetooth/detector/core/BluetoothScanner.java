@@ -13,7 +13,7 @@ import com.tool.bluetooth.detector.core.version.BluetoothNougat;
 
 public abstract class BluetoothScanner {
 
-    private static BluetoothScanner bluetoothScanner;
+    protected boolean isScanning;
 
     /**
      * 由于各 Android 版本对蓝牙处理不同，这里做一个 Android 版本差异化处理
@@ -24,20 +24,29 @@ public abstract class BluetoothScanner {
      * @see BluetoothJellyBean
      */
     public static BluetoothScanner newInstance() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {// Android 7.0 Nougat
-            return bluetoothScanner = new BluetoothNougat();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {// Android 7.0 Nougat
+            return new BluetoothNougat();
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {// Android 6.0 Marshmallow
-            return bluetoothScanner = new BluetoothMarshmallow();
+            return new BluetoothMarshmallow();
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {// Android 5.0 Lollipop
-            return bluetoothScanner = new BluetoothLollipop();
+            return new BluetoothLollipop();
         }
 
-        return bluetoothScanner = new BluetoothJellyBean();// Android 4.3 Jelly Bean
+        return new BluetoothJellyBean();// Android 4.3 Jelly Bean
+    }
+
+    /**
+     * 重置一些相关参数
+     */
+    protected void reset(){
+
     }
 
     @RequiresPermission(allOf = {Manifest.permission.BLUETOOTH_ADMIN, Manifest.permission.BLUETOOTH})
     public abstract void startScanInternal(BluetoothFilter filter, BluetoothDetectorCallBack callBack);
 
     @RequiresPermission(allOf = {Manifest.permission.BLUETOOTH_ADMIN, Manifest.permission.BLUETOOTH})
-    public abstract void stopScanInternal(BluetoothDetectorCallBack callBack);
+    public abstract void stopScanInternal();
+
+    public abstract boolean isScanning();
 }
