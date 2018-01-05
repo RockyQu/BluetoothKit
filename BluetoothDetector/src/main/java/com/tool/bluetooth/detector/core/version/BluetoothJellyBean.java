@@ -1,9 +1,11 @@
 package com.tool.bluetooth.detector.core.version;
 
+import android.Manifest;
 import android.annotation.TargetApi;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.os.Build;
+import android.support.annotation.RequiresPermission;
 
 import com.tool.bluetooth.detector.BluetoothDetectorCallBack;
 import com.tool.bluetooth.detector.config.BluetoothFilter;
@@ -23,10 +25,11 @@ public class BluetoothJellyBean extends BluetoothScanner implements BluetoothAda
     }
 
     @SuppressWarnings("deprecation")
+    @RequiresPermission(allOf = {Manifest.permission.BLUETOOTH_ADMIN, Manifest.permission.BLUETOOTH})
     @Override
-    public void startScanInternal(BluetoothFilter filter, BluetoothDetectorCallBack callBack) {
+    public void startScanInternal() {
         if(!isScanning){
-            this.callBack = callBack;
+            this.callBack = getCallBack();
             bluetoothAdapter.startLeScan(this);
 
             isScanning = true;
@@ -34,6 +37,7 @@ public class BluetoothJellyBean extends BluetoothScanner implements BluetoothAda
     }
 
     @SuppressWarnings("deprecation")
+    @RequiresPermission(allOf = {Manifest.permission.BLUETOOTH_ADMIN, Manifest.permission.BLUETOOTH})
     @Override
     public void stopScanInternal() {
         if(isScanning){

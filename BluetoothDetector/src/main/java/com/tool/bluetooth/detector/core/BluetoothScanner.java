@@ -1,8 +1,6 @@
 package com.tool.bluetooth.detector.core;
 
-import android.Manifest;
 import android.os.Build;
-import android.support.annotation.RequiresPermission;
 
 import com.tool.bluetooth.detector.BluetoothDetectorCallBack;
 import com.tool.bluetooth.detector.config.BluetoothFilter;
@@ -11,7 +9,12 @@ import com.tool.bluetooth.detector.core.version.BluetoothLollipop;
 import com.tool.bluetooth.detector.core.version.BluetoothMarshmallow;
 import com.tool.bluetooth.detector.core.version.BluetoothNougat;
 
-public abstract class BluetoothScanner {
+public abstract class BluetoothScanner{
+
+    private static final String TAG = BluetoothScanner.class.getSimpleName();
+
+    private BluetoothFilter filter;
+    private BluetoothDetectorCallBack callBack;
 
     protected boolean isScanning;
 
@@ -35,17 +38,24 @@ public abstract class BluetoothScanner {
         return new BluetoothJellyBean();// Android 4.3 Jelly Bean
     }
 
-    /**
-     * 重置一些相关参数
-     */
-    protected void reset(){
-
+    public BluetoothFilter getFilter() {
+        return filter;
     }
 
-    @RequiresPermission(allOf = {Manifest.permission.BLUETOOTH_ADMIN, Manifest.permission.BLUETOOTH})
-    public abstract void startScanInternal(BluetoothFilter filter, BluetoothDetectorCallBack callBack);
+    public void setFilter(BluetoothFilter filter) {
+        this.filter = filter;
+    }
 
-    @RequiresPermission(allOf = {Manifest.permission.BLUETOOTH_ADMIN, Manifest.permission.BLUETOOTH})
+    public BluetoothDetectorCallBack getCallBack() {
+        return callBack;
+    }
+
+    public void setCallBack(BluetoothDetectorCallBack callBack) {
+        this.callBack = callBack;
+    }
+
+    public abstract void startScanInternal();
+
     public abstract void stopScanInternal();
 
     public abstract boolean isScanning();

@@ -32,7 +32,9 @@ public class BluetoothDetector implements BluetoothDetectorHandler {
     @Override
     @RequiresPermission(allOf = {Manifest.permission.BLUETOOTH_ADMIN, Manifest.permission.BLUETOOTH})
     public void startScan(BluetoothFilter filter, BluetoothDetectorCallBack callBack) {
-        bluetoothScanner.startScanInternal(filter, callBack);
+        bluetoothScanner.setFilter(filter);
+        bluetoothScanner.setCallBack(callBack);
+        bluetoothScanner.startScanInternal();
     }
 
     @Override

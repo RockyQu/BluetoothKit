@@ -1,10 +1,12 @@
 package com.tool.ibeacon.manager.example.ui;
 
 import android.app.Activity;
+import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ListView;
 
 import com.logg.Logg;
@@ -21,6 +23,7 @@ import com.tool.common.widget.Toaster;
 import com.tool.ibeacon.manager.example.ui.adapter.DeviceAdapter;
 import com.tool.ibeacon.manager.example.R;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 
 /**
@@ -45,18 +48,6 @@ public class MainActivity extends Activity implements BluetoothDetectorCallBack 
         Logg.e("onCreate");
         // 检查蓝牙权限处理
         this.bluetoothScanCheck();
-
-        TimerManager.getInstance().scheduleAtFrequency(3).setListener(new TimerManager.TimerListener() {
-            @Override
-            public void progress(long total, long progress) {
-                Logg.e("run " + total + " progress " + progress);
-            }
-
-            @Override
-            public void complete() {
-                Logg.e("complete");
-            }
-        });
     }
 
     /**

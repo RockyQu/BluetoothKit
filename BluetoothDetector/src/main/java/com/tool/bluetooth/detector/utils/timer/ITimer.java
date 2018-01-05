@@ -4,6 +4,8 @@ public interface ITimer {
 
     /**
      * 开始执行定时任务
+     * <p>
+     * 默认扫描总时间 = {@link TimerManager#PERIOD} * {@link TimerManager#FREQUENCY} = 10 分钟
      */
     ITimer schedule();
 

@@ -15,8 +15,8 @@ import com.tool.bluetooth.detector.config.BluetoothFilter;
 public class BluetoothMarshmallow extends BluetoothLollipop {
 
     @Override
-    public void startScanInternal(BluetoothFilter filter, BluetoothDetectorCallBack callBack) {
-        super.startScanInternal(filter, callBack);
+    public void startScanInternal() {
+        super.startScanInternal();
     }
 
     @Override

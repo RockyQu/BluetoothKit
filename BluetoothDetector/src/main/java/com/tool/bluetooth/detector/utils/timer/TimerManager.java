@@ -6,17 +6,20 @@ import java.util.TimerTask;
 /**
  * 定时器
  */
-public class TimerManager extends TimerTask implements ITimer {
+public class TimerManager implements ITimer {
 
-    // 初次启动延迟时间 默认 1 秒
-    private static final long DELAY = 1000;
-    // 循环间隔时间 默认 30 秒
-    private static final long PERIOD = 30 * 1000;
+    private static final String TAG = TimerManager.class.getSimpleName();
+
+    // 初次启动延迟时间 默认 60 秒
+    private static final long DELAY = 60 * 1000;
+    // 循环间隔时间 默认 60 秒
+    private static final long PERIOD = 60 * 1000;
     // 循环次数 默认 10 次
     private static final int FREQUENCY = 10;
 
     private long currentPeriod = TimerManager.PERIOD;
     private int currentFrequency = TimerManager.FREQUENCY;
+    private int frequency;
 
     private long total;
 
@@ -59,6 +62,7 @@ public class TimerManager extends TimerTask implements ITimer {
     public ITimer schedule(long delay, long period, int frequency) {
         this.currentPeriod = period;
         this.currentFrequency = frequency;
+        this.frequency = frequency;
 
         total = period * frequency;
 
@@ -68,7 +72,22 @@ public class TimerManager extends TimerTask implements ITimer {
             timer.purge();
         }
 
-        timer.schedule(this, delay, period);
+        timer.schedule(new TimerTask() {
+
+            @Override
+            public void run() {
+                if (currentFrequency <= 0) {
+                    reset();
+                    return;
+                }
+
+                currentFrequency--;
+
+                if (listener != null) {
+                    listener.progress(total, currentPeriod * currentFrequency);
+                }
+            }
+        }, delay, period);
 
         return this;
     }
@@ -79,6 +98,10 @@ public class TimerManager extends TimerTask implements ITimer {
             timer.cancel();
             timer = null;
         }
+
+        if (listener != null) {
+            listener.complete(frequency);
+        }
     }
 
     @Override
@@ -87,28 +110,10 @@ public class TimerManager extends TimerTask implements ITimer {
         return this;
     }
 
-    @Override
-    public void run() {
-        if (currentFrequency <= 0) {
-            reset();
-
-            if (listener != null) {
-                listener.complete();
-            }
-            return;
-        }
-
-        currentFrequency--;
-
-        if (listener != null) {
-            listener.progress(total, currentPeriod * currentFrequency);
-        }
-    }
-
     public interface TimerListener {
 
         void progress(long total, long progress);
 
-        void complete();
+        void complete(int frequency);
     }
 }
