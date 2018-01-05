@@ -8,8 +8,17 @@ import java.util.TimerTask;
  */
 public class TimerManager extends TimerTask implements ITimer {
 
-    private static final long DELAY = 1;
+    // 初次启动延迟时间 默认 1 秒
+    private static final long DELAY = 1000;
+    // 循环间隔时间 默认 30 秒
     private static final long PERIOD = 30 * 1000;
+    // 循环次数 默认 10 次
+    private static final int FREQUENCY = 10;
+
+    private long currentPeriod = TimerManager.PERIOD;
+    private int currentFrequency = TimerManager.FREQUENCY;
+
+    private long total;
 
     private Timer timer = null;
     private TimerListener listener = null;
@@ -18,7 +27,7 @@ public class TimerManager extends TimerTask implements ITimer {
         private final static ITimer INSTANCE = new TimerManager();
     }
 
-    public static ITimer get() {
+    public static ITimer getInstance() {
         return TimerManager.HolderClass.INSTANCE;
     }
 
@@ -37,7 +46,22 @@ public class TimerManager extends TimerTask implements ITimer {
     }
 
     @Override
-    public TimerManager schedule(long delay, long period) {
+    public ITimer schedule(long delay, long period) {
+        return schedule(delay, period, TimerManager.FREQUENCY);
+    }
+
+    @Override
+    public ITimer scheduleAtFrequency(int frequency) {
+        return schedule(TimerManager.DELAY, TimerManager.PERIOD, frequency);
+    }
+
+    @Override
+    public ITimer schedule(long delay, long period, int frequency) {
+        this.currentPeriod = period;
+        this.currentFrequency = frequency;
+
+        total = period * frequency;
+
         if (timer == null) {
             timer = new Timer();
         } else {
@@ -65,12 +89,26 @@ public class TimerManager extends TimerTask implements ITimer {
 
     @Override
     public void run() {
+        if (currentFrequency <= 0) {
+            reset();
+
+            if (listener != null) {
+                listener.complete();
+            }
+            return;
+        }
+
+        currentFrequency--;
+
         if (listener != null) {
-            listener.run();
+            listener.progress(total, currentPeriod * currentFrequency);
         }
     }
 
     public interface TimerListener {
-        void run();
+
+        void progress(long total, long progress);
+
+        void complete();
     }
 }

@@ -46,10 +46,15 @@ public class MainActivity extends Activity implements BluetoothDetectorCallBack 
         // 检查蓝牙权限处理
         this.bluetoothScanCheck();
 
-        TimerManager.get().schedule(5000).setListener(new TimerManager.TimerListener() {
+        TimerManager.getInstance().scheduleAtFrequency(3).setListener(new TimerManager.TimerListener() {
             @Override
-            public void run() {
-                Logg.e("run");
+            public void progress(long total, long progress) {
+                Logg.e("run " + total + " progress " + progress);
+            }
+
+            @Override
+            public void complete() {
+                Logg.e("complete");
             }
         });
     }
