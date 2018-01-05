@@ -150,6 +150,8 @@ dependencies {
     annotationProcessor rootProject.ext.dependencies["dagger2-compiler"]
     compile rootProject.ext.dependencies["multidex"]
 
+    compile rootProject.ext.dependencies["recyclerview-v7"]
+
     compile project(':BluetoothDetector')
 //    compile 'android.bluetooth.frame:BluetoothDetector:0.1.0'
 

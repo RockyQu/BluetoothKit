@@ -6,6 +6,8 @@ import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.ListView;
 
@@ -18,6 +20,8 @@ import com.tool.bluetooth.detector.config.BluetoothFilter;
 import com.tool.bluetooth.detector.entity.BeaconDevice;
 import com.tool.bluetooth.detector.utils.BluetoothUtils;
 import com.tool.bluetooth.detector.utils.timer.TimerManager;
+import com.tool.common.base.simple.base.BaseSimpleActivity;
+import com.tool.common.frame.IPresenter;
 import com.tool.common.utils.PermissionUtils;
 import com.tool.common.widget.Toaster;
 import com.tool.ibeacon.manager.example.ui.adapter.DeviceAdapter;
@@ -26,28 +30,44 @@ import com.tool.ibeacon.manager.example.R;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 
+import butterknife.BindView;
+
 /**
  * 扫描页面
  */
-public class MainActivity extends Activity implements BluetoothDetectorCallBack {
+public class MainActivity extends BaseSimpleActivity implements BluetoothDetectorCallBack {
 
     private DeviceAdapter mDeviceAdapter;
 
     private BluetoothDetectorHandler detector;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    @BindView(R.id.recycler_view)
+    RecyclerView recyclerView;
 
+    @Override
+    public void create(Bundle savedInstanceState) {
         ListView deviceListView = (ListView) findViewById(R.id.list);
         mDeviceAdapter = new DeviceAdapter(this, R.layout.listitem_device,
                 new ArrayList<BeaconDevice>());
         deviceListView.setAdapter(mDeviceAdapter);
 
+        // RecyclerView
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+//        recyclerView.setAdapter(adapter);
+
         Logg.e("onCreate");
         // 检查蓝牙权限处理
         this.bluetoothScanCheck();
+    }
+
+    @Override
+    public IPresenter obtainPresenter() {
+        return null;
+    }
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_main;
     }
 
     /**

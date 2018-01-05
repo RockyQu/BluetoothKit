@@ -21,6 +21,7 @@ import java.util.List;
  *
  */
 public class DeviceAdapter extends ArrayAdapter<BeaconDevice> {
+
     private static final String PREFIX_RSSI = "RSSI:";
     private static final String PREFIX_LASTUPDATED = "Last Udpated:";
     private List<BeaconDevice> mList;
