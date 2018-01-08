@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+
+    <!-- APP主色 -->
+    <color name="main_color">#2B93FF</color>
+    <!-- Activity背景色 -->
+    <color name="activity_background">#f0f0f0</color>
+
 </resources>

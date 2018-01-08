@@ -8,7 +8,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.widget.ListView;
 
 import com.logg.Logg;
@@ -19,7 +18,6 @@ import com.tool.bluetooth.detector.BluetoothDetectorHandler;
 import com.tool.bluetooth.detector.config.BluetoothFilter;
 import com.tool.bluetooth.detector.entity.BeaconDevice;
 import com.tool.bluetooth.detector.utils.BluetoothUtils;
-import com.tool.bluetooth.detector.utils.timer.TimerManager;
 import com.tool.common.base.simple.base.BaseSimpleActivity;
 import com.tool.common.frame.IPresenter;
 import com.tool.common.utils.PermissionUtils;
@@ -27,7 +25,6 @@ import com.tool.common.widget.Toaster;
 import com.tool.ibeacon.manager.example.ui.adapter.DeviceAdapter;
 import com.tool.ibeacon.manager.example.R;
 
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 
 import butterknife.BindView;
@@ -35,7 +32,7 @@ import butterknife.BindView;
 /**
  * 扫描页面
  */
-public class MainActivity extends BaseSimpleActivity implements BluetoothDetectorCallBack {
+public class MainActivity extends BaseSimpleActivity {
 
     private DeviceAdapter mDeviceAdapter;
 
@@ -126,7 +123,23 @@ public class MainActivity extends BaseSimpleActivity implements BluetoothDetecto
         BluetoothFilter filter = BluetoothFilter.builder()
                 .debug(true)
                 .build();
-        detector.startScan(filter, this);
+        detector.startScan(filter, new BluetoothDetectorCallBack() {
+
+            @Override
+            public void onScan(final BluetoothDevice device, final int rssi, final byte[] scanRecord) {
+                Logg.e(device.getAddress() + " " + device.getName());
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        String summary = mDeviceAdapter.update(device, rssi, scanRecord);
+                        if (summary != null) {
+                            Logg.e("summary " + summary);
+                        }
+                    }
+                });
+            }
+        });
     }
 
     /**
@@ -136,21 +149,6 @@ public class MainActivity extends BaseSimpleActivity implements BluetoothDetecto
         if (detector != null) {
             detector.stopScan();
         }
-    }
-
-    @Override
-    public void onScan(final BluetoothDevice device, final int rssi, final byte[] scanRecord) {
-        Logg.e(device.getAddress() + " " + device.getName());
-
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                String summary = mDeviceAdapter.update(device, rssi, scanRecord);
-                if (summary != null) {
-                    getActionBar().setSubtitle(summary);
-                }
-            }
-        });
     }
 
     @Override
