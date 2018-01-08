@@ -1,7 +1,7 @@
 apply plugin: 'com.android.library'
 
-def libraryVersionCode = 1
-def libraryVersionName = '0.1.0'
+def libraryVersionCode = 2
+def libraryVersionName = '0.2.0'
 
 // Start 以下这段功能是用来上传至代码库，其他项目不用复制这段代码
 apply plugin: 'com.novoda.bintray-release'

@@ -8,11 +8,11 @@ def libraryVersionName = '0.1.0'
 //
 //publish {
 //    userOrg = 'chinarocky'// 这是代码仓库的账号
-//    groupId = 'android.frame'// 包名
-//    artifactId = 'MVPFrames'// 项目名
-//    publishVersion = rootProject.ext.android["versionName"]// 版本号
-//    desc = 'Android MVP development framework'
-//    website = 'https://github.com/DesignQu/'
+//    groupId = 'android.bluetooth.frame'// 包名
+//    artifactId = 'BluetoothOperating'// 项目名
+//    publishVersion = libraryVersionName// 版本号
+//    desc = 'Android Bluetooth 4.0 Development Kit'
+//    website = 'https://github.com/DesignQu/BluetoothKit'
 //}
 // End 以上这段功能是用来上传至代码库
 

@@ -5,8 +5,12 @@ import android.annotation.TargetApi;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.le.BluetoothLeScanner;
 import android.bluetooth.le.ScanCallback;
+import android.bluetooth.le.ScanFilter;
 import android.bluetooth.le.ScanResult;
+import android.bluetooth.le.ScanSettings;
 import android.os.Build;
+import android.os.ParcelUuid;
+import android.support.annotation.RequiresApi;
 import android.support.annotation.RequiresPermission;
 import android.util.Log;
 
@@ -15,7 +19,9 @@ import com.tool.bluetooth.detector.config.BluetoothFilter;
 import com.tool.bluetooth.detector.core.BluetoothScanner;
 import com.tool.bluetooth.detector.utils.timer.TimerManager;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Android 5.0 Lollipop
@@ -37,7 +43,30 @@ public class BluetoothLollipop extends BluetoothJellyBean {
     public void startScanInternal() {
         if (!isScanning) {
             scanCallback = new ScannerCallback(getCallBack());
-            bluetoothLeScanner.startScan(scanCallback);
+
+            List<ScanFilter> filters = new ArrayList<>();
+            BluetoothFilter filter = getFilter();
+            if (filter != null) {
+                for (String deviceName : filter.getDeviceNames()) {
+                    ScanFilter builder = new ScanFilter.Builder().setDeviceName(deviceName).build();
+                    filters.add(builder);
+                }
+                for (String deviceAddress : filter.getDeviceAddresses()) {
+                    ScanFilter builder = new ScanFilter.Builder().setDeviceAddress(deviceAddress).build();
+                    filters.add(builder);
+                }
+                for (UUID serviceUUID : filter.getServiceUUIDs()) {
+                    ScanFilter builder = new ScanFilter.Builder()
+                            .setServiceUuid(ParcelUuid.fromString(serviceUUID.toString())).build();
+                    filters.add(builder);
+                }
+            }
+
+            ScanSettings scanSettings = new ScanSettings.Builder()
+                    .setScanMode(ScanSettings.SCAN_MODE_LOW_LATENCY)
+                    .build();
+
+            bluetoothLeScanner.startScan(filters, scanSettings, scanCallback);
 
             isScanning = true;
         }
@@ -75,7 +104,7 @@ public class BluetoothLollipop extends BluetoothJellyBean {
 
         @Override
         public void onScanFailed(int errorCode) {
-            Log.e(TAG, "" + errorCode);
+            Log.e(TAG, "onScanFailed " + errorCode);
         }
     }
 }

@@ -51,11 +51,6 @@ public class MainActivity extends BaseSimpleActivity {
         return null;
     }
 
-    @Override
-    public int getLayoutId() {
-        return R.layout.activity_main;
-    }
-
     /**
      * 检查蓝牙权限处理
      */
@@ -123,7 +118,7 @@ public class MainActivity extends BaseSimpleActivity {
                     public void run() {
                         String summary = adapter.update(device, rssi, scanRecord);
                         if (summary != null) {
-                            Logg.e("summary " + summary);
+//                            Logg.e("summary " + summary);
                         }
                     }
                 });
@@ -163,6 +158,11 @@ public class MainActivity extends BaseSimpleActivity {
 
     private void showMessage(String message) {
         Toaster.with(this).setMessage(message).show();
+    }
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_main;
     }
 
     @Override

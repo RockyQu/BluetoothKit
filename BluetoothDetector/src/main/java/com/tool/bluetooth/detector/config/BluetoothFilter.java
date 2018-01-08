@@ -1,5 +1,7 @@
 package com.tool.bluetooth.detector.config;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -7,39 +9,39 @@ import java.util.UUID;
  */
 public class BluetoothFilter {
 
-    private String[] serviceUUIDs = null;
-    private String[] deviceNames = null;
-    private String[] deviceMacs = null;
+    // 过滤指定服务的设备
+    private List<String> serviceUUIDs = null;
+    // 过滤指定设备的名称
+    private List<String> deviceNames = null;
+    // 过滤指定设备的地址
+    private List<String> deviceAddresses = null;
 
+    // 调试模式
     private boolean debug;
 
     public BluetoothFilter(Builder builder) {
         this.serviceUUIDs = builder.serviceUUIDs;
         this.deviceNames = builder.deviceNames;
-        this.deviceMacs = builder.deviceMacs;
+        this.deviceAddresses = builder.deviceAddresses;
 
         this.debug = builder.debug;
     }
 
-    public UUID[] getServiceUUIDs() {
-        if (serviceUUIDs != null && serviceUUIDs.length != 0) {
-            UUID[] uuids = new UUID[serviceUUIDs.length];
-            for (int i = 0; i < serviceUUIDs.length; i++) {
-                uuids[i] = UUID.fromString(serviceUUIDs[i]);
-            }
-
-            return uuids;
+    public List<UUID> getServiceUUIDs() {
+        List<UUID> uuids = new ArrayList<>();
+        for (String uuid : serviceUUIDs) {
+            uuids.add(UUID.fromString(uuid));
         }
 
-        return null;
+        return uuids;
     }
 
-    public String[] getDeviceNames() {
+    public List<String> getDeviceNames() {
         return deviceNames;
     }
 
-    public String[] getDeviceMacs() {
-        return deviceMacs;
+    public List<String> getDeviceAddresses() {
+        return deviceAddresses;
     }
 
     public boolean isDebug() {
@@ -52,14 +54,10 @@ public class BluetoothFilter {
 
     public static class Builder {
 
-        // 过滤指定服务的设备
-        private String[] serviceUUIDs = null;
-        // 过滤指定设备的名称
-        private String[] deviceNames = null;
-        // 过滤指定设备的地址
-        private String[] deviceMacs = null;
+        private List<String> serviceUUIDs = new ArrayList<>();
+        private List<String> deviceNames = new ArrayList<>();
+        private List<String> deviceAddresses = new ArrayList<>();
 
-        // 调试模式
         private boolean debug = false;
 
         private Builder() {
@@ -71,18 +69,48 @@ public class BluetoothFilter {
             return this;
         }
 
-        public Builder serviceUUIDs(String[] serviceUUIDs) {
+        public Builder addSetserviceUUID(String serviceUUID) {
+            this.serviceUUIDs.add(serviceUUID);
+            return this;
+        }
+
+        public Builder addServiceUUIDs(List<String> serviceUUIDs) {
+            this.serviceUUIDs.addAll(serviceUUIDs);
+            return this;
+        }
+
+        public Builder setServiceUUIDs(List<String> serviceUUIDs) {
             this.serviceUUIDs = serviceUUIDs;
             return this;
         }
 
-        public Builder deviceNames(String[] deviceNames) {
+        public Builder addDeviceName(String deviceName) {
+            this.deviceNames.add(deviceName);
+            return this;
+        }
+
+        public Builder addDeviceNames(List<String> deviceNames) {
+            this.deviceNames.addAll(deviceNames);
+            return this;
+        }
+
+        public Builder setDeviceNames(List<String> deviceNames) {
             this.deviceNames = deviceNames;
             return this;
         }
 
-        public Builder deviceMacs(String[] deviceMacs) {
-            this.deviceMacs = deviceMacs;
+        public Builder addDeviceAddress(String deviceAddress) {
+            this.deviceAddresses.add(deviceAddress);
+            return this;
+        }
+
+        public Builder addDeviceAddresses(List<String> deviceAddresses) {
+            this.deviceAddresses.addAll(deviceAddresses);
+            return this;
+        }
+
+        public Builder setDeviceAddresses(List<String> deviceAddresses) {
+            this.deviceAddresses = deviceAddresses;
             return this;
         }
 
