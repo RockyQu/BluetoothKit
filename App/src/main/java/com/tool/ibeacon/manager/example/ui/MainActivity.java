@@ -1,14 +1,11 @@
 package com.tool.ibeacon.manager.example.ui;
 
-import android.app.Activity;
-import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.ListView;
 
 import com.logg.Logg;
 import com.tbruyelle.rxpermissions2.RxPermissions;
@@ -16,16 +13,13 @@ import com.tool.bluetooth.detector.BluetoothDetectorCallBack;
 import com.tool.bluetooth.detector.BluetoothDetector;
 import com.tool.bluetooth.detector.BluetoothDetectorHandler;
 import com.tool.bluetooth.detector.config.BluetoothFilter;
-import com.tool.bluetooth.detector.entity.BeaconDevice;
 import com.tool.bluetooth.detector.utils.BluetoothUtils;
 import com.tool.common.base.simple.base.BaseSimpleActivity;
 import com.tool.common.frame.IPresenter;
 import com.tool.common.utils.PermissionUtils;
 import com.tool.common.widget.Toaster;
-import com.tool.ibeacon.manager.example.ui.adapter.DeviceAdapter;
 import com.tool.ibeacon.manager.example.R;
-
-import java.util.ArrayList;
+import com.tool.ibeacon.manager.example.ui.adapter.SearchAdapter;
 
 import butterknife.BindView;
 
@@ -34,23 +28,18 @@ import butterknife.BindView;
  */
 public class MainActivity extends BaseSimpleActivity {
 
-    private DeviceAdapter mDeviceAdapter;
-
     private BluetoothDetectorHandler detector;
 
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
+    private SearchAdapter adapter;
 
     @Override
     public void create(Bundle savedInstanceState) {
-        ListView deviceListView = (ListView) findViewById(R.id.list);
-        mDeviceAdapter = new DeviceAdapter(this, R.layout.listitem_device,
-                new ArrayList<BeaconDevice>());
-        deviceListView.setAdapter(mDeviceAdapter);
 
         // RecyclerView
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-//        recyclerView.setAdapter(adapter);
+        recyclerView.setAdapter(adapter = new SearchAdapter());
 
         Logg.e("onCreate");
         // 检查蓝牙权限处理
@@ -132,7 +121,7 @@ public class MainActivity extends BaseSimpleActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        String summary = mDeviceAdapter.update(device, rssi, scanRecord);
+                        String summary = adapter.update(device, rssi, scanRecord);
                         if (summary != null) {
                             Logg.e("summary " + summary);
                         }

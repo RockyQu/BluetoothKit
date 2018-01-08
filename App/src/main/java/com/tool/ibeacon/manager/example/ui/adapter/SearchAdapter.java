@@ -1,14 +1,10 @@
 package com.tool.ibeacon.manager.example.ui.adapter;
 
 import android.bluetooth.BluetoothDevice;
-import android.content.Context;
-import android.content.res.Resources;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.BaseViewHolder;
 import com.tool.bluetooth.detector.entity.BeaconDevice;
 import com.tool.common.utils.TimeUtils;
 import com.tool.ibeacon.manager.example.R;
@@ -17,52 +13,35 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-/**
- *
- */
-public class DeviceAdapter extends ArrayAdapter<BeaconDevice> {
+public class SearchAdapter extends BaseQuickAdapter<BeaconDevice, BaseViewHolder> {
 
     private static final String PREFIX_RSSI = "RSSI:";
     private static final String PREFIX_LASTUPDATED = "Last Udpated:";
-    private List<BeaconDevice> mList;
-    private LayoutInflater mInflater;
-    private int mResId;
 
-    public DeviceAdapter(Context context, int resId, List<BeaconDevice> objects) {
-        super(context, resId, objects);
-        mResId = resId;
-        mList = objects;
-        mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    public SearchAdapter() {
+        super(R.layout.item_search);
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        BeaconDevice item = (BeaconDevice) getItem(position);
-
-        if (convertView == null) {
-            convertView = mInflater.inflate(mResId, null);
-        }
-        TextView name = (TextView) convertView.findViewById(R.id.device_name);
+    protected void convert(BaseViewHolder helper, BeaconDevice item) {
+        TextView name = helper.getView(R.id.device_name);
         name.setText(item.getDeviceName());
-        TextView address = (TextView) convertView.findViewById(R.id.device_address);
+        TextView address = helper.getView(R.id.device_address);
         address.setText(item.getBluetoothDevice().getAddress());
-        TextView rssi = (TextView) convertView.findViewById(R.id.device_rssi);
+        TextView rssi = helper.getView(R.id.device_rssi);
         rssi.setText(PREFIX_RSSI + Integer.toString(item.getRssi()));
-        TextView lastupdated = (TextView) convertView.findViewById(R.id.device_lastupdated);
+        TextView lastupdated = helper.getView(R.id.device_lastupdated);
         lastupdated.setText(PREFIX_LASTUPDATED + TimeUtils.getTime(item.getLastUpdatedTimeMillis()));
 
-        TextView ibeaconInfo = (TextView) convertView.findViewById(R.id.device_ibeacon_info);
-        Resources res = convertView.getContext().getResources();
+        TextView ibeaconInfo = helper.getView(R.id.device_ibeacon_info);
         if (item.getiBeacon() != null) {
-            ibeaconInfo.setText(res.getString(R.string.label_ibeacon) + "\n"
+            ibeaconInfo.setText("This is iBeacon!" + "\n"
                     + item.getiBeacon().toString());
         } else {
-            ibeaconInfo.setText(res.getString(R.string.label_not_ibeacon));
+            ibeaconInfo.setText("This is not iBeacon.");
         }
-        TextView scanRecord = (TextView) convertView.findViewById(R.id.device_scanrecord);
+        TextView scanRecord = helper.getView(R.id.device_scanrecord);
         scanRecord.setText(item.getScanRecordHexString());
-
-        return convertView;
     }
 
     /**
@@ -79,8 +58,11 @@ public class DeviceAdapter extends ArrayAdapter<BeaconDevice> {
         }
         long now = System.currentTimeMillis();
 
+
+       List<BeaconDevice> datas = getData();
+
         boolean contains = false;
-        for (BeaconDevice device : mList) {
+        for (BeaconDevice device : datas) {
             if (newDevice.getAddress().equals(device.getBluetoothDevice().getAddress())) {
                 contains = true;
 
@@ -91,11 +73,11 @@ public class DeviceAdapter extends ArrayAdapter<BeaconDevice> {
         }
         if (!contains) {
             // add new BluetoothDevice
-            mList.add(new BeaconDevice(newDevice, rssi, scanRecord, now));
+            datas.add(new BeaconDevice(newDevice, rssi, scanRecord, now));
         }
 
         // sort by RSSI
-        Collections.sort(mList, new Comparator<BeaconDevice>() {
+        Collections.sort(datas, new Comparator<BeaconDevice>() {
             @Override
             public int compare(BeaconDevice lhs, BeaconDevice rhs) {
                 if (lhs.getRssi() == 0) {
@@ -117,9 +99,9 @@ public class DeviceAdapter extends ArrayAdapter<BeaconDevice> {
         // create summary
         int totalCount = 0;
         int iBeaconCount = 0;
-        if (mList != null) {
-            totalCount = mList.size();
-            for (BeaconDevice device : mList) {
+        if (datas != null) {
+            totalCount = datas.size();
+            for (BeaconDevice device : datas) {
                 if (device.getiBeacon() != null) {
                     iBeaconCount++;
                 }
@@ -129,9 +111,5 @@ public class DeviceAdapter extends ArrayAdapter<BeaconDevice> {
                 + Integer.toString(totalCount) + ")";
 
         return summary;
-    }
-
-    public List<BeaconDevice> getList() {
-        return mList;
     }
 }

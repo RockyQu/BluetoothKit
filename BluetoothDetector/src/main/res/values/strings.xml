@@ -3,8 +3,6 @@
     <string name="ble_not_supported">BLE not supported on this device.</string>
     <string name="bt_not_supported">Bluetooth not supported on this device.</string>
     <string name="bt_not_enabled">Bluetooth is not enabled, turn it on.</string>
-    <string name="label_ibeacon">This is iBeacon!</string>
-    <string name="label_not_ibeacon">This is not iBeacon.</string>
     <!-- Scan -->
     <string name="action_clear">CLEAR LIST</string>
     <string name="action_scan">SCAN</string>
