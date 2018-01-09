@@ -1,17 +1,17 @@
 package com.tool.bluetooth.detector.entity;
 
+import android.Manifest;
 import android.bluetooth.BluetoothDevice;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresPermission;
 
 import java.util.Arrays;
 
 /**
  * ==================================================
  * 存放被扫描到的蓝牙设备的原始信息及附加信息
- * <p>
- * <p>
  * ==================================================
  */
 public class BeaconDevice implements Parcelable {
@@ -84,6 +84,7 @@ public class BeaconDevice implements Parcelable {
         this.createIBeacon();
     }
 
+    @RequiresPermission(Manifest.permission.BLUETOOTH)
     public String getDeviceName() {
         return (bluetoothDevice.getName() == null) || (bluetoothDevice.getName().length() == 0) ? UNKNOWN : bluetoothDevice.getName();
     }
