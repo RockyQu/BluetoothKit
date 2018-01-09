@@ -20,6 +20,10 @@
     <uses-permission android:name="android.permission.READ_LOGS"/>
     <!-- 允许一个程序打开窗口使用TYPE_SYSTEM_ALERT,显示在其他所有程序的顶层 -->
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+    <!-- 蓝牙特权 -->
+    <uses-permission android:name="android.permission.BLUETOOTH_PRIVILEGED"/>
+    <!-- 允许使用gps定位 -->
+    <uses-feature android:name="android.hardware.location.gps"/>
 
     <!--Dangerous Permissions-->
     <!-- 允许程序访问电话状态 -->
@@ -34,10 +38,6 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <!-- 允许程序可以读取设备外部存储空间（内置SDcard和外置SDCard）的文件 -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-
-    <uses-permission android:name="android.permission.BLUETOOTH_PRIVILEGED"/>
-
-    <uses-feature android:name="android.hardware.location.gps"/>
 
     <!-- 蓝牙 -->
     <uses-feature

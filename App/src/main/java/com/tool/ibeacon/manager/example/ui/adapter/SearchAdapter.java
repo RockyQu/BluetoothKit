@@ -16,7 +16,7 @@ import java.util.List;
 public class SearchAdapter extends BaseQuickAdapter<BeaconDevice, BaseViewHolder> {
 
     private static final String PREFIX_RSSI = "RSSI:";
-    private static final String PREFIX_LASTUPDATED = "Last Udpated:";
+    private static final String PREFIX_LASTUPDATED = "Time:";
 
     public SearchAdapter() {
         super(R.layout.item_search);
