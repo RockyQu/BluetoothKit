@@ -104,9 +104,18 @@ public class MainActivity extends BaseSimpleActivity {
     private void startScan() {
         Logg.e("startScan");
         detector = BluetoothDetector.getInstance();
+
+        // 配置一些过滤条件
         BluetoothFilter filter = BluetoothFilter.builder()
+                .addDeviceAddress("20:CD:39:B0:7A:7C")// 55
+                .addDeviceAddress("20:CD:39:B0:7A:59")// 73
+                .addDeviceAddress("20:CD:39:B0:7A:62")// 78
+                .addDeviceAddress("20:CD:39:B0:71:4B")// 94
+                .addDeviceAddress("20:CD:39:B0:6E:40")// 148
+                .addDeviceAddress("20:CD:39:B0:7A:4A")// 162
                 .debug(true)
                 .build();
+
         detector.startScan(filter, new BluetoothDetectorCallBack() {
 
             @Override
