@@ -49,13 +49,19 @@ public class BeaconDevice implements Parcelable {
     private long lastUpdatedTimeMillis;
 
     public BeaconDevice(@NonNull BluetoothDevice bluetoothDevice, int rssi, @NonNull byte[] scanRecord, long lastUpdatedTimeMillis) {
+        this(bluetoothDevice, rssi, scanRecord, lastUpdatedTimeMillis, true);
+    }
+
+    public BeaconDevice(@NonNull BluetoothDevice bluetoothDevice, int rssi, @NonNull byte[] scanRecord, long lastUpdatedTimeMillis, boolean createIBeacon) {
         this.bluetoothDevice = bluetoothDevice;
         this.rssi = rssi;
         this.scanRecord = scanRecord;
 
         this.lastUpdatedTimeMillis = lastUpdatedTimeMillis;
 
-        this.createIBeacon();
+        if (createIBeacon) {
+            this.createIBeacon();
+        }
     }
 
     public BluetoothDevice getBluetoothDevice() {
