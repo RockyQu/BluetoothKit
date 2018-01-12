@@ -64,7 +64,7 @@ public class IBeacon implements Parcelable {
     public static final int PROXIMITY_FAR = 3;
 
     /**
-     * RSSI值不佳或测量的发射功率，无法估算距离
+     * RSSI 值不佳或测量的发射功率，无法估算距离
      */
     public static final int PROXIMITY_UNKNOWN = 0;
 
@@ -72,17 +72,17 @@ public class IBeacon implements Parcelable {
      * 一个16字节的 UUID 通常代表拥有 iBeacon 的所有者
      * Example: E2C56DB5-DFFB-48D2-B060-D0F5A71096E0
      */
-    protected String proximityUuid;
+    private String proximityUuid;
 
     /**
      * 一个16位整数，指示一组 iBeacons
      */
-    protected int major;
+    private int major;
 
     /**
      * 一个16位整数标识一个单一的 iBeacon
      */
-    protected int minor;
+    private int minor;
 
     /**
      * 当前 iBeacon 的距离，只可能有如下四个值
@@ -92,28 +92,27 @@ public class IBeacon implements Parcelable {
      * @see #PROXIMITY_FAR
      * @see #PROXIMITY_UNKNOWN
      */
-    protected Integer proximity;
+    private Integer proximity;
 
     /**
-     * 这个数字是估计这个 iBeacon 离米有多远的估计值。这个名字很混乱，但从 iOS7 SDK 术语中复制。请注意，这个数字与 RSSI
-     * 波动很大，所以尽管名称，它不是很准确。建议使用邻近区域，或者使用您自己的这个值
+     * 这个数字是估计这个 iBeacon 离米有多远的估计值
      */
-    protected Double accuracy;
+    private Double accuracy;
 
     /**
      * 测量到的蓝牙设备的信号强度
      */
-    protected int rssi;
+    private int rssi;
 
     /**
      * RSSI 中 iBeacon 的校准测量发射功率，该值帮助帮助估计距离
      */
-    protected int txPower;
+    private int txPower;
 
     /**
      * 如果有多个RSSI样本可用，则这是运行平均值
      */
-    protected Double runningAverageRssi = null;
+    private Double runningAverageRssi = null;
 
     public IBeacon() {
 
@@ -291,13 +290,12 @@ public class IBeacon implements Parcelable {
         return iBeacon;
     }
 
-    protected static double calculateAccuracy(int txPower, double rssi) {
+    public double calculateAccuracy(int txPower, double rssi) {
         if (rssi == 0) {
             return -1.0; // 如果无法确定准确度，则返回-1
         }
 
         Log.d(TAG, "calculating accuracy based on rssi of " + rssi);
-
 
         double ratio = rssi * 1.0 / txPower;
         if (ratio < 1.0) {
@@ -309,7 +307,7 @@ public class IBeacon implements Parcelable {
         }
     }
 
-    protected static int calculateProximity(double accuracy) {
+    public int calculateProximity(double accuracy) {
         if (accuracy < 0) {
             return PROXIMITY_UNKNOWN;
         }
