@@ -30,7 +30,7 @@ compile 'android.bluetooth.frame:BluetoothDetector:0.1.0'
 * Project  [Submit Bug or Idea](https://github.com/DesignQu/BluetoothKit/issues)   
 
 ## About Me
-* Email [china.rocky.coder@gmail.com](china.rocky.coder@gmail.com)  
+* Email [250533855@qq.com](250533855@qq.com)  
 * Home [http://rockycoder.cn](http://rockycoder.cn)  
 * GitHub [https://github.com/RockyQu](https://github.com/RockyQu)  
 
