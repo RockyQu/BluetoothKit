@@ -9,8 +9,6 @@ Android 蓝牙4.0 开发框架，目前是一个雏形版，后面会根据项�
 [![](https://img.shields.io/github/release/DesignQu/Logg.svg)](https://github.com/DesignQu/Logg/releases)
 <a href="http://www.methodscount.com/?lib=com.logg%3ALogg%3A1.5.1"><img src="https://img.shields.io/badge/Methods and size-296 | 29 KB-e91e63.svg"/></a>
 
-[中文介绍](https://github.com/DesignQu/BluetoothKit/wiki)   
-
 ## Features  
 - [x] 统一解决Android蓝牙通信过程中的兼容性问题
 
