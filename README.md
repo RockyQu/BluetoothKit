@@ -4,7 +4,7 @@ Android 蓝牙4.0 开发框架，目前是一个雏形版，后面会根据项�
 [![](https://img.shields.io/badge/GitHub%20Pages-HOME-red.svg)](https://designqu.github.io/)
 
 ## Features  
-- [x] 统一解决Android蓝牙通信过程中的兼容性问题
+- [x] 统一解决 Android 蓝牙扫描不同版本的兼容性问题
 
 ## Warning
 
