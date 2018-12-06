@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
 
         // 配置一些过滤条件
         BluetoothFilter filter = BluetoothFilter.builder()
-//                .addDeviceAddress("20:CD:39:B0:7A:7C")// 55
+//                .addDeviceAddress("C2:01:02:00:00:D0")// 55
 //                .addDeviceAddress("20:CD:39:B0:7A:59")// 73
 //                .addDeviceAddress("20:CD:39:B0:7A:62")// 78
 //                .addDeviceAddress("20:CD:39:B0:71:4B")// 94

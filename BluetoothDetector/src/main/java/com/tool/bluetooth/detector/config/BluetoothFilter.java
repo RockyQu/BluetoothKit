@@ -9,11 +9,11 @@ import java.util.UUID;
  */
 public class BluetoothFilter {
 
-    // 过滤指定服务的设备
+    // 指定被扫描服务的设备
     private List<String> serviceUUIDs;
-    // 过滤指定设备的名称
+    // 指定被扫描设备的名称
     private List<String> deviceNames;
-    // 过滤指定设备的地址
+    // 指定被扫描设备的地址
     private List<String> deviceAddresses;
 
     // 调试模式
