@@ -1,5 +1,5 @@
 # BluetoothKit 
-Android 蓝牙4.0 开发框架，目前是一个雏形版，后面会根据项目需求不断完善
+Android 蓝牙 4.0 开发框架，目前是一个雏形版，后面会根据项目需求不断完善
 
 [![](https://img.shields.io/badge/GitHub%20Pages-HOME-red.svg)](https://designqu.github.io/)
 
