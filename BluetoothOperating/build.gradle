@@ -8,7 +8,7 @@ def libraryVersionName = '0.1.0'
 //
 //publish {
 //    userOrg = 'chinarocky'// 这是代码仓库的账号
-//    groupId = 'android.bluetooth.frame'// 包名
+//    groupId = 'me.bluetooth.operating'// 包名
 //    artifactId = 'BluetoothOperating'// 项目名
 //    publishVersion = libraryVersionName// 版本号
 //    desc = 'Android Bluetooth 4.0 Development Kit'
