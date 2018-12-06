@@ -6,8 +6,8 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.tool.bluetooth.detector.entity.BeaconDevice;
-import com.tool.common.utils.TimeUtils;
 import com.tool.ibeacon.manager.example.R;
+import com.tool.ibeacon.manager.example.app.TimeUtils;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -35,8 +35,7 @@ public class SearchAdapter extends BaseQuickAdapter<BeaconDevice, BaseViewHolder
 
         TextView ibeaconInfo = helper.getView(R.id.device_ibeacon_info);
         if (item.getiBeacon() != null) {
-            ibeaconInfo.setText("This is iBeacon!" + "\n"
-                    + item.getiBeacon().toString());
+            ibeaconInfo.setText("This is iBeacon!" + "\n" + item.getiBeacon().toString());
         } else {
             ibeaconInfo.setText("This is not iBeacon.");
         }
@@ -59,7 +58,7 @@ public class SearchAdapter extends BaseQuickAdapter<BeaconDevice, BaseViewHolder
         long now = System.currentTimeMillis();
 
 
-       List<BeaconDevice> datas = getData();
+        List<BeaconDevice> datas = getData();
 
         boolean contains = false;
         for (BeaconDevice device : datas) {
