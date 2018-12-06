@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.tool.ibeacon.manager.example">
+          package="me.bluetooth.demo">
 
     <!-- 允许访问网络连接，可能产生GPRS流量 -->
     <uses-permission android:name="android.permission.INTERNET"/>

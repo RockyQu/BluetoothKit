@@ -1,14 +1,14 @@
 apply plugin: 'com.android.library'
 
-def libraryVersionCode = 3
-def libraryVersionName = '0.3.0'
+def libraryVersionCode = 4
+def libraryVersionName = '0.4.0'
 
 // Start 以下这段功能是用来上传至代码库，其他项目不用复制这段代码
 apply plugin: 'com.novoda.bintray-release'
 
 publish {
     userOrg = 'chinarocky'// 这是代码仓库的账号
-    groupId = 'android.bluetooth.frame'// 包名
+    groupId = 'me.bluetooth.detector'// 包名
     artifactId = 'BluetoothDetector'// 项目名
     publishVersion = libraryVersionName// 版本号
     desc = 'Android Bluetooth 4.0 Development Kit'

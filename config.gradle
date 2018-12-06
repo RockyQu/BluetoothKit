@@ -1,7 +1,7 @@
 ext {
 
     frame = [
-            applicationId: "me.mvp.demo"
+            applicationId: "me.bluetooth.demo"
     ]
 
     android = [compileSdkVersion             : 28,
