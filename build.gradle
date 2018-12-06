@@ -1,32 +1,30 @@
 apply from: "config.gradle"
 
 buildscript {
-    repositories {
-        jcenter()
-        mavenCentral()
-    }
 
-    // 基础依赖
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.3'
+        classpath 'com.android.tools.build:gradle:3.1.4'
         // Gradle Android Maven plugin
-        classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5'
-        // Butterknife
-        classpath 'com.jakewharton:butterknife-gradle-plugin:8.8.1'
-        // Lambda
-        classpath 'me.tatarka:gradle-retrolambda:3.6.0'
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
 
         // 以下这段功能是用来上传至代码库，其他项目不用复制这段代码
-        classpath 'com.novoda:bintray-release:0.3.4'
+        classpath 'com.novoda:bintray-release:0.8.1'
+    }
+
+    repositories {
+        maven{ url 'http://maven.aliyun.com/nexus/content/groups/public/'}
+        mavenCentral()
+        jcenter()
+        google()
     }
 }
 
 allprojects {
     repositories {
-        jcenter()
+        maven{ url 'http://maven.aliyun.com/nexus/content/groups/public/'}
         mavenCentral()
-        maven { url "https://jitpack.io" }
-        maven { url "https://maven.google.com" }
+        jcenter()
+        google()
     }
 
     tasks.withType(Javadoc) {
