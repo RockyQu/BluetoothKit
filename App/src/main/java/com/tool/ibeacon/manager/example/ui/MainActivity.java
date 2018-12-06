@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // RecyclerView
+        recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter = new SearchAdapter());
 
@@ -103,12 +104,12 @@ public class MainActivity extends AppCompatActivity {
 
         // 配置一些过滤条件
         BluetoothFilter filter = BluetoothFilter.builder()
-                .addDeviceAddress("20:CD:39:B0:7A:7C")// 55
-                .addDeviceAddress("20:CD:39:B0:7A:59")// 73
-                .addDeviceAddress("20:CD:39:B0:7A:62")// 78
-                .addDeviceAddress("20:CD:39:B0:71:4B")// 94
-                .addDeviceAddress("20:CD:39:B0:6E:40")// 148
-                .addDeviceAddress("20:CD:39:B0:7A:4A")// 162
+//                .addDeviceAddress("20:CD:39:B0:7A:7C")// 55
+//                .addDeviceAddress("20:CD:39:B0:7A:59")// 73
+//                .addDeviceAddress("20:CD:39:B0:7A:62")// 78
+//                .addDeviceAddress("20:CD:39:B0:71:4B")// 94
+//                .addDeviceAddress("20:CD:39:B0:6E:40")// 148
+//                .addDeviceAddress("20:CD:39:B0:7A:4A")// 162
                 .debug(true)
                 .build();
 
