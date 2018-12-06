@@ -25,27 +25,15 @@ android {
         targetSdkVersion rootProject.ext.android["targetSdkVersion"]
         versionCode libraryVersionCode
         versionName libraryVersionName
-
-        renderscriptTargetApi rootProject.ext.android["renderscriptTargetApi"]
-        renderscriptSupportModeEnabled rootProject.ext.android["renderscriptSupportModeEnabled"]
     }
 
-    // 移除lint检查的error，可以避免由于编译条件太过严格而编译不过的问题
     lintOptions {
-        // InvalidPackage: Package not included in Android
         disable 'InvalidPackage'
-        // Expected resource of type color [ResourceType] 资源类型错误
         disable "ResourceType"
-        // 忽略因MissingTranslation导致Build Failed错误 "app_name" is not translated in "zh" (Chinese)
         disable 'MissingTranslation'
 
         abortOnError false
         checkReleaseBuilds false
-    }
-
-    dexOptions {
-        javaMaxHeapSize "4g"
-        preDexLibraries = false
     }
 
     buildTypes {
@@ -54,26 +42,19 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-}
 
-buildscript {
-    repositories {
-        jcenter()
-        mavenCentral()
+    allprojects {
+        repositories {
+            jcenter()
+            maven { url "https://jitpack.io" }
+            maven { url 'http://dl.bintray.com/dev-fingerlinks/maven' }
+            mavenCentral()
+        }
     }
-
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
+    api fileTree(include: ['*.jar'], dir: 'libs')
 
-    // Support
-    compile(rootProject.ext.dependencies["support-v4"]) {
-        exclude module: 'support-annotations'
-    }
-    compile(rootProject.ext.dependencies["appcompat-v7"]) {
-        exclude module: 'support-annotations'
-        exclude module: 'support-v4'
-    }
-    compile rootProject.ext.dependencies["annotations"]
+    api rootProject.ext.dependencies["annotations"]
 }
