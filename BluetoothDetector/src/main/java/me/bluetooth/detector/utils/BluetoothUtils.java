@@ -55,7 +55,7 @@ public class BluetoothUtils {
     /**
      * 蓝牙是否开启
      *
-     * @return
+     * @return true:已开启
      */
     @RequiresPermission(Manifest.permission.BLUETOOTH)
     public static boolean isOpenBluetooth() {
@@ -77,7 +77,6 @@ public class BluetoothUtils {
      *
      * @param activity
      * @param requestCode 请传入 {@link BluetoothUtils#REQUEST_CODE_BLUETOOTH} 常量
-     * @return true:开启成功
      */
     public static void openBluetooth(Activity activity, int requestCode) {
         Intent intent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);

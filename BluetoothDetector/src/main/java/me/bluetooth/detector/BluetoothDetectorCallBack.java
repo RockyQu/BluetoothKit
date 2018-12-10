@@ -9,7 +9,7 @@ import me.bluetooth.detector.config.BluetoothFilter;
  * Callback interface used to deliver LE scan results.
  *
  * @see BluetoothDetector#startScan(BluetoothFilter, BluetoothDetectorCallBack)
- * @see BluetoothDetector#stopScan(BluetoothDetectorCallBack)
+ * @see BluetoothDetector#stopScan()
  */
 public interface BluetoothDetectorCallBack {
 

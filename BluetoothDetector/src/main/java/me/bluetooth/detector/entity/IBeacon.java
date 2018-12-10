@@ -220,7 +220,7 @@ public class IBeacon implements Parcelable {
      *
      * @param scanData 实际的数据包字节
      * @param rssi     T信息包的测量信号强度
-     * @return
+     * @return {@link IBeacon}
      */
     public static IBeacon createIBeacon(byte[] scanData, int rssi) {
         int startByte = 0;
