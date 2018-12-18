@@ -12,7 +12,7 @@ Android 蓝牙 4.0 开发框架，目前是一个雏形版，后面会根据项�
 ## Download
 Gradle:
 ```
-compile 'android.bluetooth.frame:BluetoothDetector:0.1.0'
+api 'me.bluetooth.detector:BluetoothDetector:0.5.0'
 ```
 
 ## History
