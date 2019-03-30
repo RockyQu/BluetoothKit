@@ -56,5 +56,5 @@ android {
 dependencies {
     api fileTree(include: ['*.jar'], dir: 'libs')
 
-    api rootProject.ext.dependencies["annotations"]
+    api rootProject.ext.dependencies["annotation"]
 }

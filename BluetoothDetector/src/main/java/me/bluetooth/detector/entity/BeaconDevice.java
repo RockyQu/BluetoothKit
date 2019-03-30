@@ -4,10 +4,11 @@ import android.Manifest;
 import android.bluetooth.BluetoothDevice;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.support.annotation.NonNull;
-import android.support.annotation.RequiresPermission;
 
 import java.util.Arrays;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresPermission;
 
 /**
  * ==================================================

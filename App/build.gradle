@@ -81,12 +81,12 @@ android {
 dependencies {
     api fileTree(dir: 'libs', include: ['*.jar'])
 
-    api(rootProject.ext.dependencies["design"])
+    api(rootProject.ext.dependencies["material"])
 
     api rootProject.ext.dependencies["rxjava2"]
     api(rootProject.ext.dependencies["rxpermissions2"]) {
         exclude module: 'rxjava'
-        exclude module: 'support-annotations'
+        exclude module: 'annotation'
     }
 
     // Views

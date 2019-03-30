@@ -1,7 +1,7 @@
 apply plugin: 'com.android.library'
 
-def libraryVersionCode = 5
-def libraryVersionName = '0.5.0'
+def libraryVersionCode = 6
+def libraryVersionName = '1.0.0'
 
 // Start 以下这段功能是用来上传至代码库，其他项目不用复制这段代码
 apply plugin: 'com.novoda.bintray-release'
@@ -56,5 +56,5 @@ android {
 dependencies {
     api fileTree(include: ['*.jar'], dir: 'libs')
 
-    api rootProject.ext.dependencies["annotations"]
+    api rootProject.ext.dependencies["annotation"]
 }

@@ -5,8 +5,8 @@ import android.annotation.TargetApi;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.os.Build;
-import android.support.annotation.RequiresPermission;
 
+import androidx.annotation.RequiresPermission;
 import me.bluetooth.detector.BluetoothDetectorCallBack;
 import me.bluetooth.detector.core.BluetoothScanner;
 

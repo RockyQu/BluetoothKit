@@ -1,8 +1,8 @@
 package me.bluetooth.detector;
 
 import android.Manifest;
-import android.support.annotation.RequiresPermission;
 
+import androidx.annotation.RequiresPermission;
 import me.bluetooth.detector.config.BluetoothFilter;
 import me.bluetooth.detector.core.BluetoothScanner;
 

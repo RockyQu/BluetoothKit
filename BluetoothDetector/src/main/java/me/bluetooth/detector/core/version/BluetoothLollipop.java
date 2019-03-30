@@ -10,9 +10,9 @@ import android.bluetooth.le.ScanResult;
 import android.bluetooth.le.ScanSettings;
 import android.os.Build;
 import android.os.ParcelUuid;
-import android.support.annotation.RequiresPermission;
 import android.util.Log;
 
+import androidx.annotation.RequiresPermission;
 import me.bluetooth.detector.BluetoothDetectorCallBack;
 import me.bluetooth.detector.config.BluetoothFilter;
 

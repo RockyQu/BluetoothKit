@@ -3,16 +3,17 @@ apply from: "config.gradle"
 buildscript {
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.1.4'
+        classpath 'com.android.tools.build:gradle:3.3.2'
         // Gradle Android Maven plugin
         classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
 
         // 以下这段功能是用来上传至代码库，其他项目不用复制这段代码
-        classpath 'com.novoda:bintray-release:0.8.1'
+        classpath 'com.novoda:bintray-release:0.9'
     }
 
     repositories {
-        maven{ url 'http://maven.aliyun.com/nexus/content/groups/public/'}
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+        maven { url 'https://novoda.bintray.com/snapshots' }
         mavenCentral()
         jcenter()
         google()
@@ -21,7 +22,8 @@ buildscript {
 
 allprojects {
     repositories {
-        maven{ url 'http://maven.aliyun.com/nexus/content/groups/public/'}
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+        maven { url 'https://novoda.bintray.com/snapshots' }
         mavenCentral()
         jcenter()
         google()
