@@ -3,6 +3,7 @@ package me.bluetooth.detector.core.version;
 import android.Manifest;
 import android.annotation.TargetApi;
 import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
 import android.bluetooth.le.BluetoothLeScanner;
 import android.bluetooth.le.ScanCallback;
 import android.bluetooth.le.ScanFilter;
@@ -15,6 +16,7 @@ import android.util.Log;
 import androidx.annotation.RequiresPermission;
 import me.bluetooth.detector.BluetoothDetectorCallBack;
 import me.bluetooth.detector.config.BluetoothFilter;
+import me.bluetooth.detector.utils.LogDetector;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -89,8 +91,14 @@ public class BluetoothLollipop extends BluetoothJellyBean {
 
         @Override
         public void onScanResult(int callbackType, ScanResult result) {
+            BluetoothDevice device = result.getDevice();
+            int rssi = result.getRssi();
+            byte[] scanRecord = result.getScanRecord() != null ? result.getScanRecord().getBytes() : null;
+
+            LogDetector.e("address " + result.getDevice().getAddress() + " name " + result.getDevice().getName() + " rssi " + rssi);
+
             if (callBack != null) {
-                callBack.onScan(result.getDevice(), result.getRssi(), result.getScanRecord() != null ? result.getScanRecord().getBytes() : null);
+                callBack.onScan(device, rssi, scanRecord);
             }
         }
 

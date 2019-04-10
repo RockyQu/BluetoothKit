@@ -7,11 +7,9 @@ import me.bluetooth.detector.config.BluetoothFilter;
 import me.bluetooth.detector.core.BluetoothScanner;
 
 /**
- * ==================================================
- * Android Bluetooth 4.0 Development Kit
+ * {@link BluetoothDetector} 里只有蓝牙扫描操作，不包含连接、数据交互
  *
- * @see <a href="https://github.com/DesignQu/BluetoothKit"></a>
- * ==================================================
+ * @see <a href="https://github.com/RockyQu/BluetoothKit"></a>
  */
 public class BluetoothDetector implements BluetoothDetectorHandler {
 
