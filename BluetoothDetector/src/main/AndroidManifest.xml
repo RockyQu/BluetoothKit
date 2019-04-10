@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.tool.ibeacon.manager">
+          package="me.bluetooth.detector">
 
     <application
         android:allowBackup="true"
