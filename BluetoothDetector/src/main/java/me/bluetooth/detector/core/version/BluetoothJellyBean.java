@@ -7,8 +7,9 @@ import android.bluetooth.BluetoothDevice;
 import android.os.Build;
 
 import androidx.annotation.RequiresPermission;
-import me.bluetooth.detector.BluetoothDetectorCallBack;
+import me.bluetooth.detector.facade.BluetoothDetectorCallBack;
 import me.bluetooth.detector.core.BluetoothScanner;
+import me.bluetooth.detector.utils.LogDetector;
 
 /**
  * Android 4.3 Jelly Bean
@@ -27,7 +28,7 @@ public class BluetoothJellyBean extends BluetoothScanner implements BluetoothAda
     @RequiresPermission(allOf = {Manifest.permission.BLUETOOTH_ADMIN, Manifest.permission.BLUETOOTH})
     @Override
     public void startScanInternal() {
-        if(!isScanning){
+        if (!isScanning) {
             this.callBack = getCallBack();
             bluetoothAdapter.startLeScan(this);
 
@@ -39,7 +40,7 @@ public class BluetoothJellyBean extends BluetoothScanner implements BluetoothAda
     @RequiresPermission(allOf = {Manifest.permission.BLUETOOTH_ADMIN, Manifest.permission.BLUETOOTH})
     @Override
     public void stopScanInternal() {
-        if(isScanning){
+        if (isScanning) {
             bluetoothAdapter.stopLeScan(this);
 
             isScanning = false;
@@ -53,6 +54,8 @@ public class BluetoothJellyBean extends BluetoothScanner implements BluetoothAda
 
     @Override
     public void onLeScan(BluetoothDevice device, int rssi, byte[] scanRecord) {
+        LogDetector.e(getFilter().isDebug(), "address " + device.getAddress() + " name " + device.getName() + " rssi " + rssi);
+
         if (callBack != null) {
             callBack.onScan(device, rssi, scanRecord);
         }

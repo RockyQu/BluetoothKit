@@ -3,7 +3,6 @@ package me.bluetooth.detector.core.version;
 import android.Manifest;
 import android.annotation.TargetApi;
 import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothDevice;
 import android.bluetooth.le.BluetoothLeScanner;
 import android.bluetooth.le.ScanCallback;
 import android.bluetooth.le.ScanFilter;
@@ -11,10 +10,9 @@ import android.bluetooth.le.ScanResult;
 import android.bluetooth.le.ScanSettings;
 import android.os.Build;
 import android.os.ParcelUuid;
-import android.util.Log;
 
 import androidx.annotation.RequiresPermission;
-import me.bluetooth.detector.BluetoothDetectorCallBack;
+import me.bluetooth.detector.facade.BluetoothDetectorCallBack;
 import me.bluetooth.detector.config.BluetoothFilter;
 import me.bluetooth.detector.utils.LogDetector;
 
@@ -61,8 +59,24 @@ public class BluetoothLollipop extends BluetoothJellyBean {
                 }
             }
 
+            int scanMode;
+            switch (filter.getScanMode()) {
+                case BluetoothFilter.SCAN_MODE_LOW_POWER:
+                    scanMode = ScanSettings.SCAN_MODE_LOW_POWER;
+                    break;
+                case BluetoothFilter.SCAN_MODE_BALANCED:
+                    scanMode = ScanSettings.SCAN_MODE_BALANCED;
+                    break;
+                case BluetoothFilter.SCAN_MODE_LOW_LATENCY:
+                    scanMode = ScanSettings.SCAN_MODE_LOW_LATENCY;
+                    break;
+                default:
+                    scanMode = ScanSettings.SCAN_MODE_BALANCED;
+                    break;
+            }
+
             ScanSettings scanSettings = new ScanSettings.Builder()
-                    .setScanMode(ScanSettings.SCAN_MODE_LOW_LATENCY)
+                    .setScanMode(scanMode)
                     .build();
 
             bluetoothLeScanner.startScan(filters, scanSettings, scanCallback);
@@ -91,25 +105,20 @@ public class BluetoothLollipop extends BluetoothJellyBean {
 
         @Override
         public void onScanResult(int callbackType, ScanResult result) {
-            BluetoothDevice device = result.getDevice();
-            int rssi = result.getRssi();
-            byte[] scanRecord = result.getScanRecord() != null ? result.getScanRecord().getBytes() : null;
-
-            LogDetector.e("address " + result.getDevice().getAddress() + " name " + result.getDevice().getName() + " rssi " + rssi);
+            LogDetector.e(getFilter().isDebug(), "address " + result.getDevice().getAddress() + " name " + result.getDevice().getName() + " rssi " + result.getRssi());
 
             if (callBack != null) {
-                callBack.onScan(device, rssi, scanRecord);
+                callBack.onScan(result.getDevice(), result.getRssi(), result.getScanRecord() != null ? result.getScanRecord().getBytes() : null);
             }
         }
 
         @Override
-        public void onBatchScanResults(List<ScanResult> results) {
-            Log.e(TAG, "onBatchScanResults");
-        }
-
-        @Override
         public void onScanFailed(int errorCode) {
-            Log.e(TAG, "onScanFailed " + errorCode);
+            LogDetector.e(getFilter().isDebug(), "onScanFailed errorCode " + errorCode);
+
+            if (callBack != null) {
+                callBack.onFailed(errorCode);
+            }
         }
     }
 }

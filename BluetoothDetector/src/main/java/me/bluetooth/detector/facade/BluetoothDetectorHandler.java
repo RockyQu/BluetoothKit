@@ -1,4 +1,4 @@
-package me.bluetooth.detector;
+package me.bluetooth.detector.facade;
 
 import android.app.Activity;
 import android.bluetooth.BluetoothDevice;

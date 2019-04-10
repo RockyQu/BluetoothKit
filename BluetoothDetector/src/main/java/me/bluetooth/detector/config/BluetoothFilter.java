@@ -1,28 +1,47 @@
 package me.bluetooth.detector.config;
 
+import android.annotation.TargetApi;
+import android.bluetooth.le.ScanSettings;
+import android.os.Build;
+import android.widget.Toast;
+
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+
+import androidx.annotation.IntDef;
 
 /**
  * 参数配置
  */
 public class BluetoothFilter {
 
-    // 指定被扫描服务的设备
     private List<String> serviceUUIDs;
-    // 指定被扫描设备的名称
     private List<String> deviceNames;
-    // 指定被扫描设备的地址
     private List<String> deviceAddresses;
 
-    // 调试模式
+    public static final int SCAN_MODE_LOW_POWER = 0;
+    public static final int SCAN_MODE_BALANCED = 1;
+    public static final int SCAN_MODE_LOW_LATENCY = 2;
+
+    @IntDef({BluetoothFilter.SCAN_MODE_LOW_POWER, BluetoothFilter.SCAN_MODE_BALANCED, BluetoothFilter.SCAN_MODE_LOW_LATENCY})
+    @Retention(RetentionPolicy.SOURCE)
+    @interface ScanMode {
+    }
+
+    @ScanMode
+    private int scanMode;
+
     private boolean debug;
 
     public BluetoothFilter(Builder builder) {
         this.serviceUUIDs = builder.serviceUUIDs;
         this.deviceNames = builder.deviceNames;
         this.deviceAddresses = builder.deviceAddresses;
+
+        this.scanMode = builder.scanMode;
 
         this.debug = builder.debug;
     }
@@ -44,6 +63,10 @@ public class BluetoothFilter {
         return deviceAddresses;
     }
 
+    public int getScanMode() {
+        return scanMode;
+    }
+
     public boolean isDebug() {
         return debug;
     }
@@ -54,19 +77,23 @@ public class BluetoothFilter {
 
     public static class Builder {
 
+        // 指定被扫描服务的设备
         private List<String> serviceUUIDs = new ArrayList<>();
+        // 指定被扫描设备的名称
         private List<String> deviceNames = new ArrayList<>();
+        // 指定被扫描设备的地址
         private List<String> deviceAddresses = new ArrayList<>();
 
+        // 搜索频率，这个参数只在 Android 5.0 以上有效果
+        // 三个参数依次会越来越耗电，但扫描结果会越来越快
+        @ScanMode
+        private int scanMode = BluetoothFilter.SCAN_MODE_LOW_LATENCY;
+
+        // 调试模式
         private boolean debug = false;
 
         private Builder() {
             ;
-        }
-
-        public Builder debug(boolean debug) {
-            this.debug = debug;
-            return this;
         }
 
         public Builder addSetserviceUUID(String serviceUUID) {
@@ -111,6 +138,17 @@ public class BluetoothFilter {
 
         public Builder setDeviceAddresses(List<String> deviceAddresses) {
             this.deviceAddresses = deviceAddresses;
+            return this;
+        }
+
+        @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+        public Builder scanMode(@ScanMode int scanMode) {
+            this.scanMode = scanMode;
+            return this;
+        }
+
+        public Builder debug(boolean debug) {
+            this.debug = debug;
             return this;
         }
 

@@ -1,4 +1,4 @@
-package me.bluetooth.detector;
+package me.bluetooth.detector.facade;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

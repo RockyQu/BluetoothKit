@@ -14,9 +14,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import me.bluetooth.demo.R;
-import me.bluetooth.detector.BluetoothDetectorCallBack;
+import me.bluetooth.detector.facade.BluetoothDetectorCallBack;
 import me.bluetooth.detector.BluetoothDetector;
-import me.bluetooth.detector.BluetoothDetectorHandler;
+import me.bluetooth.detector.facade.BluetoothDetectorHandler;
 import me.bluetooth.detector.config.BluetoothFilter;
 import me.bluetooth.detector.utils.BluetoothUtils;
 import me.bluetooth.demo.app.PermissionUtils;
@@ -105,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
 
         // 配置一些过滤条件
         BluetoothFilter filter = BluetoothFilter.builder()
+                .scanMode(BluetoothFilter.SCAN_MODE_LOW_LATENCY)
 //                .addDeviceAddress("C2:01:02:00:00:D0")// 55
 //                .addDeviceAddress("20:CD:39:B0:7A:59")// 73
 //                .addDeviceAddress("20:CD:39:B0:7A:62")// 78
@@ -129,6 +130,11 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                 });
+            }
+
+            @Override
+            public void onFailed(int errorCode) {
+
             }
         });
     }

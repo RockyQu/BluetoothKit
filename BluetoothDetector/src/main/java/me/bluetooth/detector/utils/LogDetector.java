@@ -2,20 +2,19 @@ package me.bluetooth.detector.utils;
 
 import android.util.Log;
 
+import me.bluetooth.detector.BluetoothDetector;
+
 public class LogDetector {
 
-    /**
-     * 是否开启日志输出
-     */
-    public static final boolean DEBUG = false;
+    private static final String TAG = BluetoothDetector.class.getSimpleName();
 
     /**
      * 黑色
      *
      * @param message Message
      */
-    public static void v(String message) {
-        if (!DEBUG) {
+    public static void v(boolean debug, String message) {
+        if (!debug) {
             return;
         }
         if (message == null) {
@@ -27,7 +26,7 @@ public class LogDetector {
                     .append(stackTraceElement.getLineNumber()).append(")");
             message = message.concat(sb.toString());
         }
-        Log.v("verbose", message);
+        Log.v(TAG, message);
     }
 
     /**
@@ -35,8 +34,8 @@ public class LogDetector {
      *
      * @param message Message
      */
-    public static void d(String message) {
-        if (!DEBUG) {
+    public static void d(boolean debug, String message) {
+        if (!debug) {
             return;
         }
         if (message == null) {
@@ -48,7 +47,7 @@ public class LogDetector {
                     .append(stackTraceElement.getLineNumber()).append(")");
             message = message.concat(sb.toString());
         }
-        Log.d("debug", message);
+        Log.d(TAG, message);
     }
 
     /**
@@ -56,8 +55,8 @@ public class LogDetector {
      *
      * @param message Message
      */
-    public static void i(String message) {
-        if (!DEBUG) {
+    public static void i(boolean debug, String message) {
+        if (!debug) {
             return;
         }
         if (message == null) {
@@ -69,7 +68,7 @@ public class LogDetector {
                     .append(stackTraceElement.getLineNumber()).append(")");
             message = message.concat(sb.toString());
         }
-        Log.i("information", message);
+        Log.i(TAG, message);
     }
 
     /**
@@ -77,8 +76,8 @@ public class LogDetector {
      *
      * @param message Message
      */
-    public static void w(String message) {
-        if (!DEBUG) {
+    public static void w(boolean debug, String message) {
+        if (!debug) {
             return;
         }
         if (message == null) {
@@ -90,7 +89,7 @@ public class LogDetector {
                     .append(stackTraceElement.getLineNumber()).append(")");
             message = message.concat(sb.toString());
         }
-        Log.w("warning", message);
+        Log.w(TAG, message);
     }
 
     /**
@@ -98,8 +97,8 @@ public class LogDetector {
      *
      * @param message Message
      */
-    public static void e(String message) {
-        if (!DEBUG) {
+    public static void e(boolean debug, String message) {
+        if (!debug) {
             return;
         }
         if (message == null) {
@@ -111,6 +110,6 @@ public class LogDetector {
                     .append(stackTraceElement.getLineNumber()).append(")");
             message = message.concat(sb.toString());
         }
-        Log.e("error", message);
+        Log.e(TAG, message);
     }
 }

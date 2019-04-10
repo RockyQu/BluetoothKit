@@ -5,6 +5,8 @@ import android.Manifest;
 import androidx.annotation.RequiresPermission;
 import me.bluetooth.detector.config.BluetoothFilter;
 import me.bluetooth.detector.core.BluetoothScanner;
+import me.bluetooth.detector.facade.BluetoothDetectorCallBack;
+import me.bluetooth.detector.facade.BluetoothDetectorHandler;
 
 /**
  * {@link BluetoothDetector} 里只有蓝牙扫描操作，不包含连接、数据交互

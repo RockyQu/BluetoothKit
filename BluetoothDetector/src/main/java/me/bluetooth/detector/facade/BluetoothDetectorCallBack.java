@@ -1,8 +1,18 @@
-package me.bluetooth.detector;
+package me.bluetooth.detector.facade;
 
+import android.annotation.TargetApi;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.bluetooth.le.ScanCallback;
+import android.os.Build;
+import android.widget.Toast;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+
+import androidx.annotation.IntDef;
+import androidx.annotation.RequiresApi;
+import me.bluetooth.detector.BluetoothDetector;
 import me.bluetooth.detector.config.BluetoothFilter;
 
 /**
@@ -24,4 +34,16 @@ public interface BluetoothDetectorCallBack {
      *                   the remote device.
      */
     void onScan(BluetoothDevice device, int rssi, byte[] scanRecord);
+
+    /**
+     * Callback when scan could not be started.
+     *
+     * @param errorCode Error code (one of SCAN_FAILED_*) for scan failure.
+     * @see ScanCallback#SCAN_FAILED_ALREADY_STARTED
+     * @see ScanCallback#SCAN_FAILED_APPLICATION_REGISTRATION_FAILED
+     * @see ScanCallback#SCAN_FAILED_INTERNAL_ERROR
+     * @see ScanCallback#SCAN_FAILED_FEATURE_UNSUPPORTED
+     */
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    void onFailed(int errorCode);
 }

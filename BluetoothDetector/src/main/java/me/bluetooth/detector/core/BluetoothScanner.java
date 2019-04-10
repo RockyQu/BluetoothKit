@@ -2,7 +2,7 @@ package me.bluetooth.detector.core;
 
 import android.os.Build;
 
-import me.bluetooth.detector.BluetoothDetectorCallBack;
+import me.bluetooth.detector.facade.BluetoothDetectorCallBack;
 import me.bluetooth.detector.config.BluetoothFilter;
 import me.bluetooth.detector.core.version.BluetoothJellyBean;
 import me.bluetooth.detector.core.version.BluetoothLollipop;
