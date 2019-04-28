@@ -38,6 +38,6 @@ ext {
             "logg"                         : "me.tool:Logg:1.6.0",
 
             // Views
-            "BaseRecyclerViewAdapterHelper": "com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.18",// Recyclerview
+            "BaseRecyclerViewAdapterHelper": "com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.46",// Recyclerview
     ]
 }
