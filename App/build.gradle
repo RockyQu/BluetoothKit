@@ -94,5 +94,5 @@ dependencies {
 
     // BluetoothDetector
     api project(':BluetoothDetector')
-//    api 'me.bluetooth.detector:BluetoothDetector:1.0.0'
+    //api 'me.bluetooth.detector:BluetoothDetector:1.0.0'
 }

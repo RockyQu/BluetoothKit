@@ -3,9 +3,51 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="6dp">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/start"
+            android:layout_width="96dp"
+            android:layout_height="36dp"
+            android:layout_margin="4dp"
+            android:background="@android:color/darker_gray"
+            android:onClick="onClickStart"
+            android:text="Start Scan"
+            android:textColor="@android:color/black"
+            android:textSize="13sp" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/stop"
+            android:layout_width="96dp"
+            android:layout_height="36dp"
+            android:layout_margin="4dp"
+            android:layout_toEndOf="@id/start"
+            android:layout_toRightOf="@id/start"
+            android:background="@android:color/darker_gray"
+            android:onClick="onClickStop"
+            android:text="Stop Scan"
+            android:textColor="@android:color/black"
+            android:textSize="13sp" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_margin="4dp"
+            android:textColor="@android:color/white"
+            android:textSize="20sp" />
+
+    </RelativeLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

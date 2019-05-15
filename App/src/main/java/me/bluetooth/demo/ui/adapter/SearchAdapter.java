@@ -1,23 +1,25 @@
 package me.bluetooth.demo.ui.adapter;
 
 import android.bluetooth.BluetoothDevice;
+import android.view.View;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 
+import androidx.appcompat.widget.AppCompatButton;
+import androidx.appcompat.widget.AppCompatTextView;
 import me.bluetooth.demo.R;
 import me.bluetooth.demo.app.TimeUtils;
 import me.bluetooth.detector.entity.BeaconDevice;
+import me.bluetooth.detector.utils.LogDetector;
 
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
 
 public class SearchAdapter extends BaseQuickAdapter<BeaconDevice, BaseViewHolder> {
-
-    private static final String PREFIX_RSSI = "RSSI:";
-    private static final String PREFIX_LASTUPDATED = "Time:";
 
     public SearchAdapter() {
         super(R.layout.item_search);
@@ -25,23 +27,33 @@ public class SearchAdapter extends BaseQuickAdapter<BeaconDevice, BaseViewHolder
 
     @Override
     protected void convert(BaseViewHolder helper, BeaconDevice item) {
-        TextView name = helper.getView(R.id.device_name);
-        name.setText(item.getDeviceName());
-        TextView address = helper.getView(R.id.device_address);
-        address.setText(item.getBluetoothDevice().getAddress());
-        TextView rssi = helper.getView(R.id.device_rssi);
-        rssi.setText(PREFIX_RSSI + Integer.toString(item.getRssi()));
-        TextView lastupdated = helper.getView(R.id.device_lastupdated);
-        lastupdated.setText(PREFIX_LASTUPDATED + TimeUtils.getTime(item.getLastUpdatedTimeMillis()));
+        // 设备名称
+        AppCompatTextView deviceName = helper.getView(R.id.device_name);
+        deviceName.setText(item.getDeviceName());
+        // 设备地址
+        AppCompatTextView deviceAddress = helper.getView(R.id.device_address);
+        deviceAddress.setText(item.getBluetoothDevice().getAddress());
+        // 信号强度
+        AppCompatTextView rssi = helper.getView(R.id.device_rssi);
+        rssi.setText(String.format(Locale.getDefault(), "RSSI:%d", item.getRssi()));
+        // 接收时间
+        AppCompatTextView lastupdated = helper.getView(R.id.device_time);
+        lastupdated.setText(String.format(Locale.getDefault(), "Time:%s", TimeUtils.getTime(item.getLastUpdatedTimeMillis())));
 
-        TextView ibeaconInfo = helper.getView(R.id.device_ibeacon_info);
+        // 是否是标准蓝牙设备
+        AppCompatTextView deviceIbeacon = helper.getView(R.id.device_ibeacon);
         if (item.getiBeacon() != null) {
-            ibeaconInfo.setText("This is iBeacon!" + "\n" + item.getiBeacon().toString());
+            deviceIbeacon.setText(String.format(Locale.getDefault(), "This is iBeacon!\n%s", item.getiBeacon().toString()));
         } else {
-            ibeaconInfo.setText("This is not iBeacon.");
+            deviceIbeacon.setText("This is not iBeacon.");
         }
-        TextView scanRecord = helper.getView(R.id.device_scanrecord);
-        scanRecord.setText(item.getScanRecordHexString());
+
+        // 附加信息
+        AppCompatTextView deviceRecord = helper.getView(R.id.device_record);
+        deviceRecord.setText(item.getScanRecordHexString());
+
+        // 复制 UUID
+        helper.addOnClickListener(R.id.UUID);
     }
 
     /**
@@ -57,7 +69,6 @@ public class SearchAdapter extends BaseQuickAdapter<BeaconDevice, BaseViewHolder
             return "";
         }
         long now = System.currentTimeMillis();
-
 
         List<BeaconDevice> datas = getData();
 

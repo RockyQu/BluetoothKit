@@ -2,15 +2,25 @@ package me.bluetooth.demo.ui;
 
 import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
+import android.graphics.Rect;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
+import androidx.appcompat.widget.AppCompatTextView;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import me.bluetooth.demo.R;
@@ -21,6 +31,7 @@ import me.bluetooth.detector.config.BluetoothFilter;
 import me.bluetooth.detector.utils.BluetoothUtils;
 import me.bluetooth.demo.app.PermissionUtils;
 import me.bluetooth.demo.ui.adapter.SearchAdapter;
+import me.bluetooth.detector.utils.LogDetector;
 
 /**
  * 扫描页面
@@ -29,9 +40,13 @@ public class MainActivity extends AppCompatActivity {
 
     public static final String TAG = "MainActivity";
 
+    /**
+     * 蓝牙扫描
+     */
     private BluetoothDetectorHandler detector;
 
-    RecyclerView recyclerView;
+    private AppCompatTextView message;
+    private RecyclerView recyclerView;
     private SearchAdapter adapter;
 
     @Override
@@ -39,14 +54,41 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // RecyclerView
-        recyclerView = findViewById(R.id.recycler_view);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(adapter = new SearchAdapter());
+        this.initRecyclerView();
 
         Log.e(TAG, "onCreate");
         // 检查蓝牙权限处理
         this.bluetoothScanCheck();
+    }
+
+    private void initRecyclerView() {
+        message = findViewById(R.id.message);
+        // RecyclerView
+        recyclerView = findViewById(R.id.recycler_view);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        DividerItemDecoration itemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
+        itemDecoration.setDrawable(new ColorDrawable(ContextCompat.getColor(this, R.color.line)));
+        recyclerView.addItemDecoration(itemDecoration);
+
+        adapter = new SearchAdapter();
+        adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                LogDetector.e(true, "aaaaaaaaaaaaaaaaaa");
+            }
+        });
+
+        recyclerView.setAdapter(adapter);
+    }
+
+    public void onClickStart(View view) {
+        this.bluetoothScanCheck();
+    }
+
+    public void onClickStop(View view) {
+        this.stopScan();
     }
 
     /**
@@ -119,14 +161,12 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onScan(final BluetoothDevice device, final int rssi, final byte[] scanRecord) {
-                Log.e(TAG, device.getAddress() + " " + device.getName());
-
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         String summary = adapter.update(device, rssi, scanRecord);
                         if (summary != null) {
-//                            Logg.e("summary " + summary);
+                            message.setText(String.valueOf(adapter.getItemCount()));
                         }
                     }
                 });

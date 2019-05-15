@@ -1,70 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:baselineAligned="false">
+    android:layout_height="wrap_content">
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/device_rssi"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:gravity="right"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="6dp"
+        android:layout_marginRight="6dp"
+        android:gravity="end"
         android:textColor="@android:color/white"
         android:textSize="18sp" />
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/device_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
+        android:layout_marginStart="6dp"
+        android:layout_marginLeft="6dp"
+        android:layout_marginTop="4dp"
         android:textColor="@android:color/white"
         android:textSize="14sp" />
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/device_address"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="8dp"
+        android:layout_marginStart="6dp"
+        android:layout_marginLeft="6dp"
+        android:layout_marginTop="4dp"
+        android:layout_toEndOf="@id/device_name"
         android:layout_toRightOf="@id/device_name"
         android:textColor="@android:color/white"
         android:textSize="14sp" />
 
-    <TextView
-        android:id="@+id/device_lastupdated"
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/device_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/device_name"
-        android:layout_alignParentLeft="true"
+        android:layout_marginStart="6dp"
+        android:layout_marginLeft="6dp"
+        android:layout_marginTop="2dp"
         android:textColor="@android:color/white"
         android:textSize="14sp" />
 
-    <TextView
-        android:id="@+id/device_ibeacon_info"
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/device_ibeacon"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/device_lastupdated"
-        android:layout_alignParentLeft="true"
+        android:layout_below="@id/device_time"
+        android:layout_marginStart="6dp"
+        android:layout_marginLeft="6dp"
+        android:layout_marginTop="2dp"
         android:singleLine="false"
         android:textColor="@android:color/holo_blue_dark"
         android:textSize="14sp" />
 
-    <TextView
-        android:id="@+id/device_scanrecord"
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/device_record"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/device_ibeacon_info"
-        android:layout_alignParentLeft="true"
+        android:layout_below="@id/device_ibeacon"
+        android:layout_marginStart="6dp"
+        android:layout_marginLeft="6dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="4dp"
         android:singleLine="false"
         android:textColor="@android:color/darker_gray"
         android:textSize="14sp" />
 
-    <View
-        android:layout_width="wrap_content"
-        android:layout_height="0.5dp"
-        android:layout_below="@id/device_scanrecord"
-        android:background="@android:color/white" />
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/UUID"
+        android:layout_width="74dp"
+        android:layout_height="28dp"
+        android:layout_below="@id/device_rssi"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="6dp"
+        android:layout_marginRight="6dp"
+        android:background="@android:color/darker_gray"
+        android:text="Copy UUID"
+        android:textColor="@android:color/black"
+        android:textSize="12sp" />
 </RelativeLayout>

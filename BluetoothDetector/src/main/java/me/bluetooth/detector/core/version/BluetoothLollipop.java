@@ -105,7 +105,7 @@ public class BluetoothLollipop extends BluetoothJellyBean {
 
         @Override
         public void onScanResult(int callbackType, ScanResult result) {
-            LogDetector.e(getFilter().isDebug(), "address " + result.getDevice().getAddress() + " name " + result.getDevice().getName() + " rssi " + result.getRssi());
+//            LogDetector.e(getFilter().isDebug(), "address " + result.getDevice().getAddress() + " name " + result.getDevice().getName() + " rssi " + result.getRssi());
 
             if (callBack != null) {
                 callBack.onScan(result.getDevice(), result.getRssi(), result.getScanRecord() != null ? result.getScanRecord().getBytes() : null);

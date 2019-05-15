@@ -2,5 +2,6 @@
 <resources>
 
     <color name="main_color">#000000</color>
+    <color name="line">#FFFFFF</color>
 
 </resources>
