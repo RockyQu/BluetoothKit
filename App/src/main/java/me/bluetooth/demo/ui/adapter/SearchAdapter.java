@@ -1,18 +1,14 @@
 package me.bluetooth.demo.ui.adapter;
 
 import android.bluetooth.BluetoothDevice;
-import android.view.View;
-import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 
-import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatTextView;
 import me.bluetooth.demo.R;
 import me.bluetooth.demo.app.TimeUtils;
 import me.bluetooth.detector.entity.BeaconDevice;
-import me.bluetooth.detector.utils.LogDetector;
 
 import java.util.Collections;
 import java.util.Comparator;

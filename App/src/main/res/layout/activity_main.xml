@@ -13,7 +13,6 @@
             android:id="@+id/start"
             android:layout_width="96dp"
             android:layout_height="36dp"
-            android:layout_margin="4dp"
             android:background="@android:color/darker_gray"
             android:onClick="onClickStart"
             android:text="Start Scan"
@@ -24,7 +23,8 @@
             android:id="@+id/stop"
             android:layout_width="96dp"
             android:layout_height="36dp"
-            android:layout_margin="4dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginLeft="6dp"
             android:layout_toEndOf="@id/start"
             android:layout_toRightOf="@id/start"
             android:background="@android:color/darker_gray"
@@ -34,14 +34,25 @@
             android:textSize="13sp" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/message"
+            android:id="@+id/total"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_margin="4dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginRight="4dp"
             android:textColor="@android:color/white"
             android:textSize="20sp" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/start"
+            android:layout_marginTop="4dp"
+            android:text="no message"
+            android:textColor="@android:color/white"
+            android:textSize="10sp" />
 
     </RelativeLayout>
 

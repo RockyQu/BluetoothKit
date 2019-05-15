@@ -14,6 +14,8 @@ import android.widget.Toast;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
+import java.util.Locale;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,6 +26,8 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import me.bluetooth.demo.R;
+import me.bluetooth.demo.utils.ClipboardUtils;
+import me.bluetooth.detector.entity.BeaconDevice;
 import me.bluetooth.detector.facade.BluetoothDetectorCallBack;
 import me.bluetooth.detector.BluetoothDetector;
 import me.bluetooth.detector.facade.BluetoothDetectorHandler;
@@ -45,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
      */
     private BluetoothDetectorHandler detector;
 
+    private AppCompatTextView total;
     private AppCompatTextView message;
     private RecyclerView recyclerView;
     private SearchAdapter adapter;
@@ -62,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initRecyclerView() {
+        total = findViewById(R.id.total);
         message = findViewById(R.id.message);
         // RecyclerView
         recyclerView = findViewById(R.id.recycler_view);
@@ -76,7 +82,15 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                LogDetector.e(true, "aaaaaaaaaaaaaaaaaa");
+                BeaconDevice item = (BeaconDevice) adapter.getItem(position);
+                if (item != null) {
+                    if (item.getiBeacon() != null) {
+                        ClipboardUtils.copy(MainActivity.this, item.getiBeacon().getProximityUuid().toUpperCase());
+                        message.setText(String.format(Locale.getDefault(), "Copy %s UUID %s success.", item.getDeviceName(), item.getiBeacon().getProximityUuid().toUpperCase()));
+                    } else {
+                        message.setText(String.format(Locale.getDefault(), "Copy %s UUID failed This is not iBeacon.", item.getDeviceName()));
+                    }
+                }
             }
         });
 
@@ -166,7 +180,7 @@ public class MainActivity extends AppCompatActivity {
                     public void run() {
                         String summary = adapter.update(device, rssi, scanRecord);
                         if (summary != null) {
-                            message.setText(String.valueOf(adapter.getItemCount()));
+                            total.setText(String.valueOf(adapter.getItemCount()));
                         }
                     }
                 });
